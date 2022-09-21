@@ -1,0 +1,1 @@
+{"ast":null,"code":"import { AboutComponent } from './container/about/about.component';\nexport var aboutRoutes = [{\n  path: '',\n  component: AboutComponent\n}];","map":null,"metadata":{},"sourceType":"module"}
