@@ -1,1 +1,0 @@
-{"ast":null,"code":"import { DashboardComponent } from './container/dashboard/dashboard.component';\nexport var homeRoutes = [{\n  path: '',\n  component: DashboardComponent\n}];","map":null,"metadata":{},"sourceType":"module"}
