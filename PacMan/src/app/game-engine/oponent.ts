@@ -1,9 +1,10 @@
+import { ConsoleLogger } from "@microsoft/signalr/dist/esm/Utils";
 import { SignalRService } from "../core/services/signalR.service";
 import { ChatMessage } from "../models/chatMessage.model";
 import { UserKeyInput } from "./input";
 
 
-export class Snake {
+export class Oponent {
 
   constructor(
     private readonly signalRService: SignalRService
@@ -13,24 +14,12 @@ export class Snake {
     { x: 1, y: 20 }
   ];
 
-  newSegments = 0
-  input = new UserKeyInput();
 
-  listenToInputs() {
-    this.input.getInputs();
-  }
+
 
   update() {
-    this.addSegments();
-    const inputDirection =  this.input.getInputDirection();
-    this.input.resetDirection();
-    for (let i = this.snakeBody.length - 2; i >= 0; i--) {
-      this.snakeBody[i + 1] = { ...this.snakeBody[i] }
-    }
-    this.snakeBody[0].x += inputDirection.x;
-    this.snakeBody[0].y += inputDirection.y;
-    this.sendPosition(this.snakeBody[0].x.toString() + " " + this.snakeBody[0].y.toString())
-    //console.log(inputDirection);
+
+    this.getPosition();
   }
 
   draw(gameBoard: any) {
@@ -38,7 +27,7 @@ export class Snake {
       const snakeElement = document.createElement('div');
       snakeElement.style.gridRowStart = segment.y.toString();
       snakeElement.style.gridColumnStart = segment.x.toString();
-      snakeElement.classList.add('snake');
+      snakeElement.classList.add('oponent');
       gameBoard.appendChild(snakeElement);
     });
   }
@@ -67,16 +56,16 @@ export class Snake {
     return pos1.x === pos2.x && pos1.y === pos2.y;
   }
 
-  addSegments() {
-    for (let i = 0; i < this.newSegments; i++) {
-      this.snakeBody.push({ ...this.snakeBody[this.snakeBody.length - 1] });
-    }
 
-    this.newSegments = 0;
-  }
-
-  sendPosition(direction: string) {
-    this.signalRService.sendChatMessage(new ChatMessage(sessionStorage.getItem('name') + " " + direction));
+  getPosition() {
+    this.signalRService.messageReceived$.subscribe((message) => {
+      var data = message.message.split(" ");
+      console.log(data[0]);
+      if(data[0] != sessionStorage.getItem('name')){
+        this.snakeBody[0].x = Number(data[1]);
+        this.snakeBody[0].y = Number(data[2]);
+      }
+    });
   }
 
 }

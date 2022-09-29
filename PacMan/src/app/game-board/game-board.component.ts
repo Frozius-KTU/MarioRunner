@@ -1,6 +1,8 @@
 import { AfterViewInit, Component, OnInit } from '@angular/core';
+import { SignalRService } from '../core/services/signalR.service';
 import { Food } from '../game-engine/food';
 import { outsideGrid } from '../game-engine/gameboard-grid.util';
+import { Oponent } from '../game-engine/oponent';
 import { Snake } from '../game-engine/snake';
 
 @Component({
@@ -13,7 +15,8 @@ export class GameBoardComponent implements OnInit, AfterViewInit {
   lastRenderTime = 0
   gameOver = false
   gameBoard: any;
-  snake = new Snake();
+  snake = new Snake(new SignalRService);
+  oponent = new Oponent(new SignalRService);
   food = new Food(this.snake);
   constructor() { }
 
@@ -54,6 +57,7 @@ export class GameBoardComponent implements OnInit, AfterViewInit {
 
   update() {
     this.snake.update();
+    this.oponent.update();
     this.food.update();
     this.checkDeath();
   }
@@ -61,6 +65,7 @@ export class GameBoardComponent implements OnInit, AfterViewInit {
   draw() {
     this.gameBoard.innerHTML = '';
     this.snake.draw(this.gameBoard);
+    this.oponent.draw(this.gameBoard);
     this.food.draw(this.gameBoard);
   }
 

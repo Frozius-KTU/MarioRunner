@@ -12,7 +12,7 @@ import {
 } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { DataSource } from '@angular/cdk/table';
-
+import { ViewChild, ElementRef, AfterViewInit } from '@angular/core';
 
 @Component({
   selector: 'app-home',
@@ -28,8 +28,9 @@ export class HomeComponent implements OnInit {
   signalrConnectionEstablished$: Observable<boolean>;
   chatmessages: ChatMessage[] = [];
 
-
   public form: FormGroup;
+  user: string = '';
+
 
   constructor(
     private readonly signalRService: SignalRService,
@@ -61,6 +62,15 @@ export class HomeComponent implements OnInit {
     //this.sendChat.emit(new ChatMessage(control));
     this.signalRService.sendChatMessage(new ChatMessage(control));
     this.form.reset();
+  }
+
+
+  saveToLocalStorage(){
+    sessionStorage.setItem('name', this.user);
+  }
+
+  getFromLocalStorage(){
+    console.log(sessionStorage.getItem('name'));
   }
 
 }

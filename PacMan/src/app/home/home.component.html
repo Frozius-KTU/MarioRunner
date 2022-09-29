@@ -1,4 +1,17 @@
 
+<mat-form-field appearance="legacy">
+  <mat-label>Vartotojo vardas</mat-label>
+  <input matInput placeholder=" " [(ngModel)]="user">
+</mat-form-field>
+
+<button mat-raised-button color="warn" class="mb-2" (click)="saveToLocalStorage()" >
+  Set
+</button>
+<button mat-raised-button color="primary" class="mb-2" (click)="getFromLocalStorage()" >
+  Get
+</button>
+
+
 <form [formGroup]="form">
   <div class="form-group mx-sm-6" style="width: 500px;">
     <input
@@ -32,11 +45,14 @@
 
 
 
+
 <ul class="list-group list-group-flush" *ngFor="let message of chatmessages">
   <li class="list-group-item">
     {{ message.sent }}: {{ message.message }}
   </li>
 </ul>
+
+
 
 
 
