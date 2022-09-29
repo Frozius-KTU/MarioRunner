@@ -1,12 +1,14 @@
 import { SignalRService } from "../core/services/signalR.service";
 import { ChatMessage } from "../models/chatMessage.model";
 import { UserKeyInput } from "./input";
+import { Wall } from "./wall";
 
 
 export class Snake {
 
   constructor(
-    private readonly signalRService: SignalRService
+    private readonly signalRService: SignalRService,
+    public walls: Wall
   ) {}
 
   snakeBody = [
@@ -27,8 +29,13 @@ export class Snake {
     for (let i = this.snakeBody.length - 2; i >= 0; i--) {
       this.snakeBody[i + 1] = { ...this.snakeBody[i] }
     }
-    this.snakeBody[0].x += inputDirection.x;
-    this.snakeBody[0].y += inputDirection.y;
+
+    //Collision
+    if(!this.walls.onWall({x: this.snakeBody[0].x + inputDirection.x, y: this.snakeBody[0].y + inputDirection.y})){
+      this.snakeBody[0].x += inputDirection.x;
+      this.snakeBody[0].y += inputDirection.y;
+    }
+
     this.sendPosition(this.snakeBody[0].x.toString() + " " + this.snakeBody[0].y.toString())
     //console.log(inputDirection);
   }

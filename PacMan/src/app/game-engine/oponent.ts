@@ -60,7 +60,6 @@ export class Oponent {
   getPosition() {
     this.signalRService.messageReceived$.subscribe((message) => {
       var data = message.message.split(" ");
-      console.log(data[0]);
       if(data[0] != sessionStorage.getItem('name')){
         this.snakeBody[0].x = Number(data[1]);
         this.snakeBody[0].y = Number(data[2]);

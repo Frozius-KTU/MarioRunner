@@ -15,6 +15,7 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }*/
   --snake-color: #fed049;
   --oponent-color: #2110d8;
   --food-color: #e70f0f;
+  --wall-color: #1a1a1a;
   --button-color: #000000;
   --dpad-radius: 17%;
   --dpad-radius-in: 20%;
@@ -46,6 +47,12 @@ body {
 
 .oponent {
   background-color: var(--oponent-color);
+  border: 0.25vmin solid black;
+  transition: all .3ms ease-in;
+}
+
+.wall {
+  background-color: var(--wall-color);
   border: 0.25vmin solid black;
   transition: all .3ms ease-in;
 }

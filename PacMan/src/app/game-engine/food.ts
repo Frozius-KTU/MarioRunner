@@ -1,20 +1,25 @@
 import { randomGridPosition } from './gameboard-grid.util';
+import { Wall } from './wall';
 
 export class Food {
-  EXPANSION_RATE = 2;
+
+
+  EXPANSION_RATE = 1;
   score = 0;
   food: any;
   snake;
-  constructor(snake: any) {
+  constructor(snake: any, public walls: Wall) {
     this.snake = snake;
     this.food = this.getRandomFoodPosition();
   }
+
+
 
   update() {
     if (this.snake.onSnake(this.food)) {
       this.snake.expandSnake(this.EXPANSION_RATE);
       this.food = this.getRandomFoodPosition();
-      this.addScore = 2;
+      this.addScore = 1;
     }
   }
 
@@ -29,7 +34,7 @@ export class Food {
 
   getRandomFoodPosition() {
     let newFoodPosition;
-    while (newFoodPosition == null || this.snake.onSnake(newFoodPosition)) {
+    while (newFoodPosition == null || this.snake.onSnake(newFoodPosition)  || this.walls.onWall(newFoodPosition)) {
       newFoodPosition = randomGridPosition()
     }
     return newFoodPosition;

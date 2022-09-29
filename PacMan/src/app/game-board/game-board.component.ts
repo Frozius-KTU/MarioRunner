@@ -4,6 +4,7 @@ import { Food } from '../game-engine/food';
 import { outsideGrid } from '../game-engine/gameboard-grid.util';
 import { Oponent } from '../game-engine/oponent';
 import { Snake } from '../game-engine/snake';
+import { Wall } from '../game-engine/wall';
 
 @Component({
   selector: 'app-game-board',
@@ -15,9 +16,11 @@ export class GameBoardComponent implements OnInit, AfterViewInit {
   lastRenderTime = 0
   gameOver = false
   gameBoard: any;
-  snake = new Snake(new SignalRService);
+  wall = new Wall();
+  snake = new Snake(new SignalRService, this.wall);
   oponent = new Oponent(new SignalRService);
-  food = new Food(this.snake);
+
+  food = new Food(this.snake, this.wall);
   constructor() { }
 
   ngOnInit(): void {
@@ -45,10 +48,10 @@ export class GameBoardComponent implements OnInit, AfterViewInit {
 
   get snakeSpeed() {
     const score = this.food.currentScore;
-    if(score < 10) return 4;
-    if(score > 10 &&  score < 15 ) return 5;
-    if(score > 15 && score < 20 ) return 6;
-    return 7;
+    if(score < 10) return 10;
+    if(score > 10 &&  score < 15 ) return 10;
+    if(score > 15 && score < 20 ) return 10;
+    return 10;
   }
 
   dpadMovement(direction: string) {
@@ -66,6 +69,7 @@ export class GameBoardComponent implements OnInit, AfterViewInit {
     this.gameBoard.innerHTML = '';
     this.snake.draw(this.gameBoard);
     this.oponent.draw(this.gameBoard);
+    this.wall.draw(this.gameBoard);
     this.food.draw(this.gameBoard);
   }
 
