@@ -17,7 +17,7 @@ export class SignalRService {
   newCpuValue$ = new Subject<number>();
   connectionEstablished$ = new BehaviorSubject<boolean>(false);
 
-  private hubConnection: HubConnection;
+  private hubConnection!: HubConnection;
 
   constructor() {
     this.createConnection();

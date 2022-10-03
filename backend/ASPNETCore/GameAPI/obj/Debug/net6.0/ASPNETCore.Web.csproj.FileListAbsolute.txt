@@ -1,0 +1,241 @@
+C:\Users\Kestutis\Desktop\MarioRunner\backend\ASPNETCore\ASPNETCore.Web\bin\Debug\net6.0\appsettings.Development.json
+C:\Users\Kestutis\Desktop\MarioRunner\backend\ASPNETCore\ASPNETCore.Web\bin\Debug\net6.0\appsettings.json
+C:\Users\Kestutis\Desktop\MarioRunner\backend\ASPNETCore\ASPNETCore.Web\bin\Debug\net6.0\ASPNETCore.Web.staticwebassets.runtime.json
+C:\Users\Kestutis\Desktop\MarioRunner\backend\ASPNETCore\ASPNETCore.Web\bin\Debug\net6.0\ASPNETCore.Web.exe
+C:\Users\Kestutis\Desktop\MarioRunner\backend\ASPNETCore\ASPNETCore.Web\bin\Debug\net6.0\ASPNETCore.Web.deps.json
+C:\Users\Kestutis\Desktop\MarioRunner\backend\ASPNETCore\ASPNETCore.Web\bin\Debug\net6.0\ASPNETCore.Web.runtimeconfig.json
+C:\Users\Kestutis\Desktop\MarioRunner\backend\ASPNETCore\ASPNETCore.Web\bin\Debug\net6.0\ASPNETCore.Web.dll
+C:\Users\Kestutis\Desktop\MarioRunner\backend\ASPNETCore\ASPNETCore.Web\bin\Debug\net6.0\ASPNETCore.Web.pdb
+C:\Users\Kestutis\Desktop\MarioRunner\backend\ASPNETCore\ASPNETCore.Web\bin\Debug\net6.0\AutoMapper.dll
+C:\Users\Kestutis\Desktop\MarioRunner\backend\ASPNETCore\ASPNETCore.Web\bin\Debug\net6.0\AutoMapper.Extensions.Microsoft.DependencyInjection.dll
+C:\Users\Kestutis\Desktop\MarioRunner\backend\ASPNETCore\ASPNETCore.Web\bin\Debug\net6.0\Humanizer.dll
+C:\Users\Kestutis\Desktop\MarioRunner\backend\ASPNETCore\ASPNETCore.Web\bin\Debug\net6.0\Microsoft.Data.SqlClient.dll
+C:\Users\Kestutis\Desktop\MarioRunner\backend\ASPNETCore\ASPNETCore.Web\bin\Debug\net6.0\Microsoft.EntityFrameworkCore.dll
+C:\Users\Kestutis\Desktop\MarioRunner\backend\ASPNETCore\ASPNETCore.Web\bin\Debug\net6.0\Microsoft.EntityFrameworkCore.Abstractions.dll
+C:\Users\Kestutis\Desktop\MarioRunner\backend\ASPNETCore\ASPNETCore.Web\bin\Debug\net6.0\Microsoft.EntityFrameworkCore.Design.dll
+C:\Users\Kestutis\Desktop\MarioRunner\backend\ASPNETCore\ASPNETCore.Web\bin\Debug\net6.0\Microsoft.EntityFrameworkCore.InMemory.dll
+C:\Users\Kestutis\Desktop\MarioRunner\backend\ASPNETCore\ASPNETCore.Web\bin\Debug\net6.0\Microsoft.EntityFrameworkCore.Relational.dll
+C:\Users\Kestutis\Desktop\MarioRunner\backend\ASPNETCore\ASPNETCore.Web\bin\Debug\net6.0\Microsoft.EntityFrameworkCore.SqlServer.dll
+C:\Users\Kestutis\Desktop\MarioRunner\backend\ASPNETCore\ASPNETCore.Web\bin\Debug\net6.0\Microsoft.Identity.Client.dll
+C:\Users\Kestutis\Desktop\MarioRunner\backend\ASPNETCore\ASPNETCore.Web\bin\Debug\net6.0\Microsoft.IdentityModel.JsonWebTokens.dll
+C:\Users\Kestutis\Desktop\MarioRunner\backend\ASPNETCore\ASPNETCore.Web\bin\Debug\net6.0\Microsoft.IdentityModel.Logging.dll
+C:\Users\Kestutis\Desktop\MarioRunner\backend\ASPNETCore\ASPNETCore.Web\bin\Debug\net6.0\Microsoft.IdentityModel.Protocols.dll
+C:\Users\Kestutis\Desktop\MarioRunner\backend\ASPNETCore\ASPNETCore.Web\bin\Debug\net6.0\Microsoft.IdentityModel.Protocols.OpenIdConnect.dll
+C:\Users\Kestutis\Desktop\MarioRunner\backend\ASPNETCore\ASPNETCore.Web\bin\Debug\net6.0\Microsoft.IdentityModel.Tokens.dll
+C:\Users\Kestutis\Desktop\MarioRunner\backend\ASPNETCore\ASPNETCore.Web\bin\Debug\net6.0\Microsoft.Win32.SystemEvents.dll
+C:\Users\Kestutis\Desktop\MarioRunner\backend\ASPNETCore\ASPNETCore.Web\bin\Debug\net6.0\System.Configuration.ConfigurationManager.dll
+C:\Users\Kestutis\Desktop\MarioRunner\backend\ASPNETCore\ASPNETCore.Web\bin\Debug\net6.0\System.Drawing.Common.dll
+C:\Users\Kestutis\Desktop\MarioRunner\backend\ASPNETCore\ASPNETCore.Web\bin\Debug\net6.0\System.IdentityModel.Tokens.Jwt.dll
+C:\Users\Kestutis\Desktop\MarioRunner\backend\ASPNETCore\ASPNETCore.Web\bin\Debug\net6.0\System.Runtime.Caching.dll
+C:\Users\Kestutis\Desktop\MarioRunner\backend\ASPNETCore\ASPNETCore.Web\bin\Debug\net6.0\System.Security.Cryptography.ProtectedData.dll
+C:\Users\Kestutis\Desktop\MarioRunner\backend\ASPNETCore\ASPNETCore.Web\bin\Debug\net6.0\System.Security.Permissions.dll
+C:\Users\Kestutis\Desktop\MarioRunner\backend\ASPNETCore\ASPNETCore.Web\bin\Debug\net6.0\System.Windows.Extensions.dll
+C:\Users\Kestutis\Desktop\MarioRunner\backend\ASPNETCore\ASPNETCore.Web\bin\Debug\net6.0\runtimes\unix\lib\netcoreapp3.1\Microsoft.Data.SqlClient.dll
+C:\Users\Kestutis\Desktop\MarioRunner\backend\ASPNETCore\ASPNETCore.Web\bin\Debug\net6.0\runtimes\win\lib\netcoreapp3.1\Microsoft.Data.SqlClient.dll
+C:\Users\Kestutis\Desktop\MarioRunner\backend\ASPNETCore\ASPNETCore.Web\bin\Debug\net6.0\runtimes\win-arm\native\Microsoft.Data.SqlClient.SNI.dll
+C:\Users\Kestutis\Desktop\MarioRunner\backend\ASPNETCore\ASPNETCore.Web\bin\Debug\net6.0\runtimes\win-arm64\native\Microsoft.Data.SqlClient.SNI.dll
+C:\Users\Kestutis\Desktop\MarioRunner\backend\ASPNETCore\ASPNETCore.Web\bin\Debug\net6.0\runtimes\win-x64\native\Microsoft.Data.SqlClient.SNI.dll
+C:\Users\Kestutis\Desktop\MarioRunner\backend\ASPNETCore\ASPNETCore.Web\bin\Debug\net6.0\runtimes\win-x86\native\Microsoft.Data.SqlClient.SNI.dll
+C:\Users\Kestutis\Desktop\MarioRunner\backend\ASPNETCore\ASPNETCore.Web\bin\Debug\net6.0\runtimes\win\lib\netcoreapp3.0\Microsoft.Win32.SystemEvents.dll
+C:\Users\Kestutis\Desktop\MarioRunner\backend\ASPNETCore\ASPNETCore.Web\bin\Debug\net6.0\runtimes\unix\lib\netcoreapp3.0\System.Drawing.Common.dll
+C:\Users\Kestutis\Desktop\MarioRunner\backend\ASPNETCore\ASPNETCore.Web\bin\Debug\net6.0\runtimes\win\lib\netcoreapp3.0\System.Drawing.Common.dll
+C:\Users\Kestutis\Desktop\MarioRunner\backend\ASPNETCore\ASPNETCore.Web\bin\Debug\net6.0\runtimes\win\lib\netstandard2.0\System.Runtime.Caching.dll
+C:\Users\Kestutis\Desktop\MarioRunner\backend\ASPNETCore\ASPNETCore.Web\bin\Debug\net6.0\runtimes\win\lib\netstandard2.0\System.Security.Cryptography.ProtectedData.dll
+C:\Users\Kestutis\Desktop\MarioRunner\backend\ASPNETCore\ASPNETCore.Web\bin\Debug\net6.0\runtimes\win\lib\netcoreapp3.0\System.Windows.Extensions.dll
+C:\Users\Kestutis\Desktop\MarioRunner\backend\ASPNETCore\ASPNETCore.Web\obj\Debug\net6.0\ASPNETCore.Web.csproj.AssemblyReference.cache
+C:\Users\Kestutis\Desktop\MarioRunner\backend\ASPNETCore\ASPNETCore.Web\obj\Debug\net6.0\ASPNETCore.Web.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Kestutis\Desktop\MarioRunner\backend\ASPNETCore\ASPNETCore.Web\obj\Debug\net6.0\ASPNETCore.Web.AssemblyInfoInputs.cache
+C:\Users\Kestutis\Desktop\MarioRunner\backend\ASPNETCore\ASPNETCore.Web\obj\Debug\net6.0\ASPNETCore.Web.AssemblyInfo.cs
+C:\Users\Kestutis\Desktop\MarioRunner\backend\ASPNETCore\ASPNETCore.Web\obj\Debug\net6.0\ASPNETCore.Web.csproj.CoreCompileInputs.cache
+C:\Users\Kestutis\Desktop\MarioRunner\backend\ASPNETCore\ASPNETCore.Web\obj\Debug\net6.0\ASPNETCore.Web.MvcApplicationPartsAssemblyInfo.cache
+C:\Users\Kestutis\Desktop\MarioRunner\backend\ASPNETCore\ASPNETCore.Web\obj\Debug\net6.0\staticwebassets.build.json
+C:\Users\Kestutis\Desktop\MarioRunner\backend\ASPNETCore\ASPNETCore.Web\obj\Debug\net6.0\staticwebassets.development.json
+C:\Users\Kestutis\Desktop\MarioRunner\backend\ASPNETCore\ASPNETCore.Web\obj\Debug\net6.0\scopedcss\bundle\ASPNETCore.Web.styles.css
+C:\Users\Kestutis\Desktop\MarioRunner\backend\ASPNETCore\ASPNETCore.Web\obj\Debug\net6.0\ASPNETCore.Web.csproj.CopyComplete
+C:\Users\Kestutis\Desktop\MarioRunner\backend\ASPNETCore\ASPNETCore.Web\obj\Debug\net6.0\ASPNETCore.Web.dll
+C:\Users\Kestutis\Desktop\MarioRunner\backend\ASPNETCore\ASPNETCore.Web\obj\Debug\net6.0\refint\ASPNETCore.Web.dll
+C:\Users\Kestutis\Desktop\MarioRunner\backend\ASPNETCore\ASPNETCore.Web\obj\Debug\net6.0\ASPNETCore.Web.pdb
+C:\Users\Kestutis\Desktop\MarioRunner\backend\ASPNETCore\ASPNETCore.Web\obj\Debug\net6.0\ASPNETCore.Web.genruntimeconfig.cache
+C:\Users\Kestutis\Desktop\MarioRunner\backend\ASPNETCore\ASPNETCore.Web\obj\Debug\net6.0\ref\ASPNETCore.Web.dll
+C:\Users\Kestutis\Desktop\Angular PacMan Game\backend\ASPNETCore\ASPNETCore.Web\bin\Debug\net6.0\appsettings.Development.json
+C:\Users\Kestutis\Desktop\Angular PacMan Game\backend\ASPNETCore\ASPNETCore.Web\bin\Debug\net6.0\appsettings.json
+C:\Users\Kestutis\Desktop\Angular PacMan Game\backend\ASPNETCore\ASPNETCore.Web\bin\Debug\net6.0\ASPNETCore.Web.staticwebassets.runtime.json
+C:\Users\Kestutis\Desktop\Angular PacMan Game\backend\ASPNETCore\ASPNETCore.Web\bin\Debug\net6.0\ASPNETCore.Web.exe
+C:\Users\Kestutis\Desktop\Angular PacMan Game\backend\ASPNETCore\ASPNETCore.Web\bin\Debug\net6.0\ASPNETCore.Web.deps.json
+C:\Users\Kestutis\Desktop\Angular PacMan Game\backend\ASPNETCore\ASPNETCore.Web\bin\Debug\net6.0\ASPNETCore.Web.runtimeconfig.json
+C:\Users\Kestutis\Desktop\Angular PacMan Game\backend\ASPNETCore\ASPNETCore.Web\bin\Debug\net6.0\ASPNETCore.Web.dll
+C:\Users\Kestutis\Desktop\Angular PacMan Game\backend\ASPNETCore\ASPNETCore.Web\bin\Debug\net6.0\ASPNETCore.Web.pdb
+C:\Users\Kestutis\Desktop\Angular PacMan Game\backend\ASPNETCore\ASPNETCore.Web\bin\Debug\net6.0\AutoMapper.dll
+C:\Users\Kestutis\Desktop\Angular PacMan Game\backend\ASPNETCore\ASPNETCore.Web\bin\Debug\net6.0\AutoMapper.Extensions.Microsoft.DependencyInjection.dll
+C:\Users\Kestutis\Desktop\Angular PacMan Game\backend\ASPNETCore\ASPNETCore.Web\bin\Debug\net6.0\Humanizer.dll
+C:\Users\Kestutis\Desktop\Angular PacMan Game\backend\ASPNETCore\ASPNETCore.Web\bin\Debug\net6.0\Microsoft.Data.SqlClient.dll
+C:\Users\Kestutis\Desktop\Angular PacMan Game\backend\ASPNETCore\ASPNETCore.Web\bin\Debug\net6.0\Microsoft.EntityFrameworkCore.dll
+C:\Users\Kestutis\Desktop\Angular PacMan Game\backend\ASPNETCore\ASPNETCore.Web\bin\Debug\net6.0\Microsoft.EntityFrameworkCore.Abstractions.dll
+C:\Users\Kestutis\Desktop\Angular PacMan Game\backend\ASPNETCore\ASPNETCore.Web\bin\Debug\net6.0\Microsoft.EntityFrameworkCore.Design.dll
+C:\Users\Kestutis\Desktop\Angular PacMan Game\backend\ASPNETCore\ASPNETCore.Web\bin\Debug\net6.0\Microsoft.EntityFrameworkCore.InMemory.dll
+C:\Users\Kestutis\Desktop\Angular PacMan Game\backend\ASPNETCore\ASPNETCore.Web\bin\Debug\net6.0\Microsoft.EntityFrameworkCore.Relational.dll
+C:\Users\Kestutis\Desktop\Angular PacMan Game\backend\ASPNETCore\ASPNETCore.Web\bin\Debug\net6.0\Microsoft.EntityFrameworkCore.SqlServer.dll
+C:\Users\Kestutis\Desktop\Angular PacMan Game\backend\ASPNETCore\ASPNETCore.Web\bin\Debug\net6.0\Microsoft.Identity.Client.dll
+C:\Users\Kestutis\Desktop\Angular PacMan Game\backend\ASPNETCore\ASPNETCore.Web\bin\Debug\net6.0\Microsoft.IdentityModel.JsonWebTokens.dll
+C:\Users\Kestutis\Desktop\Angular PacMan Game\backend\ASPNETCore\ASPNETCore.Web\bin\Debug\net6.0\Microsoft.IdentityModel.Logging.dll
+C:\Users\Kestutis\Desktop\Angular PacMan Game\backend\ASPNETCore\ASPNETCore.Web\bin\Debug\net6.0\Microsoft.IdentityModel.Protocols.dll
+C:\Users\Kestutis\Desktop\Angular PacMan Game\backend\ASPNETCore\ASPNETCore.Web\bin\Debug\net6.0\Microsoft.IdentityModel.Protocols.OpenIdConnect.dll
+C:\Users\Kestutis\Desktop\Angular PacMan Game\backend\ASPNETCore\ASPNETCore.Web\bin\Debug\net6.0\Microsoft.IdentityModel.Tokens.dll
+C:\Users\Kestutis\Desktop\Angular PacMan Game\backend\ASPNETCore\ASPNETCore.Web\bin\Debug\net6.0\Microsoft.Win32.SystemEvents.dll
+C:\Users\Kestutis\Desktop\Angular PacMan Game\backend\ASPNETCore\ASPNETCore.Web\bin\Debug\net6.0\System.Configuration.ConfigurationManager.dll
+C:\Users\Kestutis\Desktop\Angular PacMan Game\backend\ASPNETCore\ASPNETCore.Web\bin\Debug\net6.0\System.Drawing.Common.dll
+C:\Users\Kestutis\Desktop\Angular PacMan Game\backend\ASPNETCore\ASPNETCore.Web\bin\Debug\net6.0\System.IdentityModel.Tokens.Jwt.dll
+C:\Users\Kestutis\Desktop\Angular PacMan Game\backend\ASPNETCore\ASPNETCore.Web\bin\Debug\net6.0\System.Runtime.Caching.dll
+C:\Users\Kestutis\Desktop\Angular PacMan Game\backend\ASPNETCore\ASPNETCore.Web\bin\Debug\net6.0\System.Security.Cryptography.ProtectedData.dll
+C:\Users\Kestutis\Desktop\Angular PacMan Game\backend\ASPNETCore\ASPNETCore.Web\bin\Debug\net6.0\System.Security.Permissions.dll
+C:\Users\Kestutis\Desktop\Angular PacMan Game\backend\ASPNETCore\ASPNETCore.Web\bin\Debug\net6.0\System.Windows.Extensions.dll
+C:\Users\Kestutis\Desktop\Angular PacMan Game\backend\ASPNETCore\ASPNETCore.Web\bin\Debug\net6.0\runtimes\unix\lib\netcoreapp3.1\Microsoft.Data.SqlClient.dll
+C:\Users\Kestutis\Desktop\Angular PacMan Game\backend\ASPNETCore\ASPNETCore.Web\bin\Debug\net6.0\runtimes\win\lib\netcoreapp3.1\Microsoft.Data.SqlClient.dll
+C:\Users\Kestutis\Desktop\Angular PacMan Game\backend\ASPNETCore\ASPNETCore.Web\bin\Debug\net6.0\runtimes\win-arm\native\Microsoft.Data.SqlClient.SNI.dll
+C:\Users\Kestutis\Desktop\Angular PacMan Game\backend\ASPNETCore\ASPNETCore.Web\bin\Debug\net6.0\runtimes\win-arm64\native\Microsoft.Data.SqlClient.SNI.dll
+C:\Users\Kestutis\Desktop\Angular PacMan Game\backend\ASPNETCore\ASPNETCore.Web\bin\Debug\net6.0\runtimes\win-x64\native\Microsoft.Data.SqlClient.SNI.dll
+C:\Users\Kestutis\Desktop\Angular PacMan Game\backend\ASPNETCore\ASPNETCore.Web\bin\Debug\net6.0\runtimes\win-x86\native\Microsoft.Data.SqlClient.SNI.dll
+C:\Users\Kestutis\Desktop\Angular PacMan Game\backend\ASPNETCore\ASPNETCore.Web\bin\Debug\net6.0\runtimes\win\lib\netcoreapp3.0\Microsoft.Win32.SystemEvents.dll
+C:\Users\Kestutis\Desktop\Angular PacMan Game\backend\ASPNETCore\ASPNETCore.Web\bin\Debug\net6.0\runtimes\unix\lib\netcoreapp3.0\System.Drawing.Common.dll
+C:\Users\Kestutis\Desktop\Angular PacMan Game\backend\ASPNETCore\ASPNETCore.Web\bin\Debug\net6.0\runtimes\win\lib\netcoreapp3.0\System.Drawing.Common.dll
+C:\Users\Kestutis\Desktop\Angular PacMan Game\backend\ASPNETCore\ASPNETCore.Web\bin\Debug\net6.0\runtimes\win\lib\netstandard2.0\System.Runtime.Caching.dll
+C:\Users\Kestutis\Desktop\Angular PacMan Game\backend\ASPNETCore\ASPNETCore.Web\bin\Debug\net6.0\runtimes\win\lib\netstandard2.0\System.Security.Cryptography.ProtectedData.dll
+C:\Users\Kestutis\Desktop\Angular PacMan Game\backend\ASPNETCore\ASPNETCore.Web\bin\Debug\net6.0\runtimes\win\lib\netcoreapp3.0\System.Windows.Extensions.dll
+C:\Users\Kestutis\Desktop\Angular PacMan Game\backend\ASPNETCore\ASPNETCore.Web\obj\Debug\net6.0\ASPNETCore.Web.csproj.AssemblyReference.cache
+C:\Users\Kestutis\Desktop\Angular PacMan Game\backend\ASPNETCore\ASPNETCore.Web\obj\Debug\net6.0\ASPNETCore.Web.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Kestutis\Desktop\Angular PacMan Game\backend\ASPNETCore\ASPNETCore.Web\obj\Debug\net6.0\ASPNETCore.Web.AssemblyInfoInputs.cache
+C:\Users\Kestutis\Desktop\Angular PacMan Game\backend\ASPNETCore\ASPNETCore.Web\obj\Debug\net6.0\ASPNETCore.Web.AssemblyInfo.cs
+C:\Users\Kestutis\Desktop\Angular PacMan Game\backend\ASPNETCore\ASPNETCore.Web\obj\Debug\net6.0\ASPNETCore.Web.csproj.CoreCompileInputs.cache
+C:\Users\Kestutis\Desktop\Angular PacMan Game\backend\ASPNETCore\ASPNETCore.Web\obj\Debug\net6.0\ASPNETCore.Web.MvcApplicationPartsAssemblyInfo.cache
+C:\Users\Kestutis\Desktop\Angular PacMan Game\backend\ASPNETCore\ASPNETCore.Web\obj\Debug\net6.0\staticwebassets.build.json
+C:\Users\Kestutis\Desktop\Angular PacMan Game\backend\ASPNETCore\ASPNETCore.Web\obj\Debug\net6.0\staticwebassets.development.json
+C:\Users\Kestutis\Desktop\Angular PacMan Game\backend\ASPNETCore\ASPNETCore.Web\obj\Debug\net6.0\scopedcss\bundle\ASPNETCore.Web.styles.css
+C:\Users\Kestutis\Desktop\Angular PacMan Game\backend\ASPNETCore\ASPNETCore.Web\obj\Debug\net6.0\ASPNETCore.Web.csproj.CopyComplete
+C:\Users\Kestutis\Desktop\Angular PacMan Game\backend\ASPNETCore\ASPNETCore.Web\obj\Debug\net6.0\ASPNETCore.Web.dll
+C:\Users\Kestutis\Desktop\Angular PacMan Game\backend\ASPNETCore\ASPNETCore.Web\obj\Debug\net6.0\refint\ASPNETCore.Web.dll
+C:\Users\Kestutis\Desktop\Angular PacMan Game\backend\ASPNETCore\ASPNETCore.Web\obj\Debug\net6.0\ASPNETCore.Web.pdb
+C:\Users\Kestutis\Desktop\Angular PacMan Game\backend\ASPNETCore\ASPNETCore.Web\obj\Debug\net6.0\ASPNETCore.Web.genruntimeconfig.cache
+C:\Users\Kestutis\Desktop\Angular PacMan Game\backend\ASPNETCore\ASPNETCore.Web\obj\Debug\net6.0\ref\ASPNETCore.Web.dll
+C:\Users\Kestutis\Desktop\PacMan\backend\ASPNETCore\ASPNETCore.Web\bin\Debug\net6.0\appsettings.Development.json
+C:\Users\Kestutis\Desktop\PacMan\backend\ASPNETCore\ASPNETCore.Web\bin\Debug\net6.0\appsettings.json
+C:\Users\Kestutis\Desktop\PacMan\backend\ASPNETCore\ASPNETCore.Web\bin\Debug\net6.0\ASPNETCore.Web.staticwebassets.runtime.json
+C:\Users\Kestutis\Desktop\PacMan\backend\ASPNETCore\ASPNETCore.Web\bin\Debug\net6.0\ASPNETCore.Web.exe
+C:\Users\Kestutis\Desktop\PacMan\backend\ASPNETCore\ASPNETCore.Web\bin\Debug\net6.0\ASPNETCore.Web.deps.json
+C:\Users\Kestutis\Desktop\PacMan\backend\ASPNETCore\ASPNETCore.Web\bin\Debug\net6.0\ASPNETCore.Web.runtimeconfig.json
+C:\Users\Kestutis\Desktop\PacMan\backend\ASPNETCore\ASPNETCore.Web\bin\Debug\net6.0\ASPNETCore.Web.dll
+C:\Users\Kestutis\Desktop\PacMan\backend\ASPNETCore\ASPNETCore.Web\bin\Debug\net6.0\ASPNETCore.Web.pdb
+C:\Users\Kestutis\Desktop\PacMan\backend\ASPNETCore\ASPNETCore.Web\bin\Debug\net6.0\AutoMapper.dll
+C:\Users\Kestutis\Desktop\PacMan\backend\ASPNETCore\ASPNETCore.Web\bin\Debug\net6.0\AutoMapper.Extensions.Microsoft.DependencyInjection.dll
+C:\Users\Kestutis\Desktop\PacMan\backend\ASPNETCore\ASPNETCore.Web\bin\Debug\net6.0\Humanizer.dll
+C:\Users\Kestutis\Desktop\PacMan\backend\ASPNETCore\ASPNETCore.Web\bin\Debug\net6.0\Microsoft.Data.SqlClient.dll
+C:\Users\Kestutis\Desktop\PacMan\backend\ASPNETCore\ASPNETCore.Web\bin\Debug\net6.0\Microsoft.EntityFrameworkCore.dll
+C:\Users\Kestutis\Desktop\PacMan\backend\ASPNETCore\ASPNETCore.Web\bin\Debug\net6.0\Microsoft.EntityFrameworkCore.Abstractions.dll
+C:\Users\Kestutis\Desktop\PacMan\backend\ASPNETCore\ASPNETCore.Web\bin\Debug\net6.0\Microsoft.EntityFrameworkCore.Design.dll
+C:\Users\Kestutis\Desktop\PacMan\backend\ASPNETCore\ASPNETCore.Web\bin\Debug\net6.0\Microsoft.EntityFrameworkCore.InMemory.dll
+C:\Users\Kestutis\Desktop\PacMan\backend\ASPNETCore\ASPNETCore.Web\bin\Debug\net6.0\Microsoft.EntityFrameworkCore.Relational.dll
+C:\Users\Kestutis\Desktop\PacMan\backend\ASPNETCore\ASPNETCore.Web\bin\Debug\net6.0\Microsoft.EntityFrameworkCore.SqlServer.dll
+C:\Users\Kestutis\Desktop\PacMan\backend\ASPNETCore\ASPNETCore.Web\bin\Debug\net6.0\Microsoft.Identity.Client.dll
+C:\Users\Kestutis\Desktop\PacMan\backend\ASPNETCore\ASPNETCore.Web\bin\Debug\net6.0\Microsoft.IdentityModel.JsonWebTokens.dll
+C:\Users\Kestutis\Desktop\PacMan\backend\ASPNETCore\ASPNETCore.Web\bin\Debug\net6.0\Microsoft.IdentityModel.Logging.dll
+C:\Users\Kestutis\Desktop\PacMan\backend\ASPNETCore\ASPNETCore.Web\bin\Debug\net6.0\Microsoft.IdentityModel.Protocols.dll
+C:\Users\Kestutis\Desktop\PacMan\backend\ASPNETCore\ASPNETCore.Web\bin\Debug\net6.0\Microsoft.IdentityModel.Protocols.OpenIdConnect.dll
+C:\Users\Kestutis\Desktop\PacMan\backend\ASPNETCore\ASPNETCore.Web\bin\Debug\net6.0\Microsoft.IdentityModel.Tokens.dll
+C:\Users\Kestutis\Desktop\PacMan\backend\ASPNETCore\ASPNETCore.Web\bin\Debug\net6.0\Microsoft.Win32.SystemEvents.dll
+C:\Users\Kestutis\Desktop\PacMan\backend\ASPNETCore\ASPNETCore.Web\bin\Debug\net6.0\System.Configuration.ConfigurationManager.dll
+C:\Users\Kestutis\Desktop\PacMan\backend\ASPNETCore\ASPNETCore.Web\bin\Debug\net6.0\System.Drawing.Common.dll
+C:\Users\Kestutis\Desktop\PacMan\backend\ASPNETCore\ASPNETCore.Web\bin\Debug\net6.0\System.IdentityModel.Tokens.Jwt.dll
+C:\Users\Kestutis\Desktop\PacMan\backend\ASPNETCore\ASPNETCore.Web\bin\Debug\net6.0\System.Runtime.Caching.dll
+C:\Users\Kestutis\Desktop\PacMan\backend\ASPNETCore\ASPNETCore.Web\bin\Debug\net6.0\System.Security.Cryptography.ProtectedData.dll
+C:\Users\Kestutis\Desktop\PacMan\backend\ASPNETCore\ASPNETCore.Web\bin\Debug\net6.0\System.Security.Permissions.dll
+C:\Users\Kestutis\Desktop\PacMan\backend\ASPNETCore\ASPNETCore.Web\bin\Debug\net6.0\System.Windows.Extensions.dll
+C:\Users\Kestutis\Desktop\PacMan\backend\ASPNETCore\ASPNETCore.Web\bin\Debug\net6.0\runtimes\unix\lib\netcoreapp3.1\Microsoft.Data.SqlClient.dll
+C:\Users\Kestutis\Desktop\PacMan\backend\ASPNETCore\ASPNETCore.Web\bin\Debug\net6.0\runtimes\win\lib\netcoreapp3.1\Microsoft.Data.SqlClient.dll
+C:\Users\Kestutis\Desktop\PacMan\backend\ASPNETCore\ASPNETCore.Web\bin\Debug\net6.0\runtimes\win-arm\native\Microsoft.Data.SqlClient.SNI.dll
+C:\Users\Kestutis\Desktop\PacMan\backend\ASPNETCore\ASPNETCore.Web\bin\Debug\net6.0\runtimes\win-arm64\native\Microsoft.Data.SqlClient.SNI.dll
+C:\Users\Kestutis\Desktop\PacMan\backend\ASPNETCore\ASPNETCore.Web\bin\Debug\net6.0\runtimes\win-x64\native\Microsoft.Data.SqlClient.SNI.dll
+C:\Users\Kestutis\Desktop\PacMan\backend\ASPNETCore\ASPNETCore.Web\bin\Debug\net6.0\runtimes\win-x86\native\Microsoft.Data.SqlClient.SNI.dll
+C:\Users\Kestutis\Desktop\PacMan\backend\ASPNETCore\ASPNETCore.Web\bin\Debug\net6.0\runtimes\win\lib\netcoreapp3.0\Microsoft.Win32.SystemEvents.dll
+C:\Users\Kestutis\Desktop\PacMan\backend\ASPNETCore\ASPNETCore.Web\bin\Debug\net6.0\runtimes\unix\lib\netcoreapp3.0\System.Drawing.Common.dll
+C:\Users\Kestutis\Desktop\PacMan\backend\ASPNETCore\ASPNETCore.Web\bin\Debug\net6.0\runtimes\win\lib\netcoreapp3.0\System.Drawing.Common.dll
+C:\Users\Kestutis\Desktop\PacMan\backend\ASPNETCore\ASPNETCore.Web\bin\Debug\net6.0\runtimes\win\lib\netstandard2.0\System.Runtime.Caching.dll
+C:\Users\Kestutis\Desktop\PacMan\backend\ASPNETCore\ASPNETCore.Web\bin\Debug\net6.0\runtimes\win\lib\netstandard2.0\System.Security.Cryptography.ProtectedData.dll
+C:\Users\Kestutis\Desktop\PacMan\backend\ASPNETCore\ASPNETCore.Web\bin\Debug\net6.0\runtimes\win\lib\netcoreapp3.0\System.Windows.Extensions.dll
+C:\Users\Kestutis\Desktop\PacMan\backend\ASPNETCore\ASPNETCore.Web\obj\Debug\net6.0\ASPNETCore.Web.csproj.AssemblyReference.cache
+C:\Users\Kestutis\Desktop\PacMan\backend\ASPNETCore\ASPNETCore.Web\obj\Debug\net6.0\ASPNETCore.Web.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Kestutis\Desktop\PacMan\backend\ASPNETCore\ASPNETCore.Web\obj\Debug\net6.0\ASPNETCore.Web.AssemblyInfoInputs.cache
+C:\Users\Kestutis\Desktop\PacMan\backend\ASPNETCore\ASPNETCore.Web\obj\Debug\net6.0\ASPNETCore.Web.AssemblyInfo.cs
+C:\Users\Kestutis\Desktop\PacMan\backend\ASPNETCore\ASPNETCore.Web\obj\Debug\net6.0\ASPNETCore.Web.csproj.CoreCompileInputs.cache
+C:\Users\Kestutis\Desktop\PacMan\backend\ASPNETCore\ASPNETCore.Web\obj\Debug\net6.0\ASPNETCore.Web.MvcApplicationPartsAssemblyInfo.cache
+C:\Users\Kestutis\Desktop\PacMan\backend\ASPNETCore\ASPNETCore.Web\obj\Debug\net6.0\staticwebassets.build.json
+C:\Users\Kestutis\Desktop\PacMan\backend\ASPNETCore\ASPNETCore.Web\obj\Debug\net6.0\staticwebassets.development.json
+C:\Users\Kestutis\Desktop\PacMan\backend\ASPNETCore\ASPNETCore.Web\obj\Debug\net6.0\scopedcss\bundle\ASPNETCore.Web.styles.css
+C:\Users\Kestutis\Desktop\PacMan\backend\ASPNETCore\ASPNETCore.Web\obj\Debug\net6.0\ASPNETCore.Web.csproj.CopyComplete
+C:\Users\Kestutis\Desktop\PacMan\backend\ASPNETCore\ASPNETCore.Web\obj\Debug\net6.0\ASPNETCore.Web.dll
+C:\Users\Kestutis\Desktop\PacMan\backend\ASPNETCore\ASPNETCore.Web\obj\Debug\net6.0\refint\ASPNETCore.Web.dll
+C:\Users\Kestutis\Desktop\PacMan\backend\ASPNETCore\ASPNETCore.Web\obj\Debug\net6.0\ASPNETCore.Web.pdb
+C:\Users\Kestutis\Desktop\PacMan\backend\ASPNETCore\ASPNETCore.Web\obj\Debug\net6.0\ASPNETCore.Web.genruntimeconfig.cache
+C:\Users\Kestutis\Desktop\PacMan\backend\ASPNETCore\ASPNETCore.Web\obj\Debug\net6.0\ref\ASPNETCore.Web.dll
+C:\Users\Kestutis\Desktop\PacMan - Copy\backend\ASPNETCore\ASPNETCore.Web\bin\Debug\net6.0\appsettings.Development.json
+C:\Users\Kestutis\Desktop\PacMan - Copy\backend\ASPNETCore\ASPNETCore.Web\bin\Debug\net6.0\appsettings.json
+C:\Users\Kestutis\Desktop\PacMan - Copy\backend\ASPNETCore\ASPNETCore.Web\bin\Debug\net6.0\ASPNETCore.Web.staticwebassets.runtime.json
+C:\Users\Kestutis\Desktop\PacMan - Copy\backend\ASPNETCore\ASPNETCore.Web\bin\Debug\net6.0\ASPNETCore.Web.exe
+C:\Users\Kestutis\Desktop\PacMan - Copy\backend\ASPNETCore\ASPNETCore.Web\bin\Debug\net6.0\ASPNETCore.Web.deps.json
+C:\Users\Kestutis\Desktop\PacMan - Copy\backend\ASPNETCore\ASPNETCore.Web\bin\Debug\net6.0\ASPNETCore.Web.runtimeconfig.json
+C:\Users\Kestutis\Desktop\PacMan - Copy\backend\ASPNETCore\ASPNETCore.Web\bin\Debug\net6.0\ASPNETCore.Web.dll
+C:\Users\Kestutis\Desktop\PacMan - Copy\backend\ASPNETCore\ASPNETCore.Web\bin\Debug\net6.0\ASPNETCore.Web.pdb
+C:\Users\Kestutis\Desktop\PacMan - Copy\backend\ASPNETCore\ASPNETCore.Web\bin\Debug\net6.0\AutoMapper.dll
+C:\Users\Kestutis\Desktop\PacMan - Copy\backend\ASPNETCore\ASPNETCore.Web\bin\Debug\net6.0\AutoMapper.Extensions.Microsoft.DependencyInjection.dll
+C:\Users\Kestutis\Desktop\PacMan - Copy\backend\ASPNETCore\ASPNETCore.Web\bin\Debug\net6.0\Humanizer.dll
+C:\Users\Kestutis\Desktop\PacMan - Copy\backend\ASPNETCore\ASPNETCore.Web\bin\Debug\net6.0\Microsoft.Data.SqlClient.dll
+C:\Users\Kestutis\Desktop\PacMan - Copy\backend\ASPNETCore\ASPNETCore.Web\bin\Debug\net6.0\Microsoft.EntityFrameworkCore.dll
+C:\Users\Kestutis\Desktop\PacMan - Copy\backend\ASPNETCore\ASPNETCore.Web\bin\Debug\net6.0\Microsoft.EntityFrameworkCore.Abstractions.dll
+C:\Users\Kestutis\Desktop\PacMan - Copy\backend\ASPNETCore\ASPNETCore.Web\bin\Debug\net6.0\Microsoft.EntityFrameworkCore.Design.dll
+C:\Users\Kestutis\Desktop\PacMan - Copy\backend\ASPNETCore\ASPNETCore.Web\bin\Debug\net6.0\Microsoft.EntityFrameworkCore.InMemory.dll
+C:\Users\Kestutis\Desktop\PacMan - Copy\backend\ASPNETCore\ASPNETCore.Web\bin\Debug\net6.0\Microsoft.EntityFrameworkCore.Relational.dll
+C:\Users\Kestutis\Desktop\PacMan - Copy\backend\ASPNETCore\ASPNETCore.Web\bin\Debug\net6.0\Microsoft.EntityFrameworkCore.SqlServer.dll
+C:\Users\Kestutis\Desktop\PacMan - Copy\backend\ASPNETCore\ASPNETCore.Web\bin\Debug\net6.0\Microsoft.Identity.Client.dll
+C:\Users\Kestutis\Desktop\PacMan - Copy\backend\ASPNETCore\ASPNETCore.Web\bin\Debug\net6.0\Microsoft.IdentityModel.JsonWebTokens.dll
+C:\Users\Kestutis\Desktop\PacMan - Copy\backend\ASPNETCore\ASPNETCore.Web\bin\Debug\net6.0\Microsoft.IdentityModel.Logging.dll
+C:\Users\Kestutis\Desktop\PacMan - Copy\backend\ASPNETCore\ASPNETCore.Web\bin\Debug\net6.0\Microsoft.IdentityModel.Protocols.dll
+C:\Users\Kestutis\Desktop\PacMan - Copy\backend\ASPNETCore\ASPNETCore.Web\bin\Debug\net6.0\Microsoft.IdentityModel.Protocols.OpenIdConnect.dll
+C:\Users\Kestutis\Desktop\PacMan - Copy\backend\ASPNETCore\ASPNETCore.Web\bin\Debug\net6.0\Microsoft.IdentityModel.Tokens.dll
+C:\Users\Kestutis\Desktop\PacMan - Copy\backend\ASPNETCore\ASPNETCore.Web\bin\Debug\net6.0\Microsoft.Win32.SystemEvents.dll
+C:\Users\Kestutis\Desktop\PacMan - Copy\backend\ASPNETCore\ASPNETCore.Web\bin\Debug\net6.0\System.Configuration.ConfigurationManager.dll
+C:\Users\Kestutis\Desktop\PacMan - Copy\backend\ASPNETCore\ASPNETCore.Web\bin\Debug\net6.0\System.Drawing.Common.dll
+C:\Users\Kestutis\Desktop\PacMan - Copy\backend\ASPNETCore\ASPNETCore.Web\bin\Debug\net6.0\System.IdentityModel.Tokens.Jwt.dll
+C:\Users\Kestutis\Desktop\PacMan - Copy\backend\ASPNETCore\ASPNETCore.Web\bin\Debug\net6.0\System.Runtime.Caching.dll
+C:\Users\Kestutis\Desktop\PacMan - Copy\backend\ASPNETCore\ASPNETCore.Web\bin\Debug\net6.0\System.Security.Cryptography.ProtectedData.dll
+C:\Users\Kestutis\Desktop\PacMan - Copy\backend\ASPNETCore\ASPNETCore.Web\bin\Debug\net6.0\System.Security.Permissions.dll
+C:\Users\Kestutis\Desktop\PacMan - Copy\backend\ASPNETCore\ASPNETCore.Web\bin\Debug\net6.0\System.Windows.Extensions.dll
+C:\Users\Kestutis\Desktop\PacMan - Copy\backend\ASPNETCore\ASPNETCore.Web\bin\Debug\net6.0\runtimes\unix\lib\netcoreapp3.1\Microsoft.Data.SqlClient.dll
+C:\Users\Kestutis\Desktop\PacMan - Copy\backend\ASPNETCore\ASPNETCore.Web\bin\Debug\net6.0\runtimes\win\lib\netcoreapp3.1\Microsoft.Data.SqlClient.dll
+C:\Users\Kestutis\Desktop\PacMan - Copy\backend\ASPNETCore\ASPNETCore.Web\bin\Debug\net6.0\runtimes\win-arm\native\Microsoft.Data.SqlClient.SNI.dll
+C:\Users\Kestutis\Desktop\PacMan - Copy\backend\ASPNETCore\ASPNETCore.Web\bin\Debug\net6.0\runtimes\win-arm64\native\Microsoft.Data.SqlClient.SNI.dll
+C:\Users\Kestutis\Desktop\PacMan - Copy\backend\ASPNETCore\ASPNETCore.Web\bin\Debug\net6.0\runtimes\win-x64\native\Microsoft.Data.SqlClient.SNI.dll
+C:\Users\Kestutis\Desktop\PacMan - Copy\backend\ASPNETCore\ASPNETCore.Web\bin\Debug\net6.0\runtimes\win-x86\native\Microsoft.Data.SqlClient.SNI.dll
+C:\Users\Kestutis\Desktop\PacMan - Copy\backend\ASPNETCore\ASPNETCore.Web\bin\Debug\net6.0\runtimes\win\lib\netcoreapp3.0\Microsoft.Win32.SystemEvents.dll
+C:\Users\Kestutis\Desktop\PacMan - Copy\backend\ASPNETCore\ASPNETCore.Web\bin\Debug\net6.0\runtimes\unix\lib\netcoreapp3.0\System.Drawing.Common.dll
+C:\Users\Kestutis\Desktop\PacMan - Copy\backend\ASPNETCore\ASPNETCore.Web\bin\Debug\net6.0\runtimes\win\lib\netcoreapp3.0\System.Drawing.Common.dll
+C:\Users\Kestutis\Desktop\PacMan - Copy\backend\ASPNETCore\ASPNETCore.Web\bin\Debug\net6.0\runtimes\win\lib\netstandard2.0\System.Runtime.Caching.dll
+C:\Users\Kestutis\Desktop\PacMan - Copy\backend\ASPNETCore\ASPNETCore.Web\bin\Debug\net6.0\runtimes\win\lib\netstandard2.0\System.Security.Cryptography.ProtectedData.dll
+C:\Users\Kestutis\Desktop\PacMan - Copy\backend\ASPNETCore\ASPNETCore.Web\bin\Debug\net6.0\runtimes\win\lib\netcoreapp3.0\System.Windows.Extensions.dll
+C:\Users\Kestutis\Desktop\PacMan - Copy\backend\ASPNETCore\ASPNETCore.Web\obj\Debug\net6.0\ASPNETCore.Web.csproj.AssemblyReference.cache
+C:\Users\Kestutis\Desktop\PacMan - Copy\backend\ASPNETCore\ASPNETCore.Web\obj\Debug\net6.0\ASPNETCore.Web.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Kestutis\Desktop\PacMan - Copy\backend\ASPNETCore\ASPNETCore.Web\obj\Debug\net6.0\ASPNETCore.Web.AssemblyInfoInputs.cache
+C:\Users\Kestutis\Desktop\PacMan - Copy\backend\ASPNETCore\ASPNETCore.Web\obj\Debug\net6.0\ASPNETCore.Web.AssemblyInfo.cs
+C:\Users\Kestutis\Desktop\PacMan - Copy\backend\ASPNETCore\ASPNETCore.Web\obj\Debug\net6.0\ASPNETCore.Web.csproj.CoreCompileInputs.cache
+C:\Users\Kestutis\Desktop\PacMan - Copy\backend\ASPNETCore\ASPNETCore.Web\obj\Debug\net6.0\ASPNETCore.Web.MvcApplicationPartsAssemblyInfo.cache
+C:\Users\Kestutis\Desktop\PacMan - Copy\backend\ASPNETCore\ASPNETCore.Web\obj\Debug\net6.0\staticwebassets.build.json
+C:\Users\Kestutis\Desktop\PacMan - Copy\backend\ASPNETCore\ASPNETCore.Web\obj\Debug\net6.0\staticwebassets.development.json
+C:\Users\Kestutis\Desktop\PacMan - Copy\backend\ASPNETCore\ASPNETCore.Web\obj\Debug\net6.0\scopedcss\bundle\ASPNETCore.Web.styles.css
+C:\Users\Kestutis\Desktop\PacMan - Copy\backend\ASPNETCore\ASPNETCore.Web\obj\Debug\net6.0\ASPNETCore.Web.csproj.CopyComplete
+C:\Users\Kestutis\Desktop\PacMan - Copy\backend\ASPNETCore\ASPNETCore.Web\obj\Debug\net6.0\ASPNETCore.Web.dll
+C:\Users\Kestutis\Desktop\PacMan - Copy\backend\ASPNETCore\ASPNETCore.Web\obj\Debug\net6.0\refint\ASPNETCore.Web.dll
+C:\Users\Kestutis\Desktop\PacMan - Copy\backend\ASPNETCore\ASPNETCore.Web\obj\Debug\net6.0\ASPNETCore.Web.pdb
+C:\Users\Kestutis\Desktop\PacMan - Copy\backend\ASPNETCore\ASPNETCore.Web\obj\Debug\net6.0\ASPNETCore.Web.genruntimeconfig.cache
+C:\Users\Kestutis\Desktop\PacMan - Copy\backend\ASPNETCore\ASPNETCore.Web\obj\Debug\net6.0\ref\ASPNETCore.Web.dll
+C:\Users\Kestutis\Desktop\PacMan - Copy\backend\ASPNETCore\ASPNETCore.Web\obj\Debug\net6.0\ASPNETCore.Web.MvcApplicationPartsAssemblyInfo.cs
+C:\Users\Kestutis\Desktop\PacMan - Copy\backend\ASPNETCore\ASPNETCore.Web\bin\Debug\net6.0\Microsoft.OpenApi.dll
+C:\Users\Kestutis\Desktop\PacMan - Copy\backend\ASPNETCore\ASPNETCore.Web\bin\Debug\net6.0\Swashbuckle.AspNetCore.Swagger.dll
+C:\Users\Kestutis\Desktop\PacMan - Copy\backend\ASPNETCore\ASPNETCore.Web\bin\Debug\net6.0\Swashbuckle.AspNetCore.SwaggerGen.dll
+C:\Users\Kestutis\Desktop\PacMan - Copy\backend\ASPNETCore\ASPNETCore.Web\bin\Debug\net6.0\Swashbuckle.AspNetCore.SwaggerUI.dll
