@@ -97,7 +97,7 @@ namespace GameAPI.Web
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
-                endpoints.MapHub<ChatHub>("/coolmessages");
+                endpoints.MapHub<ChatHub>("/pacman");
             });
 
             using (var serviceScope = app.ApplicationServices.GetRequiredService<IServiceScopeFactory>().CreateScope())

@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Kestutis\\Desktop\\PacMan - Copy\\backend\\ASPNETCore\\GameAPI\\GameAPI.csproj": {}
+    "C:\\Users\\Kestutis\\Desktop\\PacMan\\backend\\GameAPI\\GameAPI.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Kestutis\\Desktop\\PacMan - Copy\\backend\\ASPNETCore\\GameAPI\\GameAPI.csproj": {
+    "C:\\Users\\Kestutis\\Desktop\\PacMan\\backend\\GameAPI\\GameAPI.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Kestutis\\Desktop\\PacMan - Copy\\backend\\ASPNETCore\\GameAPI\\GameAPI.csproj",
+        "projectUniqueName": "C:\\Users\\Kestutis\\Desktop\\PacMan\\backend\\GameAPI\\GameAPI.csproj",
         "projectName": "GameAPI",
-        "projectPath": "C:\\Users\\Kestutis\\Desktop\\PacMan - Copy\\backend\\ASPNETCore\\GameAPI\\GameAPI.csproj",
+        "projectPath": "C:\\Users\\Kestutis\\Desktop\\PacMan\\backend\\GameAPI\\GameAPI.csproj",
         "packagesPath": "C:\\Users\\Kestutis\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Kestutis\\Desktop\\PacMan - Copy\\backend\\ASPNETCore\\GameAPI\\obj\\",
+        "outputPath": "C:\\Users\\Kestutis\\Desktop\\PacMan\\backend\\GameAPI\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\Kestutis\\AppData\\Roaming\\NuGet\\NuGet.Config",

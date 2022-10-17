@@ -37,7 +37,7 @@ namespace GameAPI.Services
 
                 _logger.LogInformation($"Sending newCpuValue {randomValue}...");
 
-                await _hubContext.Clients.All.SendAsync("newCpuValue", randomValue);
+                //await _hubContext.Clients.All.SendAsync("newCpuValue", randomValue);
                 
                 await Task.Delay(TimeSpan.FromMilliseconds(_options.Value.Period), cancellationToken);
             }

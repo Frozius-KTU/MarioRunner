@@ -15,7 +15,7 @@ namespace GameAPI.Migrations
                 {
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false, defaultValueSql: "NEWID()"),
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Lobby = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
+                    Lobby = table.Column<Guid>(type: "uniqueidentifier", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -28,8 +28,8 @@ namespace GameAPI.Migrations
                 {
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false, defaultValueSql: "NEWID()"),
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Player1 = table.Column<int>(type: "int", nullable: false),
-                    Player2 = table.Column<int>(type: "int", nullable: false)
+                    Player1 = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
+                    Player2 = table.Column<Guid>(type: "uniqueidentifier", nullable: true)
                 },
                 constraints: table =>
                 {

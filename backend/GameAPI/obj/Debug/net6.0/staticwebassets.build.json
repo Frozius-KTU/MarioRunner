@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "DTYsVPuqrUIAhJ41+MSQ34RMH5yFfADrm/T98N3SmZ4=",
+  "Hash": "LTBkPB8m28moaFhHxxoabgJSpPfIrw+aqtC044iATkk=",
   "Source": "GameAPI",
   "BasePath": "_content/GameAPI",
   "Mode": "Default",
@@ -10,17 +10,17 @@
     {
       "Name": "GameAPI\\wwwroot",
       "Source": "GameAPI",
-      "ContentRoot": "C:\\Users\\Kestutis\\Desktop\\PacMan - Copy\\backend\\ASPNETCore\\GameAPI\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\Kestutis\\Desktop\\PacMan\\backend\\GameAPI\\wwwroot\\",
       "BasePath": "_content/GameAPI",
       "Pattern": "**"
     }
   ],
   "Assets": [
     {
-      "Identity": "C:\\Users\\Kestutis\\Desktop\\PacMan - Copy\\backend\\ASPNETCore\\GameAPI\\wwwroot\\index.html",
+      "Identity": "C:\\Users\\Kestutis\\Desktop\\PacMan\\backend\\GameAPI\\wwwroot\\index.html",
       "SourceId": "GameAPI",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\Kestutis\\Desktop\\PacMan - Copy\\backend\\ASPNETCore\\GameAPI\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\Kestutis\\Desktop\\PacMan\\backend\\GameAPI\\wwwroot\\",
       "BasePath": "_content/GameAPI",
       "RelativePath": "index.html",
       "AssetKind": "All",

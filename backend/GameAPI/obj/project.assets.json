@@ -2989,11 +2989,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "c:\\Users\\Kestutis\\Desktop\\PacMan - Copy\\backend\\ASPNETCore\\GameAPI\\GameAPI.csproj",
+      "projectUniqueName": "c:\\Users\\Kestutis\\Desktop\\PacMan\\backend\\GameAPI\\GameAPI.csproj",
       "projectName": "GameAPI",
-      "projectPath": "c:\\Users\\Kestutis\\Desktop\\PacMan - Copy\\backend\\ASPNETCore\\GameAPI\\GameAPI.csproj",
+      "projectPath": "c:\\Users\\Kestutis\\Desktop\\PacMan\\backend\\GameAPI\\GameAPI.csproj",
       "packagesPath": "C:\\Users\\Kestutis\\.nuget\\packages\\",
-      "outputPath": "c:\\Users\\Kestutis\\Desktop\\PacMan - Copy\\backend\\ASPNETCore\\GameAPI\\obj\\",
+      "outputPath": "c:\\Users\\Kestutis\\Desktop\\PacMan\\backend\\GameAPI\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\Kestutis\\AppData\\Roaming\\NuGet\\NuGet.Config",

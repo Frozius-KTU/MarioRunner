@@ -33,7 +33,7 @@ namespace GameAPI.Controllers
 
 
         // GET api/lobby/{id}
-        [HttpGet("{id}")]
+        [HttpGet("{id:Guid}")]
         public async Task<ActionResult<LobbyModel>> GetLobbyByIdAsync([FromRoute] Guid id)
         {
             var lobbyFromRepo = await _repository.GetLobbyByIdAsync(id);
@@ -55,11 +55,11 @@ namespace GameAPI.Controllers
             return NoContent();
         }
 
-        // PUT api/lobby
-        [HttpPut]
-        public async Task<ActionResult> UpdateLobbyAsync([FromBody] LobbyModel lobbyModel)
+        // PUT api/lobby/id
+        [HttpPut("{id:Guid}")]
+        public async Task<ActionResult> UpdateLobbyAsync([FromRoute] Guid id, [FromBody] LobbyModel lobbyModel)
         {
-            var model = await _repository.GetLobbyByIdAsync(lobbyModel.Id.Value);
+            var model = await _repository.GetLobbyByIdAsync(id);
             // model.Name = lobbyModel.Name ?? model.Name;
             // model.Picture = lobbyModel.Picture ?? model.Picture;
             // model.Price = lobbyModel.Price ?? model.Price;
@@ -69,6 +69,9 @@ namespace GameAPI.Controllers
             // model.Type = lobbyModel.Type ?? model.Type;
 
             model.Name = !String.IsNullOrEmpty(lobbyModel.Name) ? lobbyModel.Name : model.Name;
+            model.Player1 = lobbyModel.Player1 ?? model.Player1;
+            model.Player2 = lobbyModel.Player2 ?? model.Player2;
+
 
             await _repository.UpdateLobbyAsync(model);
 
@@ -78,7 +81,7 @@ namespace GameAPI.Controllers
         }
 
         // Delete api/lobby/{id}
-        [HttpDelete("{id}")]
+        [HttpDelete("{id:Guid}")]
         public async Task<ActionResult> DeleteLobbyByIdAsync([FromRoute] Guid id)
         {
 

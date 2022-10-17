@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "bSf1jMResdoeffel92Nx004lE2hUAhGB4RM5lB0SmBxDdgsKEYYki5VoaaOiCEVgrd9pMBG7dlJ8CTHjdXUeHA==",
+  "dgSpecHash": "fBM+ADcAqvTEIwsTq0+NkB9luXjhzrSb6+RQezYmC6LT6LSwH7Fes6f0eBUuun7iCbMY7OHrwaRlhwEZb3Qj4w==",
   "success": true,
-  "projectFilePath": "C:\\Users\\Kestutis\\Desktop\\PacMan - Copy\\backend\\ASPNETCore\\GameAPI\\GameAPI.csproj",
+  "projectFilePath": "C:\\Users\\Kestutis\\Desktop\\PacMan\\backend\\GameAPI\\GameAPI.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Kestutis\\.nuget\\packages\\automapper\\9.0.0\\automapper.9.0.0.nupkg.sha512",
     "C:\\Users\\Kestutis\\.nuget\\packages\\automapper.extensions.microsoft.dependencyinjection\\7.0.0\\automapper.extensions.microsoft.dependencyinjection.7.0.0.nupkg.sha512",
