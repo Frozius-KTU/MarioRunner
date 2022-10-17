@@ -78,6 +78,7 @@ export class GameBoardComponent implements OnInit, AfterViewInit {
     this.clumsyFood.update();
     this.healfactory.update();
     this.checkDeath();
+    this.snake.listenToInputs();
   }
 
   draw() {
