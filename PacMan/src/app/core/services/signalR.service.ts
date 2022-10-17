@@ -31,7 +31,7 @@ export class SignalRService {
 
   private createConnection() {
     this.hubConnection = new HubConnectionBuilder()
-      .withUrl(environment.baseUrls.server + 'coolmessages')
+      .withUrl(environment.baseUrls.server + 'pacman')
       .withAutomaticReconnect()
       .configureLogging(LogLevel.Information)
       .build();

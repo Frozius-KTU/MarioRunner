@@ -29,7 +29,7 @@ namespace GameAPI.Migrations
                         .HasColumnType("uniqueidentifier")
                         .HasDefaultValueSql("NEWID()");
 
-                    b.Property<Guid>("Lobby")
+                    b.Property<Guid?>("Lobby")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Name")
@@ -52,11 +52,11 @@ namespace GameAPI.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("Player1")
-                        .HasColumnType("int");
+                    b.Property<Guid?>("Player1")
+                        .HasColumnType("uniqueidentifier");
 
-                    b.Property<int>("Player2")
-                        .HasColumnType("int");
+                    b.Property<Guid?>("Player2")
+                        .HasColumnType("uniqueidentifier");
 
                     b.HasKey("Id");
 

@@ -8,9 +8,17 @@ build_property.PlatformNeutralAssembly =
 build_property._SupportedPlatformList = Linux,macOS,Windows
 build_property.RootNamespace = GameAPI
 build_property.RootNamespace = GameAPI
+<<<<<<< HEAD
 build_property.ProjectDir = c:\Users\damir\Desktop\7 Semestras projektai\MarioRunner\backend\GameAPI\
 build_property.RazorLangVersion = 6.0
 build_property.SupportLocalizedComponentNames = 
 build_property.GenerateRazorMetadataSourceChecksumAttributes = 
 build_property.MSBuildProjectDirectory = c:\Users\damir\Desktop\7 Semestras projektai\MarioRunner\backend\GameAPI
+=======
+build_property.ProjectDir = C:\Users\Kestutis\Desktop\PacMan\backend\GameAPI\
+build_property.RazorLangVersion = 6.0
+build_property.SupportLocalizedComponentNames = 
+build_property.GenerateRazorMetadataSourceChecksumAttributes = 
+build_property.MSBuildProjectDirectory = C:\Users\Kestutis\Desktop\PacMan\backend\GameAPI
+>>>>>>> feee1c5dd84dce7d1c2b57ab381e11e1a172eb6e
 build_property._RazorSourceGeneratorDebug = 

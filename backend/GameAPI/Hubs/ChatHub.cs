@@ -9,6 +9,7 @@ namespace GameAPI.Hubs
         public async Task SendMessage(ChatMessage chatMessage)
         {
             await Clients.All.SendAsync("Send", chatMessage);
+            
         }
     }
 }

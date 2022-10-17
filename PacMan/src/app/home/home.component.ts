@@ -13,6 +13,8 @@ import {
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { DataSource } from '@angular/cdk/table';
 import { ViewChild, ElementRef, AfterViewInit } from '@angular/core';
+import { LobbyService } from '../core/services/lobby.service';
+import { Lobby } from '../models/game.types';
 
 @Component({
   selector: 'app-home',
@@ -31,10 +33,15 @@ export class HomeComponent implements OnInit {
   public form: FormGroup;
   user: string = '';
 
+  lobbyDisplayedColumns = ['name', 'players']
+  lobbyList: Lobby[];
+
+
 
   constructor(
     private readonly signalRService: SignalRService,
-    formbuilder: FormBuilder
+    formbuilder: FormBuilder,
+    private lobbyService: LobbyService
   ) {
     this.form = formbuilder.group({
       chatmessage: ['', Validators.required],
@@ -42,13 +49,29 @@ export class HomeComponent implements OnInit {
     });
   }
 
+
   ngOnInit() {
+
+    this.lobbyService.getLobbyList().subscribe({
+      next: (data) => {
+        this.lobbyList = data;
+        console.log(this.lobbyList);
+      },
+      error: (error) => {
+        console.log(error);
+      },
+    });
+
+
     this.cpuValue$ = this.signalRService.newCpuValue$;
     this.signalrConnectionEstablished$ = this.signalRService.connectionEstablished$;
 
     this.signalRService.messageReceived$.subscribe((message) => {
       this.chatmessages.push(message);
     });
+
+
+
 
   }
 
@@ -71,6 +94,20 @@ export class HomeComponent implements OnInit {
 
   getFromLocalStorage(){
     console.log(sessionStorage.getItem('name'));
+  }
+
+  getLobbyPlayerCount(id?: number){
+    var lobby = this.lobbyList.find(function(element) {
+      return element.id === id;
+    });
+    if(lobby?.player1 != null && lobby?.player2 != null){
+      return 2;
+    }
+    else if(lobby?.player1 != null || lobby?.player2 != null){
+      return 1;
+    }
+    return 0;
+
   }
 
 }

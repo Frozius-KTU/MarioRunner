@@ -33,7 +33,7 @@ namespace GameAPI.Controllers
 
 
         // GET api/client/{id}
-        [HttpGet("{id}")]
+        [HttpGet("{id:Guid}")]
         public async Task<ActionResult<ClientModel>> GetClientByIdAsync([FromRoute] Guid id)
         {
             var clientFromRepo = await _repository.GetClientByIdAsync(id);
@@ -56,10 +56,10 @@ namespace GameAPI.Controllers
         }
 
         // PUT api/client
-        [HttpPut]
-        public async Task<ActionResult> UpdateClientAsync([FromBody] ClientModel clientModel)
+        [HttpPut("{id:Guid}")]
+        public async Task<ActionResult> UpdateClientAsync([FromRoute] Guid id, [FromBody] ClientModel clientModel)
         {
-            var model = await _repository.GetClientByIdAsync(clientModel.Id.Value);
+            var model = await _repository.GetClientByIdAsync(id);
             // model.Name = clientModel.Name ?? model.Name;
             // model.Picture = clientModel.Picture ?? model.Picture;
             // model.Price = clientModel.Price ?? model.Price;

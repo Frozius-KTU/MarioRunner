@@ -1,1 +1,5 @@
+<<<<<<< HEAD
 {"ContentRoots":["C:\\Users\\damir\\Desktop\\7 Semestras projektai\\MarioRunner\\backend\\GameAPI\\wwwroot\\"],"Root":{"Children":{"index.html":{"Children":null,"Asset":{"ContentRootIndex":0,"SubPath":"index.html"},"Patterns":null}},"Asset":null,"Patterns":[{"ContentRootIndex":0,"Pattern":"**","Depth":0}]}}
+=======
+{"ContentRoots":["C:\\Users\\Kestutis\\Desktop\\PacMan\\backend\\GameAPI\\wwwroot\\"],"Root":{"Children":{"index.html":{"Children":null,"Asset":{"ContentRootIndex":0,"SubPath":"index.html"},"Patterns":null}},"Asset":null,"Patterns":[{"ContentRootIndex":0,"Pattern":"**","Depth":0}]}}
+>>>>>>> feee1c5dd84dce7d1c2b57ab381e11e1a172eb6e
