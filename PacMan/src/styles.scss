@@ -16,6 +16,7 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }*/
   --oponent-color: #2110d8;
   --food-color: #e70f0f;
   --clumsyfood-color: #09ff00;
+  --heal-color: #860202;
   --antidotefood-color: #1100ff;
   --wall-color: #1a1a1a;
   --button-color: #000000;
@@ -79,4 +80,34 @@ body {
   background-color: var(--antidotefood-color);
   border: 0.5vmin solid black;
   transition: all .3ms ease-in;
+}
+.heal {
+  position: relative;
+  width: 31.5px;
+  height: 28.35px;
+  margin-top: 3.15px;
+  transition: all .3ms ease-in;
+}
+
+.heal::before, .heal::after {
+  content: "";
+  position: absolute;
+  background-color: var(--heal-color);
+  top: 0;
+  width: 16.38px;
+  height: 25.2px;
+  border-radius: 15.75px 15.75px 0 0;
+  border: 0.5vmin solid black;
+}
+
+.heal::before {
+  left: 15.75px;
+  transform: rotate(-45deg);
+  transform-origin: 0 100%;
+}
+
+.heal::after {
+  left: 0;
+  transform: rotate(45deg);
+  transform-origin: 100% 100%;
 }
