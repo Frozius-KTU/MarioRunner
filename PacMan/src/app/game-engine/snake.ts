@@ -1,31 +1,37 @@
 import { SignalRService } from "../core/services/signalR.service";
 import { ChatMessage } from "../models/chatMessage.model";
-import { UserKeyInput } from "./input";
+import { MoveAlgorithm } from "./MoveAlgorithm";
+import { CorrectInput } from "./MoveAlgorithm/CorrectInput";
 import { Wall } from "./wall";
 
 
 export class Snake {
 
+  moveAlgorithm: MoveAlgorithm;
+
   constructor(
     private readonly signalRService: SignalRService,
-    public walls: Wall
-  ) {}
+    public walls: Wall,
+    movealgorithm: MoveAlgorithm
+  ) {
+    this.moveAlgorithm = movealgorithm;
+  }
 
   snakeBody = [
     { x: 1, y: 20 }
   ];
 
   newSegments = 0
-  input = new UserKeyInput();
+  //input = new CorrectInput();
 
   listenToInputs() {
-    this.input.getInputs();
+    this.moveAlgorithm.getInputs();
   }
 
   update() {
     this.addSegments();
-    const inputDirection =  this.input.getInputDirection();
-    this.input.resetDirection();
+    const inputDirection =  this.moveAlgorithm.getInputDirection();
+    this.moveAlgorithm.resetDirection();
     for (let i = this.snakeBody.length - 2; i >= 0; i--) {
       this.snakeBody[i + 1] = { ...this.snakeBody[i] }
     }
@@ -53,7 +59,11 @@ export class Snake {
   expandSnake(amount: number) {
     //this.newSegments += amount;
   }
-
+  changeMovement(moveAlgorithm: MoveAlgorithm)
+  {
+    this.moveAlgorithm = moveAlgorithm;
+    this.update();
+  }
   getSnakeHead() {
     return this.snakeBody[0];
   }

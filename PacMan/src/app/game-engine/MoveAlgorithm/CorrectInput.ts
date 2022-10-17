@@ -1,15 +1,17 @@
-export class UserKeyInput {
+import { MoveAlgorithm } from "../MoveAlgorithm";
+
+export class CorrectInput implements MoveAlgorithm {
+
   inputDirection = { x: 0, y: 0 };
   lastInputDirection = { x: 0, y: 0 };
 
-
   getInputs() {
     window.addEventListener('keydown', e => {
-      this.setDirection(e.key);
+      this.moveAlgorithm(e.key);
     })
   }
 
-  setDirection(direction: String) {
+  moveAlgorithm(direction: String) {
     switch (direction) {
       case 'ArrowUp':
         //if (this.lastInputDirection.y !== 0) break;

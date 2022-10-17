@@ -1,7 +1,6 @@
 import { ConsoleLogger } from "@microsoft/signalr/dist/esm/Utils";
 import { SignalRService } from "../core/services/signalR.service";
 import { ChatMessage } from "../models/chatMessage.model";
-import { UserKeyInput } from "./input";
 
 
 export class Oponent {

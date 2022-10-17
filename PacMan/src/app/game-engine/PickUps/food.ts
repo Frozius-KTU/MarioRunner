@@ -1,5 +1,5 @@
-import { randomGridPosition } from './gameboard-grid.util';
-import { Wall } from './wall';
+import { randomGridPosition } from '../gameboard-grid.util';
+import { Wall } from '../wall';
 
 export class Food {
 

@@ -1,10 +1,14 @@
 import { AfterViewInit, Component, OnInit } from '@angular/core';
 import { SignalRService } from '../core/services/signalR.service';
-import { Food } from '../game-engine/food';
+import { Food } from '../game-engine/PickUps/food';
 import { outsideGrid } from '../game-engine/gameboard-grid.util';
 import { Oponent } from '../game-engine/oponent';
+import { ClumsyFood } from '../game-engine/PickUps/ClumsyFood';
 import { Snake } from '../game-engine/snake';
 import { Wall } from '../game-engine/wall';
+import { CorrectInput } from '../game-engine/MoveAlgorithm/CorrectInput';
+import { AntidoteFood } from '../game-engine/PickUps/AntidoteFood';
+import { ClumsyInput } from '../game-engine/MoveAlgorithm/ClumsyInput';
 
 @Component({
   selector: 'app-game-board',
@@ -17,12 +21,14 @@ export class GameBoardComponent implements OnInit, AfterViewInit {
   gameOver = false
   gameBoard: any;
   wall = new Wall();
-  snake = new Snake(new SignalRService, this.wall);
+  snake = new Snake(new SignalRService, this.wall, new CorrectInput);
   oponent = new Oponent(new SignalRService);
-
+  clumsyFood = new ClumsyFood(this.snake, this.wall);
   food = new Food(this.snake, this.wall);
+  antidotefood = new AntidoteFood(this.snake, this.wall);
   constructor() { }
-
+  clumsyInput = new ClumsyInput();
+  correctInput = new CorrectInput();
   ngOnInit(): void {
     this.snake.listenToInputs();
   }
@@ -55,14 +61,17 @@ export class GameBoardComponent implements OnInit, AfterViewInit {
   }
 
   dpadMovement(direction: string) {
-    this.snake.input.setDirection(direction);
+    this.snake.moveAlgorithm.moveAlgorithm(direction);
   }
 
   update() {
     this.snake.update();
     this.oponent.update();
     this.food.update();
+    this.antidotefood.update();
+    this.clumsyFood.update();
     this.checkDeath();
+    this.snake.listenToInputs();
   }
 
   draw() {
@@ -71,6 +80,8 @@ export class GameBoardComponent implements OnInit, AfterViewInit {
     this.oponent.draw(this.gameBoard);
     this.wall.draw(this.gameBoard);
     this.food.draw(this.gameBoard);
+    this.clumsyFood.draw(this.gameBoard);
+    this.antidotefood.draw(this.gameBoard);
   }
 
   checkDeath() {

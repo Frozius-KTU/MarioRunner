@@ -1,5 +1,4 @@
-import { UserKeyInput } from "./input";
-
+import { CorrectInput } from "./MoveAlgorithm/CorrectInput";
 
 export class Wall {
 
@@ -97,7 +96,7 @@ export class Wall {
   ];
 
   newSegments = 0
-  input = new UserKeyInput();
+  input = new CorrectInput();
 
 
 

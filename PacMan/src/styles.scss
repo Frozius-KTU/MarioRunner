@@ -15,6 +15,8 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }*/
   --snake-color: #fed049;
   --oponent-color: #2110d8;
   --food-color: #e70f0f;
+  --clumsyfood-color: #09ff00;
+  --antidotefood-color: #1100ff;
   --wall-color: #1a1a1a;
   --button-color: #000000;
   --dpad-radius: 17%;
@@ -64,4 +66,17 @@ body {
   border: 0.5vmin solid black;
   transition: all .3ms ease-in;
 }
-
+.clumsyfood {
+  background-image: "https://img.lovepik.com/free-png/20210927/lovepik-apple-png-image_401592228_wh1200.png";
+  border-radius: 50%;
+  background-color: var(--clumsyfood-color);
+  border: 0.5vmin solid black;
+  transition: all .3ms ease-in;
+}
+.antidotefood {
+  background-image: "https://img.lovepik.com/free-png/20210927/lovepik-apple-png-image_401592228_wh1200.png";
+  border-radius: 50%;
+  background-color: var(--antidotefood-color);
+  border: 0.5vmin solid black;
+  transition: all .3ms ease-in;
+}
