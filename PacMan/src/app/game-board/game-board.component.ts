@@ -70,7 +70,7 @@ export class GameBoardComponent implements OnInit, AfterViewInit {
     this.food.update();
     this.antidotefood.update();
     this.clumsyFood.update();
-    this.checkDeath();
+    //this.checkDeath();
     this.snake.listenToInputs();
   }
 
