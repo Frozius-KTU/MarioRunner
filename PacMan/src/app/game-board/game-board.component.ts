@@ -11,6 +11,8 @@ import { AntidoteFood } from '../game-engine/PickUps/AntidoteFood';
 import { ClumsyInput } from '../game-engine/MoveAlgorithm/ClumsyInput';
 import { HealsFactory} from '../game-engine/PickUps/Heals/heal-factory';
 import { MobsFactory} from '../game-engine/Mobs/mob-factory';
+import { LobbyService } from '../core/services/lobby.service';
+import { Router } from '@angular/router';
 
 interface IObject {}
 @Component({
@@ -30,11 +32,16 @@ export class GameBoardComponent implements OnInit, AfterViewInit {
   clumsyFood = new ClumsyFood(this.snake, this.wall);
   food = new Food(this.snake, this.wall);
   antidotefood = new AntidoteFood(this.snake, this.wall);
-  constructor() { }
   clumsyInput = new ClumsyInput();
   healfactory = new HealsFactory(this.snake, this.wall);
   mobsfactory = new MobsFactory(this.snake, this.wall);
   correctInput = new CorrectInput();
+
+  constructor(
+    private router: Router,
+    private lobbyService: LobbyService
+    ) { }
+
   ngOnInit(): void {
     this.snake.listenToInputs();
   }
@@ -100,6 +107,21 @@ export class GameBoardComponent implements OnInit, AfterViewInit {
 
   restart() {
     window.location.reload();
+  }
+
+  quit() {
+
+    console.log(sessionStorage.getItem('lobbyId')!, sessionStorage.getItem('playerId')!.toString());
+    this.lobbyService.removePlayerFromLobby(sessionStorage.getItem('lobbyId')!, sessionStorage.getItem('playerId')!).subscribe({
+      next: (data) => {
+        this.router.navigate(['/home']).then(() => {
+          window.location.reload();
+        });
+      },
+      error: (error) => {
+        console.log(error);
+
+      }})
   }
 
   static createObject(object: string): IObject | undefined {

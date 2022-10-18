@@ -12,12 +12,12 @@ namespace GameAPI.Controllers
     [Route("api/[controller]")]
     public class LobbyController : ControllerBase
     {
-        public LobbyController(ILobbyRepo repository)
+        public LobbyController(ILobbyRepository repository)
         {
             _repository = repository;
         }
 
-        public readonly ILobbyRepo _repository;
+        public readonly ILobbyRepository _repository;
 
         // GET api/lobby
         [HttpGet]
@@ -60,6 +60,9 @@ namespace GameAPI.Controllers
         public async Task<ActionResult> UpdateLobbyAsync([FromRoute] Guid id, [FromBody] LobbyModel lobbyModel)
         {
             var model = await _repository.GetLobbyByIdAsync(id);
+            if(model is null){
+                return NotFound();
+            }
             // model.Name = lobbyModel.Name ?? model.Name;
             // model.Picture = lobbyModel.Picture ?? model.Picture;
             // model.Price = lobbyModel.Price ?? model.Price;
@@ -69,9 +72,61 @@ namespace GameAPI.Controllers
             // model.Type = lobbyModel.Type ?? model.Type;
 
             model.Name = !String.IsNullOrEmpty(lobbyModel.Name) ? lobbyModel.Name : model.Name;
-            model.Player1 = lobbyModel.Player1 ?? model.Player1;
-            model.Player2 = lobbyModel.Player2 ?? model.Player2;
+            model.Level = lobbyModel.Level ?? model.Level;
 
+            await _repository.UpdateLobbyAsync(model);
+
+            await _repository.SaveChangesAsync();
+
+            return NoContent();
+        }
+
+        // PUT api/lobby/id
+        [HttpGet("{id:Guid}/add")]
+        public async Task<ActionResult<Guid>> AddPlayerToLobbyAsync([FromRoute] Guid id)
+        {
+            var model = await _repository.GetLobbyByIdAsync(id);
+            if(model is null){
+                return NotFound();
+            }
+
+            Guid playerId = Guid.NewGuid();
+
+            if(model.Player1 is null){
+                model.Player1 = playerId;
+            }
+            else if(model.Player2 is null){
+                model.Player2 = playerId;
+            }
+            else{
+                return StatusCode(406);
+            }
+
+            await _repository.UpdateLobbyAsync(model);
+
+            await _repository.SaveChangesAsync();
+
+            return Ok(playerId);
+        }
+
+        // PUT api/lobby/id
+        [HttpDelete("{id:Guid}/remove/{playerId:Guid}")]
+        public async Task<ActionResult> RemovePlayerFromLobbyAsync([FromRoute] Guid id, [FromRoute] Guid playerId)
+        {
+            var model = await _repository.GetLobbyByIdAsync(id);
+            if(model is null){
+                return NotFound();
+            }
+
+            if(model.Player1 == playerId){
+                model.Player1 = null;
+            }
+            else if(model.Player2 == playerId){
+                model.Player2 = null;
+            }
+            else{
+                return NotFound();
+            }
 
             await _repository.UpdateLobbyAsync(model);
 

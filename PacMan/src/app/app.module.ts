@@ -28,6 +28,8 @@ import { MatSelectModule } from '@angular/material/select';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatGridListModule } from '@angular/material/grid-list';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { UtilsDropdownsModule, UtilsGridModule, UtilsInputsModule } from 'angular-helper-utils';
 
 
 
@@ -62,6 +64,10 @@ import { MatGridListModule } from '@angular/material/grid-list';
     ReactiveFormsModule,
     MatCheckboxModule,
     MatGridListModule,
+    FontAwesomeModule,
+    UtilsGridModule,
+    UtilsInputsModule,
+    UtilsDropdownsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

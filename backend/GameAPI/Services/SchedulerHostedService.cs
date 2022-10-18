@@ -35,9 +35,10 @@ namespace GameAPI.Services
                 if(val >= 100) val = 0;
                 var randomValue = val;//_random.Next(0, 100);
 
-                _logger.LogInformation($"Sending newCpuValue {randomValue}...");
+                //_logger.LogInformation($"Sending newCpuValue {randomValue}...");
 
                 //await _hubContext.Clients.All.SendAsync("newCpuValue", randomValue);
+                
                 
                 await Task.Delay(TimeSpan.FromMilliseconds(_options.Value.Period), cancellationToken);
             }

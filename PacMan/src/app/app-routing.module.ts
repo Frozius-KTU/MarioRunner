@@ -6,7 +6,7 @@ import { GameBoardComponent } from './game-board/game-board.component';
 
 const routes: Routes = [
   { path: 'home', component: HomeComponent},
-  { path: 'game', component: GameBoardComponent},
+  { path: 'game/:id', component: GameBoardComponent},
   { path: "**", redirectTo: "home"}
 ];
 

@@ -6,7 +6,7 @@ using GameAPI.Model;
 
 namespace GameAPI.Data.Lobby
 {
-    public interface ILobbyRepo
+    public interface ILobbyRepository
     {
         Task SaveChangesAsync();
         Task<IEnumerable<LobbyModel>> GetLobbyListAsync();

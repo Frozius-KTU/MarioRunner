@@ -99,7 +99,7 @@ export class Snake {
   }
 
   sendPosition(direction: string) {
-    this.signalRService.sendChatMessage(new ChatMessage(sessionStorage.getItem('name') + " " + direction));
+    this.signalRService.sendChatMessage(new ChatMessage(sessionStorage.getItem('lobbyId') + " " + sessionStorage.getItem('playerName') + " " + direction));
   }
 
 }

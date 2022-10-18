@@ -1,6 +1,7 @@
 export type Lobby = {
   id?: string;
   name: string;
+  level: number;
   player1?: string;
   player2?: string;
 };

@@ -65,7 +65,7 @@ export class SignalRService {
     });
 
     this.hubConnection.on('Send', (data: any) => {
-      console.log('data', data);
+      //console.log('data', data);
       this.messageReceived$.next(data);
     });
 

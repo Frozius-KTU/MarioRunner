@@ -11,7 +11,6 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
 using GameAPI.Context;
 using GameAPI.Data.Lobby;
-using GameAPI.Data.Client;
 
 
 namespace GameAPI.Web
@@ -54,7 +53,7 @@ namespace GameAPI.Web
                 });
 
 
-            //services.AddDbContext<FoodDbContext>(opt => opt.UseInMemoryDatabase("FoodDb"));
+            
             services.AddControllers()
                 .SetCompatibilityVersion(CompatibilityVersion.Version_3_0);
 
@@ -65,11 +64,11 @@ namespace GameAPI.Web
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "GameAPI", Version = "v1" });
             });
 
+            services.AddDbContext<MemoryDbContext>(opt => opt.UseInMemoryDatabase("MemoryDbContext"));
             services.AddDbContext<GameContext>(opt => opt.UseSqlServer
                 (Configuration.GetConnectionString("PacMan")));
 
-            services.AddScoped<ILobbyRepo, SqlLobbyRepo>();
-            services.AddScoped<IClientRepo, SqlClientRepo>();
+            services.AddScoped<ILobbyRepository, LobbyRepository>();
 
         }
 

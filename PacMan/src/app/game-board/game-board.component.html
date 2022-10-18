@@ -7,9 +7,16 @@
       <h3>{{food!.currentScore}}</h3>
     </div>
 
-    <div class="restart-button" (click)="restart()">
+    <div>
+      <div class="restart-button" (click)="restart()">
         RESTART
+      </div>
+      <br>
+      <div class="restart-button" (click)="quit()">
+        QUIT
+      </div>
     </div>
+
   </div>
 
   <div class="game-board">

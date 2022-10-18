@@ -18,6 +18,7 @@ export class LobbyService {
     return of({
       id: '',
       name: '',
+      level: 0,
       player1: '',
       player2: ''
     } as Lobby);
@@ -36,8 +37,16 @@ export class LobbyService {
     return this.http.post<Lobby>(this.APIUrl + 'Lobby', request);
   }
 
-  updateLobby(request: Lobby, id: string) {
+  updateLobby(id: string, request: Lobby) {
     return this.http.put(this.APIUrl + 'Lobby/' + id, request);
+  }
+
+  addPlayerToLobby(id: string) {
+    return this.http.get(this.APIUrl + 'Lobby/' + id + '/add');
+  }
+
+  removePlayerFromLobby(id: string, playerId: string) {
+    return this.http.delete(this.APIUrl + 'Lobby/' + id + '/remove/' + playerId);
   }
 
   deleteLobbyFromList(id: string) {

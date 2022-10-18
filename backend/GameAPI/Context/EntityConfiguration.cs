@@ -67,20 +67,14 @@ namespace GameAPI.Context
             builder.Property(x => x.Player1);
             builder.Property(x => x.Player2);
 
+            builder.HasData(
+                new LobbyModel { Id = Guid.NewGuid(), Name = "Lobby 1", Level = 1 },
+                new LobbyModel { Id = Guid.NewGuid(), Name = "Lobby 2", Level = 2 },
+                new LobbyModel { Id = Guid.NewGuid(), Name = "Lobby 3", Level = 3 }
+                );
         }
     }
 
-    public class ClientEntityConfiguration : BaseEntityConfiguration<ClientModel>
-    {
-        protected override void ConfigureEntity(EntityTypeBuilder<ClientModel> builder)
-        {
-            builder.ToTable("Client");
-
-            builder.Property(x => x.Name).IsRequired();
-            builder.Property(x => x.Lobby);
-
-        }
-    }
 
     // public class OrderItemEntityConfiguration : BaseEntityConfiguration<OrderItemModel>
     // {

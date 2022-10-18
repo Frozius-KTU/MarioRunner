@@ -1,96 +1,118 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
-using GameAPI.Data.Client;
+﻿using System.Collections.Generic;
+using AutoMapper;
+using GameAPI.Hubs;
 using GameAPI.Model;
+using GameAPI.Data.Client;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.SignalR;
 
 namespace GameAPI.Controllers
 {
-    [ApiController]
     [Route("api/[controller]")]
-    public class ClientController : ControllerBase
+    public class ClientController : Controller
     {
-        public ClientController(IClientRepo repository)
+        private readonly IClientRepository _clientRepository;
+        private readonly IHubContext<ChatHub> _chatHubContext;
+
+        public ClientController(
+            IClientRepository clientRepository,
+            IHubContext<ChatHub> hubContext,
+             IMapper mapper)
         {
-            _repository = repository;
+            _clientRepository = clientRepository;
+            _chatHubContext = hubContext;
         }
 
-        public readonly IClientRepo _repository;
-
-        // GET api/client
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<ClientModel>>> GetClientListAsync()
+        public ActionResult<List<ClientModel>> GetAllFoods()
         {
-            var clientList = await _repository.GetClientListAsync();
-            if (clientList is null)
+            var foods = _clientRepository.GetAll();
+            return Ok(foods);
+        }
+
+        [HttpGet]
+        [Route("{id:Guid}", Name = nameof(GetSingleFood))]
+        public ActionResult<ClientModel> GetSingleFood(Guid id)
+        {
+            ClientModel foodItem = _clientRepository.GetSingle(id);
+
+            if (foodItem == null)
             {
                 return NotFound();
             }
-            return Ok(clientList);
+
+            return Ok(foodItem);
         }
 
-
-        // GET api/client/{id}
-        [HttpGet("{id:Guid}")]
-        public async Task<ActionResult<ClientModel>> GetClientByIdAsync([FromRoute] Guid id)
-        {
-            var clientFromRepo = await _repository.GetClientByIdAsync(id);
-            if (clientFromRepo is null)
-            {
-                return NotFound();
-            }
-            return Ok(clientFromRepo);
-        }
-
-        // POST api/client
         [HttpPost]
-        public async Task<ActionResult> CreateClientAsync([FromBody] ClientModel clientModel)
+        public ActionResult AddFoodToList([FromBody] ClientModel viewModel)
         {
-            await _repository.CreateClientAsync(clientModel);
+            if (viewModel == null)
+            {
+                return BadRequest();
+            }
 
-            await _repository.SaveChangesAsync();
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
 
-            return NoContent();
+            ClientModel item = viewModel;
+            item.Created = DateTime.Now;
+            ClientModel newFoodItem = _clientRepository.Add(item);
+
+            _chatHubContext.Clients.All.SendAsync("FoodAdded", newFoodItem);
+
+            return CreatedAtRoute(
+                nameof(GetSingleFood),
+                new { id = newFoodItem.Id },
+                newFoodItem);
         }
 
-        // PUT api/client
-        [HttpPut("{id:Guid}")]
-        public async Task<ActionResult> UpdateClientAsync([FromRoute] Guid id, [FromBody] ClientModel clientModel)
+        [HttpPut]
+        [Route("{foodItemId:Guid}")]
+        public ActionResult<ClientModel> UpdateFoodInList(Guid foodItemId, [FromBody] ClientModel viewModel)
         {
-            var model = await _repository.GetClientByIdAsync(id);
-            // model.Name = clientModel.Name ?? model.Name;
-            // model.Picture = clientModel.Picture ?? model.Picture;
-            // model.Price = clientModel.Price ?? model.Price;
-            // model.Description = clientModel.Description ?? model.Description;
-            // model.Quantity = clientModel.Quantity ?? model.Quantity;
-            // model.Discount = clientModel.Discount ?? model.Discount;
-            // model.Type = clientModel.Type ?? model.Type;
+            if (viewModel == null)
+            {
+                return BadRequest();
+            }
 
-            model.Name = !String.IsNullOrEmpty(clientModel.Name) ? clientModel.Name : model.Name;
-            model.Lobby = clientModel.Lobby != null ? clientModel.Lobby : model.Lobby;
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
 
 
-            await _repository.UpdateClientAsync(model);
+            ClientModel singleById = _clientRepository.GetSingle(foodItemId);
 
-            await _repository.SaveChangesAsync();
+            if (singleById == null)
+            {
+                return NotFound();
+            }
 
-            return NoContent();
+            singleById.Name = viewModel.Name;
+
+            ClientModel newFoodItem = _clientRepository.Update(singleById);
+            _chatHubContext.Clients.All.SendAsync("FoodUpdated", newFoodItem);
+            return Ok(newFoodItem);
         }
 
-        // Delete api/client/{id}
-        [HttpDelete("{id}")]
-        public async Task<ActionResult> DeleteClientByIdAsync([FromRoute] Guid id)
+        [HttpDelete]
+        [Route("{foodItemId:Guid}")]
+        public ActionResult DeleteFoodFromList(Guid foodItemId)
         {
 
-            var client = await _repository.GetClientByIdAsync(id);
-            if (client is null)
-                return NotFound("Not a valid client id");
+            ClientModel singleById = _clientRepository.GetSingle(foodItemId);
 
-            await _repository.DeleteClientAsync(client);
+            if (singleById == null)
+            {
+                return NotFound();
+            }
 
-            await _repository.SaveChangesAsync();
+            _clientRepository.Delete(foodItemId);
+
+            _chatHubContext.Clients.All.SendAsync("FoodDeleted");
             return NoContent();
         }
     }

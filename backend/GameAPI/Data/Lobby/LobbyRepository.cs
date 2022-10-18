@@ -8,9 +8,9 @@ using GameAPI.Context;
 
 namespace GameAPI.Data.Lobby
 {
-    public class SqlLobbyRepo : ILobbyRepo
+    public class LobbyRepository : ILobbyRepository
     {
-        public SqlLobbyRepo(GameContext context)
+        public LobbyRepository(GameContext context)
         {
             _context = context;
         }

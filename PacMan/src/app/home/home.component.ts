@@ -1,28 +1,27 @@
-import { Component, OnInit } from '@angular/core';
-import { Observable, forkJoin  } from 'rxjs';
-import { SignalRService } from '../core/services/signalR.service';
-import { ChatMessage } from '../models/chatMessage.model';
-import { map, tap } from 'rxjs/operators';
-import { ChatComponent } from '../presentational/chat/chat.component';
 import {
+  Component, OnInit,
   Input,
   EventEmitter,
   Output,
   ChangeDetectionStrategy
 } from '@angular/core';
+import { Router } from '@angular/router';
+import { Observable, forkJoin  } from 'rxjs';
+import { SignalRService } from '../core/services/signalR.service';
+import { ChatMessage } from '../models/chatMessage.model';
+import { map, tap } from 'rxjs/operators';
+import { ChatComponent } from '../presentational/chat/chat.component';
+
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { DataSource } from '@angular/cdk/table';
-import { ViewChild, ElementRef, AfterViewInit } from '@angular/core';
 import { LobbyService } from '../core/services/lobby.service';
 import { Lobby } from '../models/game.types';
-import { TestSubject, Observer } from '../game-engine/ObserverTest';
 import { Subject } from '@microsoft/signalr';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
-  styleUrls: ['./home.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  styleUrls: ['./home.component.scss']
 })
 export class HomeComponent implements OnInit {
 
@@ -33,16 +32,17 @@ export class HomeComponent implements OnInit {
   chatmessages: ChatMessage[] = [];
 
   public form: FormGroup;
-  user: string = '';
+  playerName: string = "";
 
-  lobbyDisplayedColumns = ['name', 'players']
-  lobbyList: Lobby[];
+  lobbyDisplayedColumns = ['name', 'level', 'players', 'join']
+  lobbyList: Lobby[] = [];
 
 
 
   constructor(
     private readonly signalRService: SignalRService,
     formbuilder: FormBuilder,
+    private router: Router,
     private lobbyService: LobbyService
   ) {
     this.form = formbuilder.group({
@@ -53,6 +53,9 @@ export class HomeComponent implements OnInit {
 
 
   ngOnInit() {
+
+    this.playerName = sessionStorage.getItem('playerName') || 'Player_' + (Math.floor(Math.random() * (999 - 100) + 100)).toString();
+    sessionStorage.removeItem('lobbyId');
 
     this.lobbyService.getLobbyList().subscribe({
       next: (data) => {
@@ -73,19 +76,6 @@ export class HomeComponent implements OnInit {
     });
 
 
-    const first = new Observer("first");
-    const second = new Observer("second");
-
-    const subject = new TestSubject();
-
-    subject.subscribe(first);
-    subject.subscribe(second);
-
-    subject.notify("Pasikeite kazkas");
-    subject.unsubscribe(second);
-    subject.notify("Dar karta pakeiciama");
-    first.showFeed();
-    second.showFeed()
 
   }
 
@@ -101,16 +91,62 @@ export class HomeComponent implements OnInit {
     this.form.reset();
   }
 
+  play(id: string){
+    if(!this.playerName || this.playerName.replace(/\s/g, '').length <= 5)
+    {
+      Swal.fire({
+        icon: 'error',
+        title: 'Invalid name',
+        text: 'Please choose your name with at least 5 characters',
+      })
+      return;
+    }
+
+    if(this.getLobbyPlayerCount(id) == 2){
+      Swal.fire({icon: 'error', title: 'Sorry', text: 'Lobby is full'})
+      return;
+    }
+
+    this.lobbyService.addPlayerToLobby(id).subscribe({
+      next: (data) => {
+        sessionStorage.setItem('playerId', data.toString());
+        sessionStorage.setItem('playerName', this.playerName);
+        sessionStorage.setItem('lobbyId', id);
+
+        this.router.navigate(['/game', id]).then(() => {
+          window.location.reload();
+        });
+      },
+      error: (error) => {
+        if(error.status == 406){
+          this.lobbyService.getLobbyList().subscribe({
+            next: (data) => {
+              this.lobbyList = data;
+              Swal.fire({icon: 'error', title: 'Sorry', text: 'Lobby is full'})
+            },
+            error: (error) => {
+              console.log(error);
+            },
+          });
+        }
+        else{
+          console.log(error);
+          Swal.fire({icon: 'error', title: error.status, text: error.message})
+        }
+
+      }})
+  }
+
 
   saveToLocalStorage(){
-    sessionStorage.setItem('name', this.user);
+    sessionStorage.setItem('playerName', this.playerName);
   }
 
   getFromLocalStorage(){
-    console.log(sessionStorage.getItem('name'));
+    console.log(sessionStorage.getItem('playerName'));
   }
 
-  getLobbyPlayerCount(id?: number){
+  getLobbyPlayerCount(id: string){
     var lobby = this.lobbyList.find(function(element) {
       return element.id === id;
     });

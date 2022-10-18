@@ -1,43 +1,31 @@
 
-<div class="mat-elevation-z8">
-  <div class="order-table-container">
 
-    <table #table mat-table [dataSource]="lobbyList!" class="work-table">
-      <ng-container matColumnDef="name">
-        <th class="col" mat-header-cell *matHeaderCellDef>Lobby name</th>
-        <td class="col" mat-cell *matCellDef="let row">{{row.name}}</td>
-      </ng-container>
-      <ng-container matColumnDef="players">
-        <th class="col" mat-header-cell *matHeaderCellDef>Players</th>
-        <td class="col" mat-cell *matCellDef="let row">{{getLobbyPlayerCount(row.id)}}</td>
-      </ng-container>
+<br class=" p-50 m-50">
+
+<utils-textbox [(ngModel)]="playerName" [clearButton]="true"></utils-textbox>
 
 
-
-
-      <tr mat-header-row *matHeaderRowDef="lobbyDisplayedColumns; sticky: true"></tr>
-      <tr mat-row *matRowDef="let row; columns: lobbyDisplayedColumns;"></tr>
-    </table>
-  </div>
-
-</div>
-
-
+<utils-grid *ngIf="lobbyList.length > 0" [data]="lobbyList">
+  <utils-grid-column field="name" title="Name"></utils-grid-column>
+  <utils-grid-column field="level" title="Level"></utils-grid-column>
+  <utils-grid-column field="players" title="Players">
+    <ng-template utilsGridRowTemplate let-lobby>
+      {{getLobbyPlayerCount(lobby.id)}}
+    </ng-template>
+  </utils-grid-column>
+  <utils-grid-column field="play" >
+    <ng-template utilsGridRowTemplate let-lobby>
+      <button mat-button (click)="play(lobby.id)">
+        <i class="fa-solid fa-play"></i>
+      </button>
+    </ng-template>
+  </utils-grid-column>
+</utils-grid>
 
 
 
-<mat-form-field appearance="legacy">
-  <mat-label>Vartotojo vardas</mat-label>
-  <input matInput placeholder=" " [(ngModel)]="user">
-</mat-form-field>
 
-<button mat-raised-button color="warn" class="mb-2" (click)="saveToLocalStorage()" >
-  Set
-</button>
-<button mat-raised-button color="primary" class="mb-2" (click)="getFromLocalStorage()" >
-  Get
-</button>
-
+<!--
 
 <form [formGroup]="form">
   <div class="form-group mx-sm-6" style="width: 500px;">
@@ -68,16 +56,16 @@
   <button mat-raised-button class="mb-2" (click)="sendControls('down')">
     Down
   </button>
-</form>
+</form> -->
 
 
 
 
-<ul class="list-group list-group-flush" *ngFor="let message of chatmessages">
+<!-- <ul class="list-group list-group-flush" *ngFor="let message of chatmessages">
   <li class="list-group-item">
     {{ message.sent }}: {{ message.message }}
   </li>
-</ul>
+</ul> -->
 
 
 

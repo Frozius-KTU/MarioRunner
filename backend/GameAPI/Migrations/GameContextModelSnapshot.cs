@@ -22,31 +22,15 @@ namespace GameAPI.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
 
-            modelBuilder.Entity("GameAPI.Model.ClientModel", b =>
-                {
-                    b.Property<Guid?>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier")
-                        .HasDefaultValueSql("NEWID()");
-
-                    b.Property<Guid?>("Lobby")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Client", (string)null);
-                });
-
             modelBuilder.Entity("GameAPI.Model.LobbyModel", b =>
                 {
-                    b.Property<Guid?>("Id")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier")
                         .HasDefaultValueSql("NEWID()");
+
+                    b.Property<int?>("Level")
+                        .HasColumnType("int");
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -61,6 +45,26 @@ namespace GameAPI.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Lobby", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            Id = new Guid("5403116f-4df7-4179-a2d2-23a3f73a6d92"),
+                            Level = 1,
+                            Name = "Lobby 1"
+                        },
+                        new
+                        {
+                            Id = new Guid("7fe7e573-2510-43e8-a6da-a9afbaa68e32"),
+                            Level = 2,
+                            Name = "Lobby 2"
+                        },
+                        new
+                        {
+                            Id = new Guid("141abfc7-3d12-470c-9d18-2b4630a24e6c"),
+                            Level = 3,
+                            Name = "Lobby 3"
+                        });
                 });
 #pragma warning restore 612, 618
         }
