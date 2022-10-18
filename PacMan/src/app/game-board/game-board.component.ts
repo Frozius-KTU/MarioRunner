@@ -9,12 +9,16 @@ import { Wall } from '../game-engine/wall';
 import { CorrectInput } from '../game-engine/MoveAlgorithm/CorrectInput';
 import { AntidoteFood } from '../game-engine/PickUps/AntidoteFood';
 import { ClumsyInput } from '../game-engine/MoveAlgorithm/ClumsyInput';
+import { HealsFactory} from '../game-engine/PickUps/Heals/heal-factory';
+import { MobsFactory} from '../game-engine/Mobs/mob-factory';
 
+interface IObject {}
 @Component({
   selector: 'app-game-board',
   templateUrl: './game-board.component.html',
   styleUrls: ['./game-board.component.scss']
 })
+
 export class GameBoardComponent implements OnInit, AfterViewInit {
 
   lastRenderTime = 0
@@ -28,6 +32,8 @@ export class GameBoardComponent implements OnInit, AfterViewInit {
   antidotefood = new AntidoteFood(this.snake, this.wall);
   constructor() { }
   clumsyInput = new ClumsyInput();
+  healfactory = new HealsFactory(this.snake, this.wall);
+  mobsfactory = new MobsFactory(this.snake, this.wall);
   correctInput = new CorrectInput();
   ngOnInit(): void {
     this.snake.listenToInputs();
@@ -70,6 +76,7 @@ export class GameBoardComponent implements OnInit, AfterViewInit {
     this.food.update();
     this.antidotefood.update();
     this.clumsyFood.update();
+    this.healfactory.update();
     this.checkDeath();
     this.snake.listenToInputs();
   }
@@ -81,6 +88,7 @@ export class GameBoardComponent implements OnInit, AfterViewInit {
     this.wall.draw(this.gameBoard);
     this.food.draw(this.gameBoard);
     this.clumsyFood.draw(this.gameBoard);
+    this.healfactory.draw(this.gameBoard);
     this.antidotefood.draw(this.gameBoard);
   }
 
@@ -93,5 +101,20 @@ export class GameBoardComponent implements OnInit, AfterViewInit {
   restart() {
     window.location.reload();
   }
+
+  static createObject(object: string): IObject | undefined {
+    try {
+        if (['Boss Mob', 'Normal Mob'].indexOf(object) > -1) {
+            return MobsFactory.getMob(object[1])
+        }
+        if (['Heal Point', 'Heal Fruit'].indexOf(object) > -1) {
+            return HealsFactory.getHeal(object[1])
+        }
+        throw new Error('No object Found')
+    } catch (e) {
+        console.log(e)
+        return;
+    }
+}
 
 }

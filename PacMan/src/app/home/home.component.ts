@@ -15,6 +15,8 @@ import { DataSource } from '@angular/cdk/table';
 import { ViewChild, ElementRef, AfterViewInit } from '@angular/core';
 import { LobbyService } from '../core/services/lobby.service';
 import { Lobby } from '../models/game.types';
+import { TestSubject, Observer } from '../game-engine/ObserverTest';
+import { Subject } from '@microsoft/signalr';
 
 @Component({
   selector: 'app-home',
@@ -71,7 +73,19 @@ export class HomeComponent implements OnInit {
     });
 
 
+    const first = new Observer("first");
+    const second = new Observer("second");
 
+    const subject = new TestSubject();
+
+    subject.subscribe(first);
+    subject.subscribe(second);
+
+    subject.notify("Pasikeite kazkas");
+    subject.unsubscribe(second);
+    subject.notify("Dar karta pakeiciama");
+    first.showFeed();
+    second.showFeed()
 
   }
 

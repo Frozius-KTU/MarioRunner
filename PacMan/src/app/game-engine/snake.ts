@@ -1,5 +1,6 @@
 import { SignalRService } from "../core/services/signalR.service";
 import { ChatMessage } from "../models/chatMessage.model";
+import { fixOutsidePosition, outsideGrid } from "./gameboard-grid.util";
 import { MoveAlgorithm } from "./MoveAlgorithm";
 import { CorrectInput } from "./MoveAlgorithm/CorrectInput";
 import { Wall } from "./wall";
@@ -42,6 +43,10 @@ export class Snake {
       this.snakeBody[0].y += inputDirection.y;
     }
 
+    if(outsideGrid(this.snakeBody[0])){
+      this.snakeBody[0] = fixOutsidePosition(this.snakeBody[0])
+    }
+
     this.sendPosition(this.snakeBody[0].x.toString() + " " + this.snakeBody[0].y.toString())
     //console.log(inputDirection);
   }
@@ -62,7 +67,8 @@ export class Snake {
   changeMovement(moveAlgorithm: MoveAlgorithm)
   {
     this.moveAlgorithm = moveAlgorithm;
-    this.update();
+    this.moveAlgorithm.resetDirection();
+    //this.update();
   }
   getSnakeHead() {
     return this.snakeBody[0];
