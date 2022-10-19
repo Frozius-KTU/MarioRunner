@@ -1,14 +1,16 @@
 ﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 using GameAPI.Model;
 
 namespace GameAPI.Data.Client
 {
     public interface IClientRepository
     {
-        List<ClientModel> GetAll();
-        ClientModel GetSingle(Guid id);
-        ClientModel Add(ClientModel toAdd);
-        ClientModel Update(ClientModel toUpdate);
-        void Delete(Guid id);
+        Task SaveChangesAsync();
+        Task<IEnumerable<ClientModel>> GetClientListAsync();
+        Task<ClientModel> GetClientByIdAsync(Guid id);
+        Task CreateClientAsync(ClientModel request);
+        Task UpdateClientAsync(ClientModel request);
+        Task DeleteClientAsync(ClientModel request);
     }
 }

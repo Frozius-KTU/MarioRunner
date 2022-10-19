@@ -14,9 +14,10 @@ import { ChatComponent } from '../presentational/chat/chat.component';
 
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { LobbyService } from '../core/services/lobby.service';
-import { Lobby } from '../models/game.types';
+import { Client, Lobby } from '../models/game.types';
 import { Subject } from '@microsoft/signalr';
 import Swal from 'sweetalert2';
+
 
 @Component({
   selector: 'app-home',
@@ -60,7 +61,6 @@ export class HomeComponent implements OnInit {
     this.lobbyService.getLobbyList().subscribe({
       next: (data) => {
         this.lobbyList = data;
-        console.log(this.lobbyList);
       },
       error: (error) => {
         console.log(error);
@@ -85,13 +85,28 @@ export class HomeComponent implements OnInit {
     this.form.reset();
   }
 
+
+
+
+
   sendControls(control?: string) {
     //this.sendChat.emit(new ChatMessage(control));
     this.signalRService.sendChatMessage(new ChatMessage(control));
     this.form.reset();
   }
 
-  play(id: string){
+
+  createClient() {
+    let client: Client = {
+      name: this.playerName,
+      lobbyId: '5403116f-4df7-4179-a2d2-23a3f73a6d92',
+      created: new Date().toISOString()
+    };
+    //console.log(new Client('Vardas', '5403116f-4df7-4179-a2d2-23a3f73a6d92'))
+    this.signalRService.createClient(client);
+  }
+
+  play(lobbyId: string){
     if(!this.playerName || this.playerName.replace(/\s/g, '').length <= 5)
     {
       Swal.fire({
@@ -102,18 +117,27 @@ export class HomeComponent implements OnInit {
       return;
     }
 
-    if(this.getLobbyPlayerCount(id) == 2){
+    if(this.getLobbyPlayerCount(lobbyId) == 2){
       Swal.fire({icon: 'error', title: 'Sorry', text: 'Lobby is full'})
       return;
     }
 
-    this.lobbyService.addPlayerToLobby(id).subscribe({
-      next: (data) => {
-        sessionStorage.setItem('playerId', data.toString());
-        sessionStorage.setItem('playerName', this.playerName);
-        sessionStorage.setItem('lobbyId', id);
+    let client: Client = {
+      name: this.playerName,
+      lobbyId: lobbyId,
+      created: new Date().toISOString()
+    };
+    this.signalRService.createClient(client);
+    client = this.signalRService.createdClient;
 
-        this.router.navigate(['/game', id]).then(() => {
+    //fix here - sinc problem
+    this.lobbyService.addPlayerToLobby(lobbyId, client.id!).subscribe({
+      next: (data) => {
+        sessionStorage.setItem('playerId', client.id!);
+        sessionStorage.setItem('playerName', this.playerName);
+        sessionStorage.setItem('lobbyId', lobbyId);
+
+        this.router.navigate(['/game', lobbyId]).then(() => {
           window.location.reload();
         });
       },
@@ -135,6 +159,7 @@ export class HomeComponent implements OnInit {
         }
 
       }})
+
   }
 
 

@@ -9,10 +9,13 @@ import {
 } from '@microsoft/signalr';
 import { BehaviorSubject, Subject } from 'rxjs';
 import { ChatMessage } from 'src/app/models/chatMessage.model';
+import { Client } from 'src/app/models/game.types';
+
 
 @Injectable({ providedIn: 'root' })
 export class SignalRService {
   foodchanged$ = new Subject();
+  createdClient: Client = {name : ''};
   messageReceived$ = new Subject<ChatMessage>();
   newCpuValue$ = new Subject<number>();
   connectionEstablished$ = new BehaviorSubject<boolean>(false);
@@ -27,6 +30,10 @@ export class SignalRService {
 
   sendChatMessage(message: ChatMessage) {
     this.hubConnection.invoke('SendMessage', message);
+  }
+
+  createClient(client: Client) {
+    this.hubConnection.invoke('CreateClient', client);
   }
 
   private createConnection() {
@@ -53,14 +60,17 @@ export class SignalRService {
 
   private registerOnServerEvents(): void {
     this.hubConnection.on('FoodAdded', (data: any) => {
+      console.log(data);
       this.foodchanged$.next(data);
     });
 
     this.hubConnection.on('FoodDeleted', (data: any) => {
+      console.log(data);
       this.foodchanged$.next('this could be data');
     });
 
     this.hubConnection.on('FoodUpdated', (data: any) => {
+      console.log(data);
       this.foodchanged$.next('this could be data');
     });
 
@@ -71,6 +81,11 @@ export class SignalRService {
 
     this.hubConnection.on('newCpuValue', (data: number) => {
       this.newCpuValue$.next(data);
+    });
+
+    this.hubConnection.on('ClientCreated', (data: any) => {
+      this.createdClient = data;
+
     });
   }
 }

@@ -6,4 +6,10 @@ export type Lobby = {
   player2?: string;
 };
 
+export type Client = {
+  id?: string;
+  name: string;
+  lobbyId?: string;
+  created?: string;
+};
 

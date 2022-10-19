@@ -41,8 +41,8 @@ export class LobbyService {
     return this.http.put(this.APIUrl + 'Lobby/' + id, request);
   }
 
-  addPlayerToLobby(id: string) {
-    return this.http.get(this.APIUrl + 'Lobby/' + id + '/add');
+  addPlayerToLobby(id: string, playerId: string) {
+    return this.http.get(this.APIUrl + 'Lobby/' + id + '/add/' + playerId);
   }
 
   removePlayerFromLobby(id: string, playerId: string) {

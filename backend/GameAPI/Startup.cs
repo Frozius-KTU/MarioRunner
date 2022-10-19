@@ -11,7 +11,7 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
 using GameAPI.Context;
 using GameAPI.Data.Lobby;
-
+using GameAPI.Data.Client;
 
 namespace GameAPI.Web
 {
@@ -64,10 +64,11 @@ namespace GameAPI.Web
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "GameAPI", Version = "v1" });
             });
 
-            services.AddDbContext<MemoryDbContext>(opt => opt.UseInMemoryDatabase("MemoryDbContext"));
+            services.AddDbContext<MemoryContext>(opt => opt.UseInMemoryDatabase("MemoryContext"));
             services.AddDbContext<GameContext>(opt => opt.UseSqlServer
                 (Configuration.GetConnectionString("PacMan")));
 
+            services.AddScoped<IClientRepository, ClientRepository>();
             services.AddScoped<ILobbyRepository, LobbyRepository>();
 
         }
@@ -80,7 +81,7 @@ namespace GameAPI.Web
                 app.UseDeveloperExceptionPage();
 
                 app.UseSwagger();
-                app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "ShopAPI v1"));
+                app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "GameAPI v1"));
             }
 
             app.UseHttpsRedirection();

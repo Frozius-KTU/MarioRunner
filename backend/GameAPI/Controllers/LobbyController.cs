@@ -1,6 +1,4 @@
-using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using GameAPI.Data.Lobby;
@@ -82,15 +80,13 @@ namespace GameAPI.Controllers
         }
 
         // PUT api/lobby/id
-        [HttpGet("{id:Guid}/add")]
-        public async Task<ActionResult<Guid>> AddPlayerToLobbyAsync([FromRoute] Guid id)
+        [HttpGet("{id:Guid}/add/{playerId:Guid}")]
+        public async Task<ActionResult<Guid>> AddPlayerToLobbyAsync([FromRoute] Guid id, [FromRoute] Guid playerId)
         {
             var model = await _repository.GetLobbyByIdAsync(id);
             if(model is null){
                 return NotFound();
             }
-
-            Guid playerId = Guid.NewGuid();
 
             if(model.Player1 is null){
                 model.Player1 = playerId;
