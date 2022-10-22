@@ -16,9 +16,6 @@ public class ChatHub : Hub
 
     public async Task CreateClient(ClientModel request)
     {
-        
-
-
         HttpClientHandler clientHandler = new HttpClientHandler();
         clientHandler.ServerCertificateCustomValidationCallback = (sender, cert, chain, sslPolicyErrors) => { return true; };
         // Pass the handler to httpclient(from you are calling api)
@@ -55,6 +52,91 @@ public class ChatHub : Hub
             {
                 throw;
             }
+        }
+        
+    }
+
+
+    public async Task ConnectClientToLobby(Guid clientId, Guid lobbyId)
+    {
+        HttpClientHandler clientHandler = new HttpClientHandler();
+        clientHandler.ServerCertificateCustomValidationCallback = (sender, cert, chain, sslPolicyErrors) => { return true; };
+        // Pass the handler to httpclient(from you are calling api)
+        HttpClient client = new HttpClient(clientHandler);
+
+        
+        try
+        {
+
+            ///Update Lobby
+            HttpResponseMessage response = await client.GetAsync("https://localhost:5001/api/Lobby/" + lobbyId + "/add/" + clientId);
+
+            if(response.StatusCode.ToString() == "NotAcceptable")
+            {
+                await Clients.Caller.SendAsync("ClientUpdated", "406");
+            }
+            else if(response.StatusCode.ToString() == "NotFound")
+            {
+                await Clients.Caller.SendAsync("ClientUpdated", "404");
+            }
+            else
+            {
+                //Update Client
+                ClientModel clientRequest = new ClientModel();
+                clientRequest.LobbyId = lobbyId;
+            
+                string jsonString = JsonSerializer.Serialize(clientRequest);
+                var stringContent = new StringContent(jsonString, Encoding.UTF8, "application/json");
+
+                Console.WriteLine("!!!!!!!!!!!!!!!!!!!!!!!!!!!!" + jsonString);
+                //Console.WriteLine("!!!!!!!!!!!!!!!!!!!!!!!!!!!!" + stringContent);
+                response = await client.PutAsync("https://localhost:5001/api/Client/" + clientId, stringContent);
+
+                if(response.StatusCode.ToString() == "NotFound")
+                {
+                    await Clients.Caller.SendAsync("ClientUpdated", "404");
+                }
+                else
+                {
+                    await Clients.Caller.SendAsync("ClientUpdated", "200");
+                }
+            }
+
+        }
+        catch (System.Exception)
+        {
+            throw;
+        }
+        
+    }
+
+
+    public async Task DisconnectClientFromLobby(Guid clientId, Guid lobbyId)
+    {
+        HttpClientHandler clientHandler = new HttpClientHandler();
+        clientHandler.ServerCertificateCustomValidationCallback = (sender, cert, chain, sslPolicyErrors) => { return true; };
+        // Pass the handler to httpclient(from you are calling api)
+        HttpClient client = new HttpClient(clientHandler);
+
+        
+        try
+        {
+            ClientModel clientRequest = new ClientModel();
+            clientRequest.LobbyId = new Guid();
+            
+            string jsonString = JsonSerializer.Serialize(clientRequest);
+            var stringContent = new StringContent(jsonString, Encoding.UTF8, "application/json");
+
+            HttpResponseMessage response = await client.PutAsync("https://localhost:5001/api/Client/" + clientId, stringContent);
+
+            response = await client.DeleteAsync("https://localhost:5001/api/Lobby/" + lobbyId + "/remove/" + clientId);
+            
+            await Clients.Caller.SendAsync("ClientUpdated", "200");
+                
+        }
+        catch (System.Exception)
+        {
+            throw;
         }
         
     }

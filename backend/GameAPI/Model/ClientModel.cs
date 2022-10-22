@@ -6,7 +6,7 @@ namespace GameAPI.Model
 {
     public class ClientModel : BaseEntity
     {
-        public string Name { get; set; }
+        public string? Name { get; set; }
         public Guid? LobbyId { get; set; }
         public DateTime Created { get; set; }
     }

@@ -6,6 +6,7 @@ import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { HomeComponent } from './home/home.component';
+import { LobbiesComponent } from './lobbies/lobbies.component';
 import { GameBoardComponent } from './game-board/game-board.component';
 
 // angular material
@@ -38,7 +39,8 @@ import { UtilsDropdownsModule, UtilsGridModule, UtilsInputsModule } from 'angula
   declarations: [
     AppComponent,
     HomeComponent,
-    GameBoardComponent
+    GameBoardComponent,
+    LobbiesComponent
   ],
   imports: [
     BrowserModule,

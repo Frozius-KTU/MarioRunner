@@ -81,7 +81,14 @@ public class ClientController : ControllerBase
             }
 
             model.Name = !String.IsNullOrEmpty(request.Name) ? request.Name : model.Name;
-            model.LobbyId = request.LobbyId ?? model.LobbyId;
+            if(request.LobbyId == new Guid())
+            {
+                model.LobbyId = null;
+            }
+            else{
+                model.LobbyId = request.LobbyId ?? model.LobbyId;
+            }
+            
 
             await _repository.UpdateClientAsync(model);
 

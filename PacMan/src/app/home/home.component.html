@@ -5,7 +5,7 @@
 <utils-textbox [(ngModel)]="playerName" [clearButton]="true"></utils-textbox>
 
 
-<utils-grid *ngIf="lobbyList.length > 0" [data]="lobbyList">
+<!-- <utils-grid *ngIf="lobbyList.length > 0" [data]="lobbyList">
   <utils-grid-column field="name" title="Name"></utils-grid-column>
   <utils-grid-column field="level" title="Level"></utils-grid-column>
   <utils-grid-column field="players" title="Players">
@@ -22,11 +22,15 @@
   </utils-grid-column>
 </utils-grid>
 
-<br class=" p-50 m-50">
+<br class=" p-50 m-50"> -->
 
 <button mat-button (click)="createClient()">
-  <i class="fa-solid fa-envelope-circle-check">Send</i>
+  <i class="fa-solid fa-gamepad">Play</i>
 
+</button>
+
+<button mat-button (click)="resetClient()">
+  <i class="fa-solid fa-trash">Reset Client</i>
 </button>
 
 

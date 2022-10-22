@@ -8,7 +8,7 @@ export type Lobby = {
 
 export type Client = {
   id?: string;
-  name: string;
+  name?: string;
   lobbyId?: string;
   created?: string;
 };

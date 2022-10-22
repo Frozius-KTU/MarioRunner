@@ -14,8 +14,10 @@ import { Client } from 'src/app/models/game.types';
 
 @Injectable({ providedIn: 'root' })
 export class SignalRService {
-  foodchanged$ = new Subject();
   createdClient: Client = {name : ''};
+  clientStatusCode: string = '';
+
+  foodchanged$ = new Subject();
   messageReceived$ = new Subject<ChatMessage>();
   newCpuValue$ = new Subject<number>();
   connectionEstablished$ = new BehaviorSubject<boolean>(false);
@@ -34,6 +36,13 @@ export class SignalRService {
 
   createClient(client: Client) {
     this.hubConnection.invoke('CreateClient', client);
+  }
+
+  connectClientToLobby(clientId: string, lobbyId: string) {
+    this.hubConnection.invoke('ConnectClientToLobby', clientId, lobbyId);
+  }
+  disconnectClientFromLobby(clientId: string, lobbyId: string) {
+    this.hubConnection.invoke('DisconnectClientFromLobby', clientId, lobbyId);
   }
 
   private createConnection() {
@@ -60,17 +69,17 @@ export class SignalRService {
 
   private registerOnServerEvents(): void {
     this.hubConnection.on('FoodAdded', (data: any) => {
-      console.log(data);
+      //console.log(data);
       this.foodchanged$.next(data);
     });
 
     this.hubConnection.on('FoodDeleted', (data: any) => {
-      console.log(data);
+      //console.log(data);
       this.foodchanged$.next('this could be data');
     });
 
     this.hubConnection.on('FoodUpdated', (data: any) => {
-      console.log(data);
+      //console.log(data);
       this.foodchanged$.next('this could be data');
     });
 
@@ -85,7 +94,10 @@ export class SignalRService {
 
     this.hubConnection.on('ClientCreated', (data: any) => {
       this.createdClient = data;
+    });
 
+    this.hubConnection.on('ClientUpdated', (data: any) => {
+      this.clientStatusCode = data;
     });
   }
 }

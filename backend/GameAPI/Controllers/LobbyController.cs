@@ -79,7 +79,7 @@ namespace GameAPI.Controllers
             return NoContent();
         }
 
-        // PUT api/lobby/id
+        // PUT api/lobby/id/add/playerId
         [HttpGet("{id:Guid}/add/{playerId:Guid}")]
         public async Task<ActionResult<Guid>> AddPlayerToLobbyAsync([FromRoute] Guid id, [FromRoute] Guid playerId)
         {
@@ -105,7 +105,7 @@ namespace GameAPI.Controllers
             return Ok(playerId);
         }
 
-        // PUT api/lobby/id
+        // PUT api/lobby/id/remove/playerId
         [HttpDelete("{id:Guid}/remove/{playerId:Guid}")]
         public async Task<ActionResult> RemovePlayerFromLobbyAsync([FromRoute] Guid id, [FromRoute] Guid playerId)
         {

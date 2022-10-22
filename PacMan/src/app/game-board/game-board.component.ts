@@ -38,6 +38,7 @@ export class GameBoardComponent implements OnInit, AfterViewInit {
   correctInput = new CorrectInput();
 
   constructor(
+    private readonly signalRService: SignalRService,
     private router: Router,
     private lobbyService: LobbyService
     ) { }
@@ -111,17 +112,22 @@ export class GameBoardComponent implements OnInit, AfterViewInit {
 
   quit() {
 
-    console.log(sessionStorage.getItem('lobbyId')!, sessionStorage.getItem('playerId')!.toString());
-    this.lobbyService.removePlayerFromLobby(sessionStorage.getItem('lobbyId')!, sessionStorage.getItem('playerId')!).subscribe({
-      next: (data) => {
-        this.router.navigate(['/home']).then(() => {
-          window.location.reload();
-        });
-      },
-      error: (error) => {
-        console.log(error);
+    this.signalRService.disconnectClientFromLobby(sessionStorage.getItem('playerId')!, sessionStorage.getItem('lobbyId')!);
+    this.router.navigate(['/lobbies']).then(() => {
+      window.location.reload();
+    });
 
-      }})
+    // console.log(sessionStorage.getItem('lobbyId')!, sessionStorage.getItem('playerId')!.toString());
+    // this.lobbyService.removePlayerFromLobby(sessionStorage.getItem('lobbyId')!, sessionStorage.getItem('playerId')!).subscribe({
+    //   next: (data) => {
+    //     this.router.navigate(['/home']).then(() => {
+    //       window.location.reload();
+    //     });
+    //   },
+    //   error: (error) => {
+    //     console.log(error);
+
+    //   }})
   }
 
   static createObject(object: string): IObject | undefined {
