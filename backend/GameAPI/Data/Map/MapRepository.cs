@@ -5,11 +5,11 @@ using GameAPI.Model;
 using Microsoft.EntityFrameworkCore;
 using GameAPI.Context;
 
-namespace GameAPI.Data.Lobby
+namespace GameAPI.Data.Map
 {
-    public class LobbyRepository : ILobbyRepository
+    public class MapRepository : IMapRepository
     {
-        public LobbyRepository(GameContext context)
+        public MapRepository(GameContext context)
         {
             _context = context;
         }
@@ -20,36 +20,36 @@ namespace GameAPI.Data.Lobby
             return _context.SaveChangesAsync();
         }
 
-        public async Task<ICollection<LobbyModel>> GetLobbyListAsync()
+        public async Task<ICollection<MapModel>> GetMapListAsync()
         {
-            var list = _context.Lobbies.ToList();
+            var list = _context.Maps.ToList();
 
             return await Task.FromResult(list);
         }
-        public async Task<LobbyModel> GetLobbyByIdAsync(Guid id)
+        public async Task<MapModel> GetMapByIdAsync(Guid id)
         {
-            LobbyModel model = await _context.Lobbies.FirstOrDefaultAsync(x => x.Id == id);
+            MapModel model = await _context.Maps.FirstOrDefaultAsync(x => x.Id == id);
             return model;
         }
 
 
-        public async Task CreateLobbyAsync(LobbyModel request)
+        public async Task CreateMapAsync(MapModel request)
         {
-            await _context.Lobbies.AddAsync(request);
+            await _context.Maps.AddAsync(request);
         }
 
-        public async Task UpdateLobbyAsync(LobbyModel request)
+        public async Task UpdateMapAsync(MapModel request)
         {
             await Task.CompletedTask;
         }
 
-        public async Task DeleteLobbyAsync(LobbyModel request)
+        public async Task DeleteMapAsync(MapModel request)
         {
             if (request is null)
             {
                 throw new ArgumentException(nameof(request));
             }
-            await Task.FromResult(_context.Lobbies.Remove(request));
+            await Task.FromResult(_context.Maps.Remove(request));
 
         }
 

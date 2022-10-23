@@ -30,7 +30,7 @@ public class ClientController : ControllerBase
         
         // GET api/client
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<ClientModel>>> GetClientListAsync()
+        public async Task<ActionResult<ICollection<ClientModel>>> GetClientListAsync()
         {
             var list = await _repository.GetClientListAsync();
             if (list is null)
@@ -143,7 +143,7 @@ public class ClientController : ControllerBase
 
     // // // GET: api/Clients
     // // [HttpGet]
-    // // public async Task<ActionResult<IEnumerable<ClientModel>>> GetUsers()
+    // // public async Task<ActionResult<ICollection<ClientModel>>> GetUsers()
     // // {
     // //     return await _context.Clients.ToListAsync();
     // // }

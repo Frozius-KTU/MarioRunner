@@ -1,5 +1,5 @@
 import { randomGridPosition } from '../../gameboard-grid.util';
-import { Wall } from '../../wall';
+import { Wall } from '../../Decorator/wall';
 import Heal_Fruit from "./heal-fruit";
 import Heal_Point from "./heal-point";
 import IHeal from "./heals"
@@ -20,7 +20,7 @@ export class HealsFactory {
   }
 
   update() {
-    if (this.snake.onSnake(this.heal)) {
+    if (this.snake.onSnake(this.heal) || this.walls.onObject(this.heal)) {
       this.heal = this.getRanomHealPosition();
     }
   }
@@ -30,13 +30,15 @@ export class HealsFactory {
     const healElement = document.createElement('div');
     healElement.style.gridRowStart = this.heal.y;
     healElement.style.gridColumnStart = this.heal.x;
-    healElement.classList.add('heal');
+    healElement.style.backgroundImage = "url('https://icons.iconarchive.com/icons/iconfactory/kidcons/32/Big-Heart-icon.png')"
+    healElement.style.backgroundSize = "cover";
+    healElement.classList.add('healas');
     gameBoard.appendChild(healElement);
   }
 
   getRanomHealPosition() {
     let newFoodPosition;
-    while (newFoodPosition == null || this.snake.onSnake(newFoodPosition)  || this.walls.onWall(newFoodPosition)) {
+    while (newFoodPosition == null || this.snake.onSnake(newFoodPosition)  || this.walls.onObject(newFoodPosition)) {
       newFoodPosition = randomGridPosition()
     }
     return newFoodPosition;

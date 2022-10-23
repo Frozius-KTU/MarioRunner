@@ -7,7 +7,7 @@ namespace GameAPI.Data.Client
     public interface IClientRepository
     {
         Task SaveChangesAsync();
-        Task<IEnumerable<ClientModel>> GetClientListAsync();
+        Task<ICollection<ClientModel>> GetClientListAsync();
         Task<ClientModel> GetClientByIdAsync(Guid id);
         Task CreateClientAsync(ClientModel request);
         Task UpdateClientAsync(ClientModel request);

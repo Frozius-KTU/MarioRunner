@@ -3,7 +3,7 @@ import { ChatMessage } from "../models/chatMessage.model";
 import { fixOutsidePosition, outsideGrid } from "./gameboard-grid.util";
 import { MoveAlgorithm } from "./MoveAlgorithm";
 import { CorrectInput } from "./MoveAlgorithm/CorrectInput";
-import { Wall } from "./wall";
+import { Wall } from "./Decorator/wall";
 
 
 export class Snake {
@@ -19,7 +19,7 @@ export class Snake {
   }
 
   snakeBody = [
-    { x: 1, y: 20 }
+    { x: 8, y: 11 }
   ];
 
   newSegments = 0
@@ -38,7 +38,7 @@ export class Snake {
     }
 
     //Collision
-    if(!this.walls.onWall({x: this.snakeBody[0].x + inputDirection.x, y: this.snakeBody[0].y + inputDirection.y})){
+    if(!this.walls.onObject({x: this.snakeBody[0].x + inputDirection.x, y: this.snakeBody[0].y + inputDirection.y})){
       this.snakeBody[0].x += inputDirection.x;
       this.snakeBody[0].y += inputDirection.y;
     }
@@ -56,7 +56,12 @@ export class Snake {
       const snakeElement = document.createElement('div');
       snakeElement.style.gridRowStart = segment.y.toString();
       snakeElement.style.gridColumnStart = segment.x.toString();
-      snakeElement.classList.add('snake');
+      //snakeElement.style.backgroundImage = "url('https://icons.iconarchive.com/icons/bokehlicia/captiva/32/games-icon.png')"
+      snakeElement.style.backgroundImage = "url('https://icons.iconarchive.com/icons/ph03nyx/super-mario/32/Retro-Mario-2-icon.png')";
+      //snakeElement.style.backgroundImage = "url('https://icons.iconarchive.com/icons/ph03nyx/super-mario/32/Retro-Mushroom-Super-3-icon.png')"
+      snakeElement.style.backgroundSize = "cover";
+
+      snakeElement.classList.add('snakeas');
       gameBoard.appendChild(snakeElement);
     });
   }

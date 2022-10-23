@@ -21,7 +21,7 @@ namespace GameAPI.Data.Client
             return _context.SaveChangesAsync();
         }
 
-        public async Task<IEnumerable<ClientModel>> GetClientListAsync()
+        public async Task<ICollection<ClientModel>> GetClientListAsync()
         {
             var list = _context.Clients.ToList();
 

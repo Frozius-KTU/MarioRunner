@@ -19,6 +19,7 @@ export class LobbyService {
       id: '',
       name: '',
       level: 0,
+      mapId: '',
       player1: '',
       player2: ''
     } as Lobby);

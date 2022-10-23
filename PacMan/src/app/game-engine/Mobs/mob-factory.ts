@@ -2,7 +2,7 @@ import Mob_Boss from "./mob-boss";
 import Mob_Normal from "./mob-normal";
 import IMob from "./mobs"
 import { randomGridPosition } from '../../game-engine/gameboard-grid.util';
-import { Wall } from '../../game-engine/wall';
+import { Wall } from '../Decorator/wall';
 
 export class MobsFactory {
   mob:any;
@@ -33,7 +33,7 @@ export class MobsFactory {
 
   getRandomMobPosition() {
     let newFoodPosition;
-    while (newFoodPosition == null || this.snake.onSnake(newFoodPosition)  || this.walls.onWall(newFoodPosition)) {
+    while (newFoodPosition == null || this.snake.onSnake(newFoodPosition)  || this.walls.onObject(newFoodPosition)) {
       newFoodPosition = randomGridPosition()
     }
     return newFoodPosition;

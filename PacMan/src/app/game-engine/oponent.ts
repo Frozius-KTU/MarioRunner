@@ -1,32 +1,27 @@
-import { ConsoleLogger } from "@microsoft/signalr/dist/esm/Utils";
-import { SignalRService } from "../core/services/signalR.service";
-import { ChatMessage } from "../models/chatMessage.model";
-
+import { ConsoleLogger } from '@microsoft/signalr/dist/esm/Utils';
+import { SignalRService } from '../core/services/signalR.service';
+import { ChatMessage } from '../models/chatMessage.model';
 
 export class Oponent {
+  constructor(private readonly signalRService: SignalRService) {}
 
-  constructor(
-    private readonly signalRService: SignalRService
-  ) {}
-
-  snakeBody = [
-    { x: 1, y: 20 }
-  ];
-
-
-
+  snakeBody = [{ x: -1, y: -1 }];
 
   update() {
-
     this.getPosition();
   }
 
   draw(gameBoard: any) {
-    this.snakeBody.forEach(segment => {
+    this.snakeBody.forEach((segment) => {
       const snakeElement = document.createElement('div');
       snakeElement.style.gridRowStart = segment.y.toString();
       snakeElement.style.gridColumnStart = segment.x.toString();
-      snakeElement.classList.add('oponent');
+      //snakeElement.style.backgroundImage = "url('https://icons.iconarchive.com/icons/ph03nyx/super-mario/32/Retro-Mushroom-Super-3-icon.png')"
+      snakeElement.style.backgroundImage =
+        "url('https://icons.iconarchive.com/icons/ph03nyx/super-mario/32/Retro-Mushroom-1UP-3-icon.png')";
+      //snakeElement.style.backgroundImage = "url('../../assets/icons/luigi.png')";
+      snakeElement.style.backgroundSize = 'cover';
+      snakeElement.classList.add('oponentas');
       gameBoard.appendChild(snakeElement);
     });
   }
@@ -43,27 +38,27 @@ export class Oponent {
     return this.onSnake(this.snakeBody[0], { ignoreHead: true });
   }
 
-
   onSnake(position: any, { ignoreHead = false } = {}) {
     return this.snakeBody.some((segment, index) => {
       if (ignoreHead && index === 0) return false;
       return this.equalPositions(segment, position);
-    })
+    });
   }
 
   equalPositions(pos1: any, pos2: any) {
     return pos1.x === pos2.x && pos1.y === pos2.y;
   }
 
-
   getPosition() {
     this.signalRService.messageReceived$.subscribe((message) => {
-      var data = message.message.split(" ");
-      if(data[0] == sessionStorage.getItem('lobbyId') && data[1] != sessionStorage.getItem('playerName')){
+      var data = message.message.split(' ');
+      if (
+        data[0] == sessionStorage.getItem('lobbyId') &&
+        data[1] != sessionStorage.getItem('playerName')
+      ) {
         this.snakeBody[0].x = Number(data[2]);
         this.snakeBody[0].y = Number(data[3]);
       }
     });
   }
-
 }

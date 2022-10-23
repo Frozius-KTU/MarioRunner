@@ -15,14 +15,14 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { HttpClientModule } from '@angular/common/http';
-import { MatBadgeModule} from '@angular/material/badge';
-import { MatCardModule} from '@angular/material/card';
-import { MatChipsModule} from '@angular/material/chips';
-import { MatMenuModule} from '@angular/material/menu';
-import { MatDividerModule} from '@angular/material/divider';
-import { MatDatepickerModule} from '@angular/material/datepicker';
+import { MatBadgeModule } from '@angular/material/badge';
+import { MatCardModule } from '@angular/material/card';
+import { MatChipsModule } from '@angular/material/chips';
+import { MatMenuModule } from '@angular/material/menu';
+import { MatDividerModule } from '@angular/material/divider';
+import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
-import { MatTableModule } from '@angular/material/table'
+import { MatTableModule } from '@angular/material/table';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatSelectModule } from '@angular/material/select';
@@ -30,17 +30,19 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
-import { UtilsDropdownsModule, UtilsGridModule, UtilsInputsModule } from 'angular-helper-utils';
-
-
-
+import {
+  UtilsDropdownsModule,
+  UtilsGridModule,
+  UtilsInputsModule,
+} from 'angular-helper-utils';
+import { DecoratorTest } from './game-engine/Decorator/decoratorTest';
 
 @NgModule({
   declarations: [
     AppComponent,
     HomeComponent,
     GameBoardComponent,
-    LobbiesComponent
+    LobbiesComponent,
   ],
   imports: [
     BrowserModule,
@@ -69,9 +71,9 @@ import { UtilsDropdownsModule, UtilsGridModule, UtilsInputsModule } from 'angula
     FontAwesomeModule,
     UtilsGridModule,
     UtilsInputsModule,
-    UtilsDropdownsModule
+    UtilsDropdownsModule,
   ],
-  providers: [],
-  bootstrap: [AppComponent]
+  providers: [DecoratorTest],
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}

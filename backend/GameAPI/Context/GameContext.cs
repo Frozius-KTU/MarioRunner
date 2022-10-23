@@ -12,6 +12,7 @@ public class GameContext : DbContext
     }
 
     public DbSet<LobbyModel> Lobbies => Set<LobbyModel>();
+    public DbSet<MapModel> Maps => Set<MapModel>();
 
     #region Required
     protected override void OnModelCreating(ModelBuilder modelBuilder)

@@ -19,7 +19,7 @@ namespace GameAPI.Controllers
 
         // GET api/lobby
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<LobbyModel>>> GetLobbyListAsync()
+        public async Task<ActionResult<ICollection<LobbyModel>>> GetLobbyListAsync()
         {
             var lobbyList = await _repository.GetLobbyListAsync();
             if (lobbyList is null)

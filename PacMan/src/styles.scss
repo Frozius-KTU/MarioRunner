@@ -32,6 +32,7 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }*/
   --tri-lrg-b: 19px;
   --dpad-arrow-shift: 5px;
   --dpad-arrow-move: 35%;
+  color: #5b277f;
 }
 
 body {
@@ -56,7 +57,7 @@ body {
 
 .wall {
   background-color: var(--wall-color);
-  border: 0.25vmin solid black;
+  //border: 0.25vmin solid black;
   transition: all .3ms ease-in;
 }
 

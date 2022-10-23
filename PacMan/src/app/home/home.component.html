@@ -1,83 +1,17 @@
-
-
-<br class=" p-50 m-50">
+<br class="p-50 m-50" />
 
 <utils-textbox [(ngModel)]="playerName" [clearButton]="true"></utils-textbox>
 
-
-<!-- <utils-grid *ngIf="lobbyList.length > 0" [data]="lobbyList">
-  <utils-grid-column field="name" title="Name"></utils-grid-column>
-  <utils-grid-column field="level" title="Level"></utils-grid-column>
-  <utils-grid-column field="players" title="Players">
-    <ng-template utilsGridRowTemplate let-lobby>
-      {{getLobbyPlayerCount(lobby.id)}}
-    </ng-template>
-  </utils-grid-column>
-  <utils-grid-column field="play" >
-    <ng-template utilsGridRowTemplate let-lobby>
-      <button mat-button (click)="play(lobby.id)">
-        <i class="fa-solid fa-play"></i>
-      </button>
-    </ng-template>
-  </utils-grid-column>
-</utils-grid>
-
-<br class=" p-50 m-50"> -->
-
 <button mat-button (click)="createClient()">
   <i class="fa-solid fa-gamepad">Play</i>
-
 </button>
 
-<button mat-button (click)="resetClient()">
-  <i class="fa-solid fa-trash">Reset Client</i>
+<button mat-button (click)="testDecorator()">
+  <i>Test</i>
 </button>
-
-
-<!--
-
-<form [formGroup]="form">
-  <div class="form-group mx-sm-6" style="width: 500px;">
-    <input
-      type="text"
-      class="form-control mb-2"
-      placeholder="User"
-      formControlName="usermessage"
-    />
-  </div>
-  <div class="form-group mx-sm-6" style="width: 500px;">
-    <input
-      type="text"
-      class="form-control mb-2"
-      placeholder="Type message"
-      formControlName="chatmessage"
-    />
-  </div>
-
-  <button mat-raised-button color="primary" class="mb-2" (click)="sendMessage()" >
-    Send
-  </button>
-
-  <button mat-raised-button class="mb-2" (click)="sendControls('up')">
-    Up
-  </button>
-
-  <button mat-raised-button class="mb-2" (click)="sendControls('down')">
-    Down
-  </button>
-</form> -->
-
-
-
 
 <!-- <ul class="list-group list-group-flush" *ngFor="let message of chatmessages">
   <li class="list-group-item">
     {{ message.sent }}: {{ message.message }}
   </li>
 </ul> -->
-
-
-
-
-
-

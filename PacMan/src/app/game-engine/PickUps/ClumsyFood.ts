@@ -1,7 +1,7 @@
 import { randomGridPosition } from "../gameboard-grid.util";
 import { ClumsyInput } from "../MoveAlgorithm/ClumsyInput";
 import { CorrectInput } from "../MoveAlgorithm/CorrectInput";
-import { Wall } from "../wall";
+import { Wall } from "../Decorator/wall";
 
 
 export class ClumsyFood {
@@ -25,20 +25,26 @@ export class ClumsyFood {
       //this.snake.changeMovement(new CorrectInput);
       this.ClumsyFood = this.getRandomFoodPosition();
     }
+    if(this.walls.onObject(this.ClumsyFood)){
+      this.ClumsyFood = this.getRandomFoodPosition();
+    }
   }
 
   draw(gameBoard: any) {
     const foodElement = document.createElement('div');
     foodElement.style.gridRowStart = this.ClumsyFood.y;
     foodElement.style.gridColumnStart = this.ClumsyFood.x;
-    foodElement.classList.add('clumsyfood');
+    foodElement.style.backgroundImage = "url('https://icons.iconarchive.com/icons/mozco/symbolic-objects/32/Poison-icon.png')"
+    foodElement.style.backgroundSize = "cover";
+
+    foodElement.classList.add('clumsyfoodas');
     gameBoard.appendChild(foodElement);
   }
 
 
   getRandomFoodPosition() {
     let newFoodPosition;
-    while (newFoodPosition == null || this.snake.onSnake(newFoodPosition)  || this.walls.onWall(newFoodPosition)) {
+    while (newFoodPosition == null || this.snake.onSnake(newFoodPosition)  || this.walls.onObject(newFoodPosition)) {
       newFoodPosition = randomGridPosition()
     }
     return newFoodPosition;

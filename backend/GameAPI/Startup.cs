@@ -12,6 +12,7 @@ using Microsoft.OpenApi.Models;
 using GameAPI.Context;
 using GameAPI.Data.Lobby;
 using GameAPI.Data.Client;
+using GameAPI.Data.Map;
 
 namespace GameAPI.Web
 {
@@ -70,6 +71,7 @@ namespace GameAPI.Web
 
             services.AddScoped<IClientRepository, ClientRepository>();
             services.AddScoped<ILobbyRepository, LobbyRepository>();
+            services.AddScoped<IMapRepository, MapRepository>();
 
         }
 

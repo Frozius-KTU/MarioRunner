@@ -3,25 +3,23 @@ import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { Client } from 'src/app/models/game.types';
-
+import { Router } from '@angular/router';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class ClientService {
+  constructor(private http: HttpClient, private router: Router) {}
 
   readonly APIUrl = environment.baseUrls.server + environment.baseUrls.apiUrl;
 
-  constructor(private http: HttpClient) { }
-
-  getClientDefaults(){
+  getClientDefaults() {
     return of({
       id: '',
       name: '',
       lobbyId: '',
-      created: ''
+      created: '',
     } as Client);
-
   }
 
   getClientList(): Observable<Client[]> {

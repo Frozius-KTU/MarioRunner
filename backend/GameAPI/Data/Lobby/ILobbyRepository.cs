@@ -7,10 +7,10 @@ namespace GameAPI.Data.Lobby
     public interface ILobbyRepository
     {
         Task SaveChangesAsync();
-        Task<IEnumerable<LobbyModel>> GetLobbyListAsync();
+        Task<ICollection<LobbyModel>> GetLobbyListAsync();
         Task<LobbyModel> GetLobbyByIdAsync(Guid id);
-        Task CreateLobbyAsync(LobbyModel lobbyModel);
-        Task UpdateLobbyAsync(LobbyModel lobbyModel);
-        Task DeleteLobbyAsync(LobbyModel lobbyModel);
+        Task CreateLobbyAsync(LobbyModel request);
+        Task UpdateLobbyAsync(LobbyModel request);
+        Task DeleteLobbyAsync(LobbyModel request);
     }
 }
