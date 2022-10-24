@@ -17,6 +17,7 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }*/
   --food-color: #e70f0f;
   --clumsyfood-color: #09ff00;
   --heal-color: #860202;
+  --powerups-color: #4d0334;
   --antidotefood-color: #1100ff;
   --wall-color: #1a1a1a;
   --button-color: #000000;
@@ -68,6 +69,13 @@ body {
   border: 0.5vmin solid black;
   transition: all .3ms ease-in;
 }
+.powerups {
+  background-image: "https://img.lovepik.com/free-png/20210927/lovepik-apple-png-image_401592228_wh1200.png";
+  border-radius: 50%;
+  background-color: var(--powerup-color);
+  border: 0.5vmin solid black;
+  transition: all .3ms ease-in;
+}
 .clumsyfood {
   background-image: "https://img.lovepik.com/free-png/20210927/lovepik-apple-png-image_401592228_wh1200.png";
   border-radius: 50%;
@@ -93,7 +101,7 @@ body {
 .heal::before, .heal::after {
   content: "";
   position: absolute;
-  background-color: var(--heal-color);
+  background-color: var(--heal1-color);
   top: 0;
   width: 16.38px;
   height: 25.2px;

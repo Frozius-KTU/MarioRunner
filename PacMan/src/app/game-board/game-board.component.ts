@@ -1,20 +1,23 @@
 import { AfterViewInit, Component, OnInit } from '@angular/core';
 import { SignalRService } from '../core/services/signalR.service';
-import { Food } from '../game-engine/PickUps/food';
+import { Food} from '../game-engine/PickUps/food';
 import { outsideGrid } from '../game-engine/gameboard-grid.util';
 import { Oponent } from '../game-engine/oponent';
 import { ClumsyFood } from '../game-engine/PickUps/ClumsyFood';
 import { Snake } from '../game-engine/snake';
 import { BlackBorderWallDecorator, Wall, WhiteBorderWallDecorator, YellowBorderWallDecorator } from '../game-engine/Decorator/wall';
 import { CorrectInput } from '../game-engine/MoveAlgorithm/CorrectInput';
-import { AntidoteFood } from '../game-engine/PickUps/AntidoteFood';
+import { AntidoteFood} from '../game-engine/PickUps/AntidoteFood';
 import { ClumsyInput } from '../game-engine/MoveAlgorithm/ClumsyInput';
-import { HealsFactory} from '../game-engine/PickUps/Heals/heal-factory';
 import { MobsFactory} from '../game-engine/Mobs/mob-factory';
+import { PickUpsFactory} from '../game-engine/PickUps/pickup-abstract-factory'
 import { ActivatedRoute, Router } from '@angular/router';
 import { LobbyService } from '../core/services/lobby.service';
 import { MapService } from '../core/services/map.service';
 import { Lobby, Map } from 'src/app/models/game.types';
+import { IPowerUp } from '../game-engine/PickUps/PowerUps';
+import { IHeal } from '../game-engine/PickUps/Heals-Factory/Heal';
+import { ConsoleLogger } from '@microsoft/signalr/dist/esm/Utils';
 
 interface IObject {}
 @Component({
@@ -37,8 +40,11 @@ export class GameBoardComponent implements OnInit, AfterViewInit {
   food?: Food;
   clumsyFood?: ClumsyFood;
   antidotefood?: AntidoteFood;
-  healfactory?: HealsFactory;
+  pickupsfactory?: PickUpsFactory;
+  pickupPowerUp?: IPowerUp;
+  pickupHeals?:IHeal;
   mobsfactory?: MobsFactory;
+  current_map?:number;
 
   map: Map | undefined
   lobby: Lobby | undefined
@@ -52,7 +58,6 @@ export class GameBoardComponent implements OnInit, AfterViewInit {
     ) { }
 
   ngOnInit(): void {
-
     let route = this.activatedRoute.params.subscribe((params) => {
       const id = params['id'];
       if (!id) {
@@ -63,9 +68,7 @@ export class GameBoardComponent implements OnInit, AfterViewInit {
       next: (data) => {
         this.lobby = data;
         //console.log(this.lobby)
-
-
-
+        this.current_map = this.lobby?.level;
         switch (this.lobby.level) {
           case 1:
             this.wall = new BlackBorderWallDecorator(new Wall);
@@ -81,7 +84,6 @@ export class GameBoardComponent implements OnInit, AfterViewInit {
             this.wall = new BlackBorderWallDecorator(new Wall);
             break;
         }
-
 
 
         this.mapService.getMapById(this.lobby.mapId).subscribe({
@@ -112,8 +114,13 @@ export class GameBoardComponent implements OnInit, AfterViewInit {
     this.food = new Food(this.snake, wall);
     this.clumsyFood = new ClumsyFood(this.snake, wall);
     this.antidotefood = new AntidoteFood(this.snake, wall);
-    this.healfactory = new HealsFactory(this.snake, wall);
     this.mobsfactory = new MobsFactory(this.snake, wall);
+    this.pickupsfactory = new PickUpsFactory(this.snake,wall);
+    if(this.current_map ==null){
+      return;
+    }
+    this.pickupPowerUp = this.pickupsfactory.getPowerUps(this.current_map,this.gameBoard);
+    this.pickupHeals = this.pickupsfactory.getHeals(this.current_map,this.gameBoard);
   }
 
   ngAfterViewInit(){
@@ -154,19 +161,22 @@ export class GameBoardComponent implements OnInit, AfterViewInit {
     this.food!.update();
     this.antidotefood!.update();
     this.clumsyFood!.update();
-    this.healfactory!.update();
     this.checkDeath();
+    this.pickupPowerUp?.update();
+    this.pickupHeals?.update();
     this.snake!.listenToInputs();
+    //this.pickupPowerUp?.effect();
   }
 
   draw() {
     this.gameBoard.innerHTML = '';
     this.snake!.draw(this.gameBoard);
     this.oponent.draw(this.gameBoard);
+    this.pickupPowerUp!.draw(this.gameBoard);
+    this.pickupHeals!.draw(this.gameBoard);
     this.wall!.draw(this.gameBoard);
     this.food!.draw(this.gameBoard);
     this.clumsyFood!.draw(this.gameBoard);
-    this.healfactory!.draw(this.gameBoard);
     this.antidotefood!.draw(this.gameBoard);
   }
 
@@ -198,22 +208,5 @@ export class GameBoardComponent implements OnInit, AfterViewInit {
     //     console.log(error);
 
     //   }})
-  }
-
-  static createObject(object: string): IObject | undefined {
-    try {
-        if (['Boss Mob', 'Normal Mob'].indexOf(object) > -1) {
-            return MobsFactory.getMob(object[1])
-        }
-        if (['Heal Point', 'Heal Fruit'].indexOf(object) > -1) {
-            return HealsFactory.getHeal(object[1])
-        }
-        throw new Error('No object Found')
-    } catch (e) {
-        console.log(e)
-        return;
-    }
-
-
   }
 }

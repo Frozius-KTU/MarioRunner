@@ -1,7 +1,8 @@
 import { randomGridPosition } from '../gameboard-grid.util';
 import { Wall } from '../Decorator/wall';
 
-export class Food {
+
+export class Food{
 
 
   EXPANSION_RATE = 1;

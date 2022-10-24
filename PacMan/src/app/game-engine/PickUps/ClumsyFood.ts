@@ -3,8 +3,7 @@ import { ClumsyInput } from "../MoveAlgorithm/ClumsyInput";
 import { CorrectInput } from "../MoveAlgorithm/CorrectInput";
 import { Wall } from "../Decorator/wall";
 
-
-export class ClumsyFood {
+export class ClumsyFood{
 
 
   EXPANSION_RATE = 1;
@@ -36,7 +35,6 @@ export class ClumsyFood {
     foodElement.style.gridColumnStart = this.ClumsyFood.x;
     foodElement.style.backgroundImage = "url('https://icons.iconarchive.com/icons/mozco/symbolic-objects/32/Poison-icon.png')"
     foodElement.style.backgroundSize = "cover";
-
     foodElement.classList.add('clumsyfoodas');
     gameBoard.appendChild(foodElement);
   }

@@ -4,7 +4,7 @@ import { CorrectInput } from "../MoveAlgorithm/CorrectInput";
 import { Wall } from "../Decorator/wall";
 
 
-export class AntidoteFood {
+export class AntidoteFood{
 
 
   EXPANSION_RATE = 1;
@@ -53,3 +53,4 @@ export class AntidoteFood {
     return newFoodPosition;
   }
 }
+
