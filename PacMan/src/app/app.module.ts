@@ -35,7 +35,6 @@ import {
   UtilsGridModule,
   UtilsInputsModule,
 } from 'angular-helper-utils';
-import { DecoratorTest } from './game-engine/Decorator/decoratorTest';
 
 @NgModule({
   declarations: [
@@ -73,7 +72,7 @@ import { DecoratorTest } from './game-engine/Decorator/decoratorTest';
     UtilsInputsModule,
     UtilsDropdownsModule,
   ],
-  providers: [DecoratorTest],
+  providers: [],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

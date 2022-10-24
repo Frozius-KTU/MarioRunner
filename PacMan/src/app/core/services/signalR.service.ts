@@ -5,16 +5,15 @@ import {
   HubConnection,
   HubConnectionBuilder,
   HubConnectionState,
-  LogLevel
+  LogLevel,
 } from '@microsoft/signalr';
 import { BehaviorSubject, Subject } from 'rxjs';
 import { ChatMessage } from 'src/app/models/chatMessage.model';
 import { Client } from 'src/app/models/game.types';
 
-
 @Injectable({ providedIn: 'root' })
 export class SignalRService {
-  createdClient: Client = {name : ''};
+  createdClient: Client = { name: '' };
   clientStatusCode: string = '';
 
   foodchanged$ = new Subject();
@@ -63,7 +62,7 @@ export class SignalRService {
         console.log('Hub connection started!');
         this.connectionEstablished$.next(true);
       },
-      error => console.error(error)
+      (error) => console.error(error)
     );
   }
 
