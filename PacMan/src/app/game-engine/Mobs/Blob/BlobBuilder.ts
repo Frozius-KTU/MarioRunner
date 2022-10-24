@@ -2,6 +2,7 @@ import { SignalRService } from "src/app/core/services/signalR.service";
 import { IBlobBuilder } from "src/app/game-engine/Mobs/Blob/IBlobBuilder";
 import { Blob } from "src/app/models/blobEntity.model";
 import { Wall } from "../../Decorator/wall";
+import { Snake } from "../../snake";
 
 export default class BlobBuilder implements IBlobBuilder  {
   blob: Blob
@@ -16,8 +17,8 @@ export default class BlobBuilder implements IBlobBuilder  {
     this.blob.type = type
     return this
   }
-  setCoordinates(blobBody: [{ x: number, y: number }]): this {
-    this.blob.blobBody = blobBody
+  setCoordinates(snake: Snake, walls: Wall): this {
+    this.blob.setRandomPosition(snake, walls)
     return this
   }
   getResult(): Blob {
