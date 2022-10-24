@@ -30,6 +30,7 @@ export class OnlyAuthorizedGuard implements CanActivate, CanLoad {
   }
 
   public canAccess(): boolean {
+    console.log(sessionStorage.getItem('playerId'));
     if (sessionStorage.getItem('playerId')) {
       return true;
     }

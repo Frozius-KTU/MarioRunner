@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace GameAPI.Migrations
 {
     [DbContext(typeof(GameContext))]
-    [Migration("20221024114716_Init")]
+    [Migration("20221024231500_Init")]
     partial class Init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -58,21 +58,21 @@ namespace GameAPI.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("b84161e5-d961-4e26-8e74-e49ad876c055"),
+                            Id = new Guid("a57bac61-52d5-4eaf-b80f-42560d8a6f2d"),
                             Level = 1,
                             MapId = new Guid("3fa85f64-5717-4562-b3fc-2c963f66afa1"),
                             Name = "Lobby 1"
                         },
                         new
                         {
-                            Id = new Guid("672e7a81-2f1d-4767-99bc-8eb1103d11e2"),
+                            Id = new Guid("256b0b17-04a8-49e8-9aa0-de10b824502a"),
                             Level = 2,
                             MapId = new Guid("3fa85f64-5717-4562-b3fc-2c963f66afa2"),
                             Name = "Lobby 2"
                         },
                         new
                         {
-                            Id = new Guid("19258a7c-cba1-4603-a1a1-f873bb811e4d"),
+                            Id = new Guid("64ce0fed-f6be-441f-922d-a1b92cd08ecd"),
                             Level = 3,
                             MapId = new Guid("3fa85f64-5717-4562-b3fc-2c963f66afa3"),
                             Name = "Lobby 3"

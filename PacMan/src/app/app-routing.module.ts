@@ -1,8 +1,8 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
-import { HomeComponent}  from './home/home.component';
-import { LobbiesComponent}  from './lobbies/lobbies.component';
+import { HomeComponent } from './home/home.component';
+import { LobbiesComponent } from './lobbies/lobbies.component';
 import { GameBoardComponent } from './game-board/game-board.component';
 import { OnlyAuthorizedGuard } from './core/guards/only-authorized.guard';
 
@@ -13,13 +13,16 @@ const routes: Routes = [
     component: LobbiesComponent,
     canActivate: [OnlyAuthorizedGuard],
   },
-  { path: 'game/:id', component: GameBoardComponent },
+  {
+    path: 'game/:id',
+    component: GameBoardComponent,
+    canActivate: [OnlyAuthorizedGuard],
+  },
   { path: '**', redirectTo: 'home' },
 ];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
-export class AppRoutingModule { }
-
+export class AppRoutingModule {}

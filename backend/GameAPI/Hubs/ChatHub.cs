@@ -14,13 +14,37 @@ public class ChatHub : Hub
         await Clients.All.SendAsync("Send", chatMessage);
     }
 
+    public override Task OnConnectedAsync()
+    {
+        // Add your own code here.
+        // For example: in a chat application, mark the user as offline, 
+        // delete the association between the current connection id and user name.
+        Console.WriteLine(base.Context.ConnectionId);
+        Console.WriteLine("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!" + base.Context.ConnectionId);
+        Clients.Caller.SendAsync("SignalRCreated", base.Context.ConnectionId);
+        
+        return base.OnConnectedAsync();
+    }
+
+    public override Task OnDisconnectedAsync(Exception exception)
+    {
+        // Add your own code here.
+        // For example: in a chat application, mark the user as offline, 
+        // delete the association between the current connection id and user name.
+        Console.WriteLine(base.Context.ConnectionId);
+        Console.WriteLine("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!" + base.Context.ConnectionId);
+
+        
+        return base.OnDisconnectedAsync(exception);
+    }
+
     public async Task CreateClient(ClientModel request)
     {
         HttpClientHandler clientHandler = new HttpClientHandler();
         clientHandler.ServerCertificateCustomValidationCallback = (sender, cert, chain, sslPolicyErrors) => { return true; };
         // Pass the handler to httpclient(from you are calling api)
         HttpClient client = new HttpClient(clientHandler);
-
+        
         for (int i = 0; i < 3; i++)
         {
             try

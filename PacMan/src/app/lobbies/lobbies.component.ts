@@ -81,6 +81,11 @@ export class LobbiesComponent implements OnInit {
     });
   }
 
+  getSession() {
+    console.log(sessionStorage.getItem('playerId'));
+    console.log(sessionStorage.getItem('playerName'));
+  }
+
   getLobbyPlayerCount(id: string) {
     var lobby = this.lobbyList.find(function (element) {
       return element.id === id;

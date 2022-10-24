@@ -62,17 +62,17 @@ namespace GameAPI.Migrations
             migrationBuilder.InsertData(
                 table: "Lobby",
                 columns: new[] { "Id", "Level", "MapId", "Name", "Player1", "Player2" },
-                values: new object[] { new Guid("19258a7c-cba1-4603-a1a1-f873bb811e4d"), 3, new Guid("3fa85f64-5717-4562-b3fc-2c963f66afa3"), "Lobby 3", null, null });
+                values: new object[] { new Guid("256b0b17-04a8-49e8-9aa0-de10b824502a"), 2, new Guid("3fa85f64-5717-4562-b3fc-2c963f66afa2"), "Lobby 2", null, null });
 
             migrationBuilder.InsertData(
                 table: "Lobby",
                 columns: new[] { "Id", "Level", "MapId", "Name", "Player1", "Player2" },
-                values: new object[] { new Guid("672e7a81-2f1d-4767-99bc-8eb1103d11e2"), 2, new Guid("3fa85f64-5717-4562-b3fc-2c963f66afa2"), "Lobby 2", null, null });
+                values: new object[] { new Guid("64ce0fed-f6be-441f-922d-a1b92cd08ecd"), 3, new Guid("3fa85f64-5717-4562-b3fc-2c963f66afa3"), "Lobby 3", null, null });
 
             migrationBuilder.InsertData(
                 table: "Lobby",
                 columns: new[] { "Id", "Level", "MapId", "Name", "Player1", "Player2" },
-                values: new object[] { new Guid("b84161e5-d961-4e26-8e74-e49ad876c055"), 1, new Guid("3fa85f64-5717-4562-b3fc-2c963f66afa1"), "Lobby 1", null, null });
+                values: new object[] { new Guid("a57bac61-52d5-4eaf-b80f-42560d8a6f2d"), 1, new Guid("3fa85f64-5717-4562-b3fc-2c963f66afa1"), "Lobby 1", null, null });
 
             migrationBuilder.CreateIndex(
                 name: "IX_Lobby_MapId",

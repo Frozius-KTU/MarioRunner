@@ -98,5 +98,8 @@ export class SignalRService {
     this.hubConnection.on('ClientUpdated', (data: any) => {
       this.clientStatusCode = data;
     });
+    this.hubConnection.on('SignalRCreated', (data: any) => {
+      console.log('SignalR !!!!!!!!!!!!!!!!!!!!!!!' + data);
+    });
   }
 }

@@ -57,6 +57,21 @@ namespace GameAPI.Context
     //     }
     // }
 
+
+    // public class ClientEntityConfiguration : IEntityTypeConfiguration<ClientModel>
+    // {
+    //     public void Configure(EntityTypeBuilder<ClientModel> builder)
+    //     {
+    //         builder.ToTable("Client");
+
+    //         builder.HasKey(x => x.Id);
+    //         builder.Property(x => x.Id);
+    //         builder.Property(x => x.Name);
+    //         builder.Property(x => x.LobbyId);
+    //         builder.Property(x => x.Created);
+    //     }
+    // }
+
     public class LobbyEntityConfiguration : BaseEntityConfiguration<LobbyModel>
     {
         protected override void ConfigureEntity(EntityTypeBuilder<LobbyModel> builder)
