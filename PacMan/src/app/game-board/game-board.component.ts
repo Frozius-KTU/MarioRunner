@@ -15,6 +15,8 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { LobbyService } from '../core/services/lobby.service';
 import { MapService } from '../core/services/map.service';
 import { Lobby, Map } from 'src/app/models/game.types';
+import BlobBuilder from '../game-engine/Mobs/Blob/BlobBuilder';
+import { Blob } from '../models/blobEntity.model';
 
 interface IObject {}
 @Component({
@@ -35,6 +37,11 @@ export class GameBoardComponent implements OnInit, AfterViewInit {
   wall?: BlackBorderWallDecorator;
   snake?:Snake;
   food?: Food;
+  blob1?: Blob;
+  blob2?: Blob;
+  blob3?: Blob;
+  blob4?: Blob;
+
   clumsyFood?: ClumsyFood;
   antidotefood?: AntidoteFood;
   healfactory?: HealsFactory;
@@ -114,6 +121,26 @@ export class GameBoardComponent implements OnInit, AfterViewInit {
     this.antidotefood = new AntidoteFood(this.snake, wall);
     this.healfactory = new HealsFactory(this.snake, wall);
     this.mobsfactory = new MobsFactory(this.snake, wall);
+    this.blob1 = new BlobBuilder(wall)
+    .setColor("red")
+    .setCoordinates([{ x: 1, y: 18 }])
+    .setType("default")
+    .getResult();
+    this.blob2 = new BlobBuilder(wall)
+    .setColor("red")
+    .setCoordinates([{ x: 18, y: 16 }])
+    .setType("default")
+    .getResult();
+    this.blob3 = new BlobBuilder(wall)
+    .setColor("blue")
+    .setCoordinates([{ x: 13, y: 6 }])
+    .setType("default")
+    .getResult();
+    this.blob4 = new BlobBuilder(wall)
+    .setColor("blue")
+    .setCoordinates([{ x: 9, y: 16 }])
+    .setType("default")
+    .getResult();
   }
 
   ngAfterViewInit(){
@@ -168,6 +195,10 @@ export class GameBoardComponent implements OnInit, AfterViewInit {
     this.clumsyFood!.draw(this.gameBoard);
     this.healfactory!.draw(this.gameBoard);
     this.antidotefood!.draw(this.gameBoard);
+    this.blob1!.draw(this.gameBoard);
+    this.blob2!.draw(this.gameBoard);
+    this.blob3!.draw(this.gameBoard);
+    this.blob4!.draw(this.gameBoard);
   }
 
   checkDeath() {
