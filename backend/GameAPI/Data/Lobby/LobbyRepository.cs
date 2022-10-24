@@ -22,7 +22,7 @@ namespace GameAPI.Data.Lobby
 
         public async Task<ICollection<LobbyModel>> GetLobbyListAsync()
         {
-            var list = _context.Lobbies.ToList();
+            var list = _context.Lobbies.OrderBy(x => x.Name).ToList();
 
             return await Task.FromResult(list);
         }

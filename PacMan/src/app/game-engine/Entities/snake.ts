@@ -1,9 +1,9 @@
-import { SignalRService } from "../core/services/signalR.service";
-import { ChatMessage } from "../models/chatMessage.model";
-import { fixOutsidePosition, outsideGrid } from "./gameboard-grid.util";
-import { MoveAlgorithm } from "./MoveAlgorithm";
-import { CorrectInput } from "./MoveAlgorithm/CorrectInput";
-import { Wall } from "./Decorator/wall";
+import { SignalRService } from "src/app/core/services/signalR.service";
+import { ChatMessage } from "src/app/models/chatMessage.model";
+import { Wall } from "../Decorator/wall";
+import { fixOutsidePosition, outsideGrid } from "../gameboard-grid.util";
+import { MoveAlgorithm } from "../MoveAlgorithm";
+
 
 
 export class Snake {

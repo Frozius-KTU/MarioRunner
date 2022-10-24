@@ -2,37 +2,33 @@ import { Map } from 'src/app/models/game.types';
 
 interface IObject {
   update(): void;
-  generateElements(map: Map):void;
+  generateElements(map: Map): void;
   draw(gameBoard: any): void;
   onObject(position: any): boolean;
   equalPositions(pos1: any, pos2: any): boolean;
 }
 
 export class Wall implements IObject {
+  wall = [{ x: -1, y: -1 }];
+  wallElements: HTMLElement[] = [];
 
-  wall = [{ x: -1, y: -1 }
-  ];
-  wallElements: HTMLElement[]= [];
+  update() {}
 
-  update() {
-
-  }
-
-  generateElements(map: Map){
-    let lines = map!.map.split('\n                        ')
-    this.wall.pop()
+  generateElements(map: Map) {
+    let lines = map!.map.split('\n                        ');
+    this.wall.pop();
     for (let y = 0; y < lines.length; y++) {
-      let elements = lines[y].split(' ')
+      let elements = lines[y].split(' ');
 
       for (let x = 0; x < elements.length; x++) {
-        if(elements[x] != '0'){
-          this.wall.push({ x: x+1, y: y+1 })
+        if (elements[x] == '1') {
+          this.wall.push({ x: x + 1, y: y + 1 });
 
           const wallElement = document.createElement('divas');
-          wallElement.style.gridRowStart = (y+1).toString();
-          wallElement.style.gridColumnStart = (x+1).toString();
+          wallElement.style.gridRowStart = (y + 1).toString();
+          wallElement.style.gridColumnStart = (x + 1).toString();
           wallElement.style.backgroundColor = '#1a1a1a';
-          this.wallElements.push(wallElement)
+          this.wallElements.push(wallElement);
         }
       }
     }
@@ -52,7 +48,7 @@ export class Wall implements IObject {
     //   gameBoard.appendChild(wallElement);
     // });
 
-    this.wallElements.forEach(segment => {
+    this.wallElements.forEach((segment) => {
       gameBoard.appendChild(segment);
     });
   }
@@ -60,71 +56,62 @@ export class Wall implements IObject {
   onObject(position: any) {
     return this.wall.some((segment) => {
       return this.equalPositions(segment, position);
-    })
+    });
   }
 
   equalPositions(pos1: any, pos2: any) {
     return pos1.x === pos2.x && pos1.y === pos2.y;
   }
-
 }
 
-
 export class Door implements IObject {
+  door = [{ x: 1, y: 1 }];
+  doorElements: HTMLElement[] = [];
 
-  door = [{ x: 1, y: 1 }
-  ];
-  doorElements: HTMLElement[]= [];
+  update() {}
 
-  update() {
-
-  }
-
-  generateElements(map: Map){
-    let lines = map!.map.split('\n                        ')
-    this.door.pop()
+  generateElements(map: Map) {
+    let lines = map!.map.split('\n                        ');
+    this.door.pop();
     for (let y = 0; y < lines.length; y++) {
-      let elements = lines[y].split(' ')
+      let elements = lines[y].split(' ');
 
       for (let x = 0; x < elements.length; x++) {
-        if(elements[x] != '0'){
-          this.door.push({ x: x+1, y: y+1 })
+        if (elements[x] == '2') {
+          this.door.push({ x: x + 1, y: y + 1 });
 
-          const doorElement = document.createElement('divas');
-          doorElement.style.gridRowStart = (y+1).toString();
-          doorElement.style.gridColumnStart = (x+1).toString();
-          doorElement.style.backgroundColor = '#1a1a1a';
-          this.doorElements.push(doorElement)
+          const doorElement = document.createElement('div');
+          doorElement.style.gridRowStart = (y + 1).toString();
+          doorElement.style.gridColumnStart = (x + 1).toString();
+          doorElement.style.backgroundColor = '#331d12';
+          this.doorElements.push(doorElement);
         }
       }
     }
   }
 
   draw(gameBoard: any) {
-    this.door.forEach(segment => {
-      const wallElement = document.createElement('div');
-      wallElement.style.gridRowStart = segment.y.toString();
-      wallElement.style.gridColumnStart = segment.x.toString();
-      wallElement.classList.add('wall');
-      gameBoard.appendChild(wallElement);
+    this.doorElements.forEach((segment) => {
+      gameBoard.appendChild(segment);
     });
   }
 
   onObject(position: any) {
     return this.door.some((segment) => {
       return this.equalPositions(segment, position);
-    })
+    });
   }
 
   equalPositions(pos1: any, pos2: any) {
     return pos1.x === pos2.x && pos1.y === pos2.y;
   }
 
-
-  generateRandomWall(){
+  generateRandomWall() {
     for (let i = 0; i < 40; i++) {
-
-      this.door.push({x: this.getRandomInt(1, 21), y: this.getRandomInt(1, 21)})
+      this.door.push({
+        x: this.getRandomInt(1, 21),
+        y: this.getRandomInt(1, 21),
+      });
     }
   }
 
@@ -134,20 +121,19 @@ export class Door implements IObject {
     return Math.floor(Math.random() * (max - min) + min);
     // The maximum is exclusive and the minimum is inclusive
   }
-
 }
 
 export abstract class Decorator implements IObject {
   protected object: IObject;
 
   constructor(object: IObject) {
-      this.object = object;
+    this.object = object;
   }
 
   public update(): void {
     this.object.update();
   }
-  public generateElements(map: Map): void{
+  public generateElements(map: Map): void {
     this.object.generateElements(map);
   }
   public draw(gameBoard: any): void {
@@ -159,52 +145,90 @@ export abstract class Decorator implements IObject {
   public equalPositions(pos1: any, pos2: any): boolean {
     return this.object.equalPositions(pos1, pos2);
   }
-
 }
 
 export class BlackBorderWallDecorator extends Decorator {
-
-  wallElements: HTMLElement[]= [];
-  constructor(public wall: Wall){
+  wallElements: HTMLElement[] = [];
+  constructor(public wall: Wall) {
     super(wall);
-    this.wallElements = wall.wallElements
+    this.wallElements = wall.wallElements;
   }
 
-  addBorder(){
-    this.wallElements.forEach(segment => {
-
-      segment.style.border = '0.5vmin solid black'
+  addBorder() {
+    this.wallElements.forEach((segment) => {
+      segment.style.border = '0.5vmin solid black';
     });
   }
 }
 
-export class WhiteBorderWallDecorator extends Decorator {
-
-  wallElements: HTMLElement[]= [];
-  constructor(public wall: Wall){
+export class PurpleBorderWallDecorator extends Decorator {
+  wallElements: HTMLElement[] = [];
+  constructor(public wall: Wall) {
     super(wall);
-    this.wallElements = wall.wallElements
+    this.wallElements = wall.wallElements;
   }
 
-  addBorder(){
-    this.wallElements.forEach(segment => {
-
-      segment.style.border = '0.5vmin solid #5b277f'
+  addBorder() {
+    this.wallElements.forEach((segment) => {
+      segment.style.border = '0.5vmin solid #5b277f';
     });
   }
 }
+
 export class YellowBorderWallDecorator extends Decorator {
-
-  wallElements: HTMLElement[]= [];
-  constructor(public wall: Wall){
+  wallElements: HTMLElement[] = [];
+  constructor(public wall: Wall) {
     super(wall);
-    this.wallElements = wall.wallElements
+    this.wallElements = wall.wallElements;
   }
 
-  addBorder(){
-    this.wallElements.forEach(segment => {
+  addBorder() {
+    this.wallElements.forEach((segment) => {
+      segment.style.border = '0.5vmin solid #b99015';
+    });
+  }
+}
 
-      segment.style.border = '0.5vmin solid #b99015'
+//##################################################################################
+
+export class GrayBorderDoorDecorator extends Decorator {
+  doorElements: HTMLElement[] = [];
+  constructor(public door: Door) {
+    super(door);
+    this.doorElements = door.doorElements;
+  }
+
+  addBorder() {
+    this.doorElements.forEach((segment) => {
+      segment.style.border = '0.5vmin solid #302b28';
+    });
+  }
+}
+
+export class PurpleBorderDoorDecorator extends Decorator {
+  doorElements: HTMLElement[] = [];
+  constructor(public door: Door) {
+    super(door);
+    this.doorElements = door.doorElements;
+  }
+
+  addBorder() {
+    this.doorElements.forEach((segment) => {
+      segment.style.border = '0.5vmin solid #61063e';
+    });
+  }
+}
+
+export class YellowBorderDoorDecorator extends Decorator {
+  doorElements: HTMLElement[] = [];
+  constructor(public door: Door) {
+    super(door);
+    this.doorElements = door.doorElements;
+  }
+
+  addBorder() {
+    this.doorElements.forEach((segment) => {
+      segment.style.border = '0.5vmin solid #d6610e';
     });
   }
 }
