@@ -60,4 +60,16 @@ export class Blob {
 
     this.newSegments = 0;
   }
+
+  setRandomPosition(snake: Snake, walls: Wall) {
+    let newFoodPosition;
+    while (
+      newFoodPosition == null ||
+      snake.onSnake(newFoodPosition) ||
+      walls.onObject(newFoodPosition)
+    ) {
+      newFoodPosition = randomGridPosition();
+    }
+    this.blobBody[0] = newFoodPosition;
+  }
 }
