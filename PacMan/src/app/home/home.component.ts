@@ -19,6 +19,7 @@ import { Client, Lobby } from '../models/game.types';
 import { Subject } from '@microsoft/signalr';
 import Swal from 'sweetalert2';
 import { ClientService } from '../core/services/client.service';
+import { Invoker } from '../game-engine/commandTest';
 
 @Component({
   selector: 'app-home',
@@ -34,6 +35,8 @@ export class HomeComponent implements OnInit {
   playerName: string = '';
   lobbyList: Lobby[] = [];
 
+  commandTest: Invoker = new Invoker();
+
   constructor(
     private readonly signalRService: SignalRService,
     private router: Router,
@@ -42,6 +45,8 @@ export class HomeComponent implements OnInit {
   ) {}
 
   ngOnInit() {
+    this.commandTest.main();
+
     this.playerName =
       sessionStorage.getItem('playerName') ||
       'Player_' + Math.floor(Math.random() * (999 - 100) + 100).toString();
