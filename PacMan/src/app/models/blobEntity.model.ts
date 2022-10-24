@@ -1,9 +1,7 @@
 import { SignalRService } from '../core/services/signalR.service';
 import { Wall } from '../game-engine/Decorator/wall';
-import {
-  fixOutsidePosition,
-  outsideGrid,
-} from '../game-engine/gameboard-grid.util';
+import { randomGridPosition } from '../game-engine/gameboard-grid.util';
+import { Snake } from '../game-engine/snake';
 import { ChatMessage } from './chatMessage.model';
 
 export class Blob {

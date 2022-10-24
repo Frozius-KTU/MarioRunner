@@ -132,22 +132,22 @@ export class GameBoardComponent implements OnInit, AfterViewInit {
     this.mobsfactory = new MobsFactory(this.snake, wall);
     this.blob1 = new BlobBuilder(wall)
     .setColor("red")
-    .setCoordinates([{ x: 1, y: 18 }])
+    .setCoordinates(this.snake, wall)
     .setType("default")
     .getResult();
     this.blob2 = new BlobBuilder(wall)
     .setColor("red")
-    .setCoordinates([{ x: 18, y: 16 }])
+    .setCoordinates(this.snake, wall)
     .setType("default")
     .getResult();
     this.blob3 = new BlobBuilder(wall)
     .setColor("blue")
-    .setCoordinates([{ x: 13, y: 6 }])
+    .setCoordinates(this.snake, wall)
     .setType("default")
     .getResult();
     this.blob4 = new BlobBuilder(wall)
     .setColor("blue")
-    .setCoordinates([{ x: 9, y: 16 }])
+    .setCoordinates(this.snake, wall)
     .setType("default")
     .getResult();
   }
