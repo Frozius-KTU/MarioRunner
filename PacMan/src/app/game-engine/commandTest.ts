@@ -78,19 +78,25 @@ export class Receiver {
  * the command.
  */
 export class Invoker {
-  private onStart: ICommand;
-
-  private onFinish: ICommand;
+  private left: ICommand;
+  private right: ICommand;
+  private up: ICommand;
+  private down: ICommand;
 
   /**
    * Initialize commands.
    */
-  public setOnStart(command: ICommand): void {
-    this.onStart = command;
+  public moveLeft(command: ICommand): void {
+    this.left = command;
   }
-
-  public setOnFinish(command: ICommand): void {
-    this.onFinish = command;
+  public moveRight(command: ICommand): void {
+    this.right = command;
+  }
+  public moveUp(command: ICommand): void {
+    this.up = command;
+  }
+  public moveDown(command: ICommand): void {
+    this.down = command;
   }
 
   /**
@@ -99,16 +105,24 @@ export class Invoker {
    * command.
    */
   public doSomethingImportant(): void {
-    console.log('Invoker: Does anybody want something done before I begin?');
-    if (this.isCommand(this.onStart)) {
-      this.onStart.execute();
+    console.log('Invoker: Go left');
+    if (this.isCommand(this.left)) {
+      this.left.execute();
     }
 
-    console.log('Invoker: ...doing something really important...');
+    console.log('Invoker: Go right');
+    if (this.isCommand(this.right)) {
+      this.right.execute();
+    }
 
-    console.log('Invoker: Does anybody want something done after I finish?');
-    if (this.isCommand(this.onFinish)) {
-      this.onFinish.execute();
+    console.log('Invoker: Go up');
+    if (this.isCommand(this.right)) {
+      this.right.execute();
+    }
+
+    console.log('Invoker: Go down');
+    if (this.isCommand(this.right)) {
+      this.right.execute();
     }
   }
 
@@ -121,9 +135,9 @@ export class Invoker {
      * The client code can parameterize an invoker with any commands.
      */
     const invoker = new Invoker();
-    invoker.setOnStart(new SimpleCommand('Say Hi!'));
+    invoker.moveLeft(new SimpleCommand('Say Hi!'));
     const receiver = new Receiver();
-    invoker.setOnFinish(
+    invoker.moveRight(
       new ComplexCommand(receiver, 'Send email', 'Save report')
     );
 

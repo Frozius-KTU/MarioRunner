@@ -131,25 +131,25 @@ export class GameBoardComponent implements OnInit, AfterViewInit {
     this.healfactory = new HealsFactory(this.snake, wall);
     this.mobsfactory = new MobsFactory(this.snake, wall);
     this.blob1 = new BlobBuilder(wall)
-    .setColor("red")
-    .setCoordinates(this.snake, wall)
-    .setType("default")
-    .getResult();
+      .setColor('red')
+      .setCoordinates(this.snake, wall)
+      .setType('default')
+      .getResult();
     this.blob2 = new BlobBuilder(wall)
-    .setColor("red")
-    .setCoordinates(this.snake, wall)
-    .setType("default")
-    .getResult();
+      .setColor('blue')
+      .setCoordinates(this.snake, wall)
+      .setType('default')
+      .getResult();
     this.blob3 = new BlobBuilder(wall)
-    .setColor("blue")
-    .setCoordinates(this.snake, wall)
-    .setType("default")
-    .getResult();
+      .setColor('pink')
+      .setCoordinates(this.snake, wall)
+      .setType('default')
+      .getResult();
     this.blob4 = new BlobBuilder(wall)
-    .setColor("blue")
-    .setCoordinates(this.snake, wall)
-    .setType("default")
-    .getResult();
+      .setColor('yellow')
+      .setCoordinates(this.snake, wall)
+      .setType('default')
+      .getResult();
   }
 
   ngAfterViewInit() {
