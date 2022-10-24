@@ -19,7 +19,6 @@ import { Client, Lobby } from '../models/game.types';
 import { Subject } from '@microsoft/signalr';
 import Swal from 'sweetalert2';
 import { ClientService } from '../core/services/client.service';
-import { DecoratorTest } from '../game-engine/Decorator/decoratorTest';
 
 @Component({
   selector: 'app-home',
@@ -39,8 +38,7 @@ export class HomeComponent implements OnInit {
     private readonly signalRService: SignalRService,
     private router: Router,
     private lobbyService: LobbyService,
-    private clientService: ClientService,
-    private decoratorTest: DecoratorTest
+    private clientService: ClientService
   ) {}
 
   ngOnInit() {
@@ -74,10 +72,6 @@ export class HomeComponent implements OnInit {
     this.signalRService.messageReceived$.subscribe((message) => {
       this.chatmessages.push(message);
     });
-  }
-
-  testDecorator() {
-    this.decoratorTest.main();
   }
 
   resetClient() {
