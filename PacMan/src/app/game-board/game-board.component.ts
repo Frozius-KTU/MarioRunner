@@ -167,6 +167,10 @@ export class GameBoardComponent implements OnInit, AfterViewInit {
     // console.log("rendering");
     this.update();
     this.draw();
+    this.blob1?.start(currentTime);
+    this.blob2?.start(currentTime);
+    this.blob3?.start(currentTime);
+    this.blob4?.start(currentTime);
   }
 
   get snakeSpeed() {

@@ -8,7 +8,9 @@ export class Blob {
   public color = '';
   public type = '';
   public blobBody = [{ x: 0, y: 0 }];
+  lastRenderTime = 0;
   newSegments = 0;
+  movetime = 5;
   constructor(
     public walls: Wall,
     private readonly signalRService: SignalRService
@@ -33,14 +35,36 @@ export class Blob {
       gameBoard.appendChild(snakeElement);
     });
   }
-  update() {
+  updatemove() {
     this.addSegments();
-    /*const inputDirection =  this.moveAlgorithm.getInputDirection();
-  this.moveAlgorithm.resetDirection();
+    //const inputDirection =  this.moveAlgorithm.getInputDirection();
+  //this.moveAlgorithm.resetDirection();
   for (let i = this.blobBody.length - 2; i >= 0; i--) {
     this.blobBody[i + 1] = { ...this.blobBody[i] }
   }
-
+  var moveDirection = false;
+  if(this.randomIntBinary(2) == 0)
+  {  //if first random number is 0, move on the x axis.
+    moveDirection = false;
+    if(this.randomIntBinary(2) == 0 &&
+    !this.walls.onObject({x: this.blobBody[0].x + 1, y: this.blobBody[0].y})
+    && this.blobBody[0].x < 20){ // x + 1
+      this.blobBody[0].x += 1;}
+    else if(!this.walls.onObject({x: this.blobBody[0].x - 1, y: this.blobBody[0].y})
+    && this.blobBody[0].x > 0){ // x - 1
+      this.blobBody[0].x -= 1;}
+  }
+  else{
+    if(this.randomIntBinary(2) == 0 &&
+    !this.walls.onObject({x: this.blobBody[0].x, y: this.blobBody[0].y + 1})
+    && this.blobBody[0].y < 20){ // y + 1
+      this.blobBody[0].y += 1;}
+    else if(this.walls.onObject({x: !this.blobBody[0].x, y: this.blobBody[0].y - 1})
+    && this.blobBody[0].y > 0){ // y - 1
+      this.blobBody[0].y -= 1;}
+  }
+ /* //else moveDirection = true; //else move on y axis
+  if(this.randomIntBinary(2) == 0)
   //Collision
   if(!this.walls.onObject({x: this.blobBody[0].x + inputDirection.x, y: this.blobBody[0].y + inputDirection.y})){
     this.blobBody[0].x += inputDirection.x;
@@ -71,5 +95,22 @@ export class Blob {
       newFoodPosition = randomGridPosition();
     }
     this.blobBody[0] = newFoodPosition;
+  }
+  start(currentTime: any) {
+    window.requestAnimationFrame(this.start.bind(this));
+    const secondsSinceLastRender = (currentTime - this.lastRenderTime) / 1000;
+    if (secondsSinceLastRender < 1 / this.movetime) return;
+    this.lastRenderTime = currentTime;
+    this.updatemove();
+    // console.log("rendering");
+    //this.update();
+    //this.draw();
+  }
+  randomIntFromInterval(min: number, max: number) { // min and max included
+    return Math.floor(Math.random() * (max - min + 1) + min)
+  }
+  randomIntBinary(max: number)
+  {
+    return Math.floor(Math.random() * max);
   }
 }
