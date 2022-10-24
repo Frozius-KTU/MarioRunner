@@ -4,15 +4,15 @@ import { GameBoardComponent } from 'src/app/game-board/game-board.component';
 
 export interface IPowerUp {
   update(): void;
-  draw(gameBoard:any): void;
+  draw(gameBoard: any): void;
   getRanomPowerUpPosition(): void;
-  effect():void;
+  effect(): void;
 }
 
-export class PowerUp1 implements IPowerUp{
+export class PowerUp1 implements IPowerUp {
   public powerup: any;
   public snake;
-  constructor(snake:any,public walls: Wall){
+  constructor(snake: any, public walls: Wall) {
     this.snake = snake;
     this.powerup = this.getRanomPowerUpPosition();
   }
@@ -24,8 +24,12 @@ export class PowerUp1 implements IPowerUp{
 
   getRanomPowerUpPosition() {
     let newFoodPosition;
-    while (newFoodPosition == null || this.snake.onSnake(newFoodPosition)  || this.walls.onObject(newFoodPosition)) {
-      newFoodPosition = randomGridPosition()
+    while (
+      newFoodPosition == null ||
+      this.snake.onSnake(newFoodPosition) ||
+      this.walls.onObject(newFoodPosition)
+    ) {
+      newFoodPosition = randomGridPosition();
     }
     return newFoodPosition;
   }
@@ -34,23 +38,23 @@ export class PowerUp1 implements IPowerUp{
     const powerupelement = document.createElement('div');
     powerupelement.style.gridRowStart = this.powerup.y;
     powerupelement.style.gridColumnStart = this.powerup.x;
-    powerupelement.style.backgroundImage = "url('https://icons.iconarchive.com/icons/ahmadhania/spherical/32/scroll-up-icon.png')"
-    powerupelement.style.backgroundSize = "cover";
+    powerupelement.style.backgroundImage =
+      "url('https://icons.iconarchive.com/icons/ph03nyx/super-mario/128/Retro-P-Wing-icon.png')";
+    powerupelement.style.backgroundSize = 'cover';
     powerupelement.classList.add('powerups');
     gameBoard.appendChild(powerupelement);
   }
 
-  effect(){
-    console.log("efektas1");
-
+  effect() {
+    console.log('efektas1');
   }
 }
 
-export class PowerUp2 implements IPowerUp{
+export class PowerUp2 implements IPowerUp {
   public powerup: any;
   public snake;
 
-  constructor(snake:any,public walls: Wall){
+  constructor(snake: any, public walls: Wall) {
     this.snake = snake;
     this.powerup = this.getRanomPowerUpPosition();
   }
@@ -62,8 +66,12 @@ export class PowerUp2 implements IPowerUp{
 
   getRanomPowerUpPosition() {
     let newFoodPosition;
-    while (newFoodPosition == null || this.snake.onSnake(newFoodPosition)  || this.walls.onObject(newFoodPosition)) {
-      newFoodPosition = randomGridPosition()
+    while (
+      newFoodPosition == null ||
+      this.snake.onSnake(newFoodPosition) ||
+      this.walls.onObject(newFoodPosition)
+    ) {
+      newFoodPosition = randomGridPosition();
     }
     return newFoodPosition;
   }
@@ -72,22 +80,23 @@ export class PowerUp2 implements IPowerUp{
     const powerupelement = document.createElement('div');
     powerupelement.style.gridRowStart = this.powerup.y;
     powerupelement.style.gridColumnStart = this.powerup.x;
-    powerupelement.style.backgroundImage = "url('https://icons.iconarchive.com/icons/ahmadhania/spherical/32/scroll-up-icon.png')"
-    powerupelement.style.backgroundSize = "cover";
+    powerupelement.style.backgroundImage =
+      "url('https://icons.iconarchive.com/icons/ph03nyx/super-mario/128/Retro-P-Wing-icon.png')";
+    powerupelement.style.backgroundSize = 'cover';
     powerupelement.classList.add('powerups');
     gameBoard.appendChild(powerupelement);
   }
 
-  effect(){
-    console.log("efektas2");
+  effect() {
+    console.log('efektas2');
   }
 }
 
-export class PowerUp3 implements IPowerUp{
+export class PowerUp3 implements IPowerUp {
   public powerup: any;
   public snake;
 
-  constructor(snake:any,public walls: Wall){
+  constructor(snake: any, public walls: Wall) {
     this.snake = snake;
     this.powerup = this.getRanomPowerUpPosition();
   }
@@ -99,8 +108,12 @@ export class PowerUp3 implements IPowerUp{
 
   getRanomPowerUpPosition() {
     let newFoodPosition;
-    while (newFoodPosition == null || this.snake.onSnake(newFoodPosition)  || this.walls.onObject(newFoodPosition)) {
-      newFoodPosition = randomGridPosition()
+    while (
+      newFoodPosition == null ||
+      this.snake.onSnake(newFoodPosition) ||
+      this.walls.onObject(newFoodPosition)
+    ) {
+      newFoodPosition = randomGridPosition();
     }
     return newFoodPosition;
   }
@@ -109,13 +122,14 @@ export class PowerUp3 implements IPowerUp{
     const powerupelement = document.createElement('div');
     powerupelement.style.gridRowStart = this.powerup.y;
     powerupelement.style.gridColumnStart = this.powerup.x;
-    powerupelement.style.backgroundImage = "url('https://icons.iconarchive.com/icons/ahmadhania/spherical/32/scroll-up-icon.png')"
-    powerupelement.style.backgroundSize = "cover";
+    powerupelement.style.backgroundImage =
+      "url('https://icons.iconarchive.com/icons/ph03nyx/super-mario/128/Retro-P-Wing-icon.png')";
+    powerupelement.style.backgroundSize = 'cover';
     powerupelement.classList.add('powerups');
     gameBoard.appendChild(powerupelement);
   }
 
-  effect(){
-    console.log("efektas3");
+  effect() {
+    console.log('efektas3');
   }
 }

@@ -17,10 +17,12 @@ export class Oponent {
       snakeElement.style.gridRowStart = segment.y.toString();
       snakeElement.style.gridColumnStart = segment.x.toString();
       //snakeElement.style.backgroundImage = "url('https://icons.iconarchive.com/icons/ph03nyx/super-mario/32/Retro-Mushroom-Super-3-icon.png')"
-      snakeElement.style.backgroundImage =
-        "url('https://icons.iconarchive.com/icons/ph03nyx/super-mario/32/Retro-Mushroom-1UP-3-icon.png')";
+      //snakeElement.style.backgroundImage = "url('https://icons.iconarchive.com/icons/ph03nyx/super-mario/32/Retro-Mushroom-1UP-3-icon.png')";
       //snakeElement.style.backgroundImage = "url('../../assets/icons/luigi.png')";
+      snakeElement.style.backgroundImage =
+        "url('https://i.pinimg.com/originals/f5/75/2c/f5752c7c9f03832209f0bb8b57214281.gif')";
       snakeElement.style.backgroundSize = 'cover';
+      snakeElement.style.backgroundColor = 'black';
       snakeElement.classList.add('oponentas');
       gameBoard.appendChild(snakeElement);
     });
