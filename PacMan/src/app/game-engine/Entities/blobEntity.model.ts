@@ -1,8 +1,8 @@
-import { SignalRService } from '../core/services/signalR.service';
-import { Wall } from '../game-engine/Decorator/wall';
-import { randomGridPosition } from '../game-engine/gameboard-grid.util';
-import { Snake } from '../game-engine/snake';
-import { ChatMessage } from './chatMessage.model';
+import { SignalRService } from '../../core/services/signalR.service';
+import { Wall } from '../Decorator/wall';
+import { randomGridPosition } from '../gameboard-grid.util';
+import { ChatMessage } from '../../models/chatMessage.model';
+import { Snake } from './snake';
 
 export class Blob {
   public color = '';

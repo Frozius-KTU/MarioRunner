@@ -2,9 +2,8 @@ import { AfterViewInit, Component, OnInit } from '@angular/core';
 import { SignalRService } from '../core/services/signalR.service';
 import { Food } from '../game-engine/PickUps/food';
 import { outsideGrid } from '../game-engine/gameboard-grid.util';
-import { Oponent } from '../game-engine/oponent';
+import { Oponent } from '../game-engine/Entities/oponent';
 import { ClumsyFood } from '../game-engine/PickUps/ClumsyFood';
-import { Snake } from '../game-engine/snake';
 import {
   Wall,
   BlackBorderWallDecorator,
@@ -25,7 +24,8 @@ import { LobbyService } from '../core/services/lobby.service';
 import { MapService } from '../core/services/map.service';
 import { Lobby, Map } from 'src/app/models/game.types';
 import BlobBuilder from '../game-engine/Mobs/Blob/BlobBuilder';
-import { Blob } from '../models/blobEntity.model';
+import { Blob } from '../game-engine/Entities/blobEntity.model';
+import { Snake } from '../game-engine/Entities/snake';
 
 interface IObject {}
 @Component({

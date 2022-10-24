@@ -1,6 +1,6 @@
 import { ConsoleLogger } from '@microsoft/signalr/dist/esm/Utils';
-import { SignalRService } from '../core/services/signalR.service';
-import { ChatMessage } from '../models/chatMessage.model';
+import { SignalRService } from '../../core/services/signalR.service';
+import { ChatMessage } from '../../models/chatMessage.model';
 
 export class Oponent {
   constructor(private readonly signalRService: SignalRService) {}

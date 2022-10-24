@@ -1,6 +1,6 @@
-import { Blob } from "src/app/models/blobEntity.model";
+import { Blob } from "src/app/game-engine/Entities/blobEntity.model";
 import { Wall } from "../../Decorator/wall";
-import { Snake } from "../../snake";
+import { Snake } from "../../Entities/snake";
 
 export interface IBlobBuilder {
   blob: Blob;
