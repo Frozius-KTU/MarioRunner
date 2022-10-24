@@ -26,13 +26,13 @@ public class ChatHub : Hub
             try
             {
                 Guid id = Guid.NewGuid();
-                Console.WriteLine("!!!!!!!!!!!!!!!!!!!!!!!!!!!!   Guid = " + id);
+                //Console.WriteLine("!!!!!!!!!!!!!!!!!!!!!!!!!!!!   Guid = " + id);
                 request.Id = id;
 
                 string jsonString = JsonSerializer.Serialize(request);
                 var stringContent = new StringContent(jsonString, Encoding.UTF8, "application/json");
 
-                Console.WriteLine("!!!!!!!!!!!!!!!!!!!!!!!!!!!!" + jsonString);
+                //Console.WriteLine("!!!!!!!!!!!!!!!!!!!!!!!!!!!!" + jsonString);
                 //Console.WriteLine("!!!!!!!!!!!!!!!!!!!!!!!!!!!!" + stringContent);
                 HttpResponseMessage response = await client.PostAsync("https://localhost:5001/api/Client", stringContent);
 
@@ -88,7 +88,7 @@ public class ChatHub : Hub
                 string jsonString = JsonSerializer.Serialize(clientRequest);
                 var stringContent = new StringContent(jsonString, Encoding.UTF8, "application/json");
 
-                Console.WriteLine("!!!!!!!!!!!!!!!!!!!!!!!!!!!!" + jsonString);
+                //Console.WriteLine("!!!!!!!!!!!!!!!!!!!!!!!!!!!!" + jsonString);
                 //Console.WriteLine("!!!!!!!!!!!!!!!!!!!!!!!!!!!!" + stringContent);
                 response = await client.PutAsync("https://localhost:5001/api/Client/" + clientId, stringContent);
 
