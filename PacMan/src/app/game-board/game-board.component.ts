@@ -58,7 +58,6 @@ export class GameBoardComponent implements OnInit, AfterViewInit {
   pickupsfactory?: PickUpsFactory;
   pickupPowerUp?: IPowerUp;
   pickupHeals?:IHeal;
-  mobsfactory?: MobsFactory;
   current_map?:number;
 
   map: Map | undefined;
@@ -133,7 +132,6 @@ export class GameBoardComponent implements OnInit, AfterViewInit {
     this.food = new Food(this.snake, wall);
     this.clumsyFood = new ClumsyFood(this.snake, wall);
     this.antidotefood = new AntidoteFood(this.snake, wall);
-    this.mobsfactory = new MobsFactory(this.snake, wall);
     this.blob1 = new BlobBuilder(wall)
       .setColor('red')
       .setCoordinates(this.snake, wall)
