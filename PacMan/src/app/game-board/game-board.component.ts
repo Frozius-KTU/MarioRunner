@@ -17,7 +17,6 @@ import {
 import { CorrectInput } from '../game-engine/MoveAlgorithm/CorrectInput';
 import { AntidoteFood} from '../game-engine/PickUps/AntidoteFood';
 import { ClumsyInput } from '../game-engine/MoveAlgorithm/ClumsyInput';
-import { MobsFactory} from '../game-engine/Mobs/mob-factory';
 import { PickUpsFactory} from '../game-engine/PickUps/pickup-abstract-factory';
 import { ActivatedRoute, Router } from '@angular/router';
 import { LobbyService } from '../core/services/lobby.service';
