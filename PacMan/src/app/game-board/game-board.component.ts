@@ -161,6 +161,8 @@ export class GameBoardComponent implements OnInit, AfterViewInit {
     }
     this.pickupPowerUp = this.pickupsfactory.getPowerUps(this.current_map,this.gameBoard);
     this.pickupHeals = this.pickupsfactory.getHeals(this.current_map,this.gameBoard);
+    //var clone = this.pickupHeals.clone();
+    //console.log("kolnas   -- ", clone);
   }
 
   ngAfterViewInit() {
