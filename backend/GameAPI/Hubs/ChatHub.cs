@@ -4,6 +4,8 @@ using GameAPI.Model;
 using Microsoft.AspNetCore.SignalR;
 using System.Text.Json;
 using System.Text;
+using System.Collections.Generic;
+using Newtonsoft.Json;
 
 namespace GameAPI.Hubs;
 
@@ -13,29 +15,127 @@ public class ChatHub : Hub
     {
         await Clients.All.SendAsync("Send", chatMessage);
     }
+    public async Task Ping(Guid clientId)
+    {
+        ClientModel clientRequest = new ClientModel();
+        clientRequest.Active = true;
+        string jsonString = JsonConvert.SerializeObject(clientRequest);
+        var stringContent = new StringContent(jsonString, Encoding.UTF8, "application/json");
+        
+        HttpClientHandler clientHandler = new HttpClientHandler();
+        clientHandler.ServerCertificateCustomValidationCallback = (sender, cert, chain, sslPolicyErrors) => { return true; };
+        HttpClient client = new HttpClient(clientHandler);
+
+        var response = await client.PutAsync("https://localhost:5001/api/Client/" + clientId, stringContent);
+    }
+    public async Task ClearPing()
+    {
+        HttpClientHandler clientHandler = new HttpClientHandler();
+        clientHandler.ServerCertificateCustomValidationCallback = (sender, cert, chain, sslPolicyErrors) => { return true; };
+        HttpClient client = new HttpClient(clientHandler);
+
+        var response = await client.GetAsync("https://localhost:5001/api/Client/");
+        var finalData = await response.Content.ReadAsStringAsync();
+
+        List<ClientModel> dataResponse = JsonConvert.DeserializeObject<List<ClientModel>>(finalData);
+
+        ClientModel clientRequest = new ClientModel();
+        clientRequest.Active = null;
+        string jsonString = JsonConvert.SerializeObject(clientRequest);
+        var stringContent = new StringContent(jsonString, Encoding.UTF8, "application/json");
+
+        foreach (var user in dataResponse)
+        {
+            response = await client.PutAsync("https://localhost:5001/api/Client/" + user.Id, stringContent);
+        }
+    }
 
     public override Task OnConnectedAsync()
     {
         // Add your own code here.
         // For example: in a chat application, mark the user as offline, 
         // delete the association between the current connection id and user name.
-        Console.WriteLine(base.Context.ConnectionId);
-        Console.WriteLine("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!" + base.Context.ConnectionId);
-        Clients.Caller.SendAsync("SignalRCreated", base.Context.ConnectionId);
+        //Console.WriteLine(base.Context.ConnectionId);
+        //Console.WriteLine("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!" + base.Context.ConnectionId);
+        //Clients.Caller.SendAsync("SignalRCreated", base.Context.ConnectionId);
         
         return base.OnConnectedAsync();
     }
 
-    public override Task OnDisconnectedAsync(Exception exception)
+    public override async Task OnDisconnectedAsync(Exception exception)
     {
-        // Add your own code here.
-        // For example: in a chat application, mark the user as offline, 
-        // delete the association between the current connection id and user name.
-        Console.WriteLine(base.Context.ConnectionId);
-        Console.WriteLine("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!" + base.Context.ConnectionId);
+        //Console.WriteLine(base.Context.ConnectionId);
+        //Console.WriteLine("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!" + base.Context.ConnectionId);
 
-        
-        return base.OnDisconnectedAsync(exception);
+        HttpClientHandler clientHandler = new HttpClientHandler();
+        clientHandler.ServerCertificateCustomValidationCallback = (sender, cert, chain, sslPolicyErrors) => { return true; };
+        HttpClient client = new HttpClient(clientHandler);
+        //Get all lobbies
+        var response = await client.GetAsync("https://localhost:5001/api/Lobby/");
+        var finalData = await response.Content.ReadAsStringAsync();
+        List<LobbyModel> lobbyList = JsonConvert.DeserializeObject<List<LobbyModel>>(finalData);
+
+        //Sending ping requests for all users in lobbies
+        for (int i = 0; i < 5; i++)
+        {
+            await Task.Delay(TimeSpan.FromMilliseconds(1000));
+
+            foreach (var lobby in lobbyList)
+            {
+                if(lobby.Player1 != null)
+                {
+                    await Clients.All.SendAsync("Ping", lobby.Player1);
+                }
+                if(lobby.Player2 != null)
+                {
+                    await Clients.All.SendAsync("Ping", lobby.Player2);
+
+                }
+            }
+        }
+        //Time to respond
+        await Task.Delay(TimeSpan.FromMilliseconds(5000));
+
+        //Getting information about clients
+        response = await client.GetAsync("https://localhost:5001/api/Client/");
+        finalData = await response.Content.ReadAsStringAsync();
+        List<ClientModel> clientList = JsonConvert.DeserializeObject<List<ClientModel>>(finalData);
+
+        List<Guid> successfulPing = new List<Guid>();
+        foreach (var c in clientList)
+        {
+            if(c.Active == true)
+            {
+                successfulPing.Add(c.Id);
+            }
+        }
+        //Disconnecting clients who didn't respond
+        foreach (var lobby in lobbyList)
+        {
+            if(lobby.Player1 != null)
+            {
+                if(successfulPing.Count == 0 || !successfulPing.Contains(lobby.Player1.Value))
+                {
+                    response = await client.DeleteAsync($"https://localhost:5001/api/Lobby/{lobby.Id}/remove/{lobby.Player1}");
+                    
+                    Console.WriteLine($"!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! Disconnected player {lobby.Player1} from lobby {lobby.Id}");
+                }
+            }
+            if(lobby.Player2 != null)
+            {
+                if(successfulPing.Count == 0 || !successfulPing.Contains(lobby.Player2.Value))
+                {
+                    response = await client.DeleteAsync($"https://localhost:5001/api/Lobby/{lobby.Id}/remove/{lobby.Player2}");
+                    
+                    Console.WriteLine($"!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! Disconnected player {lobby.Player2} from lobby {lobby.Id}");
+                }
+            }
+        }
+        await ClearPing();
+
+
+        //successPing.Clear();
+        //return base.OnDisconnectedAsync(exception);
     }
 
     public async Task CreateClient(ClientModel request)
@@ -53,7 +153,7 @@ public class ChatHub : Hub
                 //Console.WriteLine("!!!!!!!!!!!!!!!!!!!!!!!!!!!!   Guid = " + id);
                 request.Id = id;
 
-                string jsonString = JsonSerializer.Serialize(request);
+                string jsonString = JsonConvert.SerializeObject(request);
                 var stringContent = new StringContent(jsonString, Encoding.UTF8, "application/json");
 
                 //Console.WriteLine("!!!!!!!!!!!!!!!!!!!!!!!!!!!!" + jsonString);
@@ -109,7 +209,7 @@ public class ChatHub : Hub
                 ClientModel clientRequest = new ClientModel();
                 clientRequest.LobbyId = lobbyId;
             
-                string jsonString = JsonSerializer.Serialize(clientRequest);
+                string jsonString = JsonConvert.SerializeObject(clientRequest);
                 var stringContent = new StringContent(jsonString, Encoding.UTF8, "application/json");
 
                 //Console.WriteLine("!!!!!!!!!!!!!!!!!!!!!!!!!!!!" + jsonString);
@@ -148,7 +248,7 @@ public class ChatHub : Hub
             ClientModel clientRequest = new ClientModel();
             clientRequest.LobbyId = new Guid();
             
-            string jsonString = JsonSerializer.Serialize(clientRequest);
+            string jsonString = JsonConvert.SerializeObject(clientRequest);
             var stringContent = new StringContent(jsonString, Encoding.UTF8, "application/json");
 
             HttpResponseMessage response = await client.PutAsync("https://localhost:5001/api/Client/" + clientId, stringContent);

@@ -17,7 +17,7 @@ public class GameContext : DbContext
     #region Required
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
-         base.OnModelCreating(modelBuilder);
+        base.OnModelCreating(modelBuilder);
         modelBuilder.ApplyConfigurationsFromAssembly(System.Reflection.Assembly.GetExecutingAssembly());
 
     }

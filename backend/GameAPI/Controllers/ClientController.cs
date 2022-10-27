@@ -65,7 +65,7 @@ public class ClientController : ControllerBase
 
             await _repository.SaveChangesAsync();
 
-            await _chatHubContext.Clients.All.SendAsync("FoodAdded", request);
+            //await _chatHubContext.Clients.All.SendAsync("FoodAdded", request);
 
             //return Ok(request);
             return NoContent();
@@ -81,6 +81,7 @@ public class ClientController : ControllerBase
             }
 
             model.Name = !String.IsNullOrEmpty(request.Name) ? request.Name : model.Name;
+            model.Active =  request.Active;
             if(request.LobbyId == new Guid())
             {
                 model.LobbyId = null;
@@ -94,7 +95,7 @@ public class ClientController : ControllerBase
 
             await _repository.SaveChangesAsync();
 
-            await _chatHubContext.Clients.All.SendAsync("FoodUpdated", model);
+            //await _chatHubContext.Clients.All.SendAsync("FoodUpdated", model);
 
             return Ok(model);
         }
@@ -113,7 +114,7 @@ public class ClientController : ControllerBase
 
             await _repository.SaveChangesAsync();
 
-            await _chatHubContext.Clients.All.SendAsync("FoodDeleted");
+            //await _chatHubContext.Clients.All.SendAsync("FoodDeleted");
 
             
 

@@ -73,6 +73,7 @@ namespace GameAPI.Web
             services.AddScoped<ILobbyRepository, LobbyRepository>();
             services.AddScoped<IMapRepository, MapRepository>();
 
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
