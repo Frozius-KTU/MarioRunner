@@ -17,7 +17,6 @@ import {
 import { CorrectInput } from '../game-engine/MoveAlgorithm/CorrectInput';
 import { AntidoteFood } from '../game-engine/PickUps/AntidoteFood';
 import { ClumsyInput } from '../game-engine/MoveAlgorithm/ClumsyInput';
-import { MobsFactory } from '../game-engine/Mobs/mob-factory';
 import { PickUpsFactory } from '../game-engine/PickUps/pickup-abstract-factory';
 import { ActivatedRoute, Router } from '@angular/router';
 import { LobbyService } from '../core/services/lobby.service';
@@ -73,7 +72,6 @@ export class GameBoardComponent implements OnInit, AfterViewInit {
   pickupsfactory?: PickUpsFactory;
   pickupPowerUp?: IPowerUp;
   pickupHeals?: IHeal;
-  mobsfactory?: MobsFactory;
   current_map?: number;
 
   map: Map | undefined;
@@ -143,7 +141,6 @@ export class GameBoardComponent implements OnInit, AfterViewInit {
     this.food = new Food(this.snake, wall);
     this.clumsyFood = new ClumsyFood(this.snake, wall);
     this.antidotefood = new AntidoteFood(this.snake, wall);
-    this.mobsfactory = new MobsFactory(this.snake, wall);
     this.blob1 = new BlobBuilder(wall)
       .setColor('red')
       .setCoordinates(this.snake, wall)
@@ -176,8 +173,8 @@ export class GameBoardComponent implements OnInit, AfterViewInit {
       this.current_map,
       this.gameBoard
     );
-
-    this.loading = false;
+    //var clone = this.pickupHeals.clone();
+    //console.log("kolnas   -- ", clone);
   }
 
   ngAfterViewInit() {
