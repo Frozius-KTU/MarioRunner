@@ -1,4 +1,3 @@
-import { SignalRService } from '../../core/services/signalR.service';
 import { Wall } from '../Decorator/wall';
 import { randomGridPosition } from '../gameboard-grid.util';
 import { ChatMessage } from '../../models/chatMessage.model';
@@ -11,10 +10,7 @@ export class Blob {
   lastRenderTime = 0;
   newSegments = 0;
   movetime = 10;
-  constructor(
-    public walls: Wall,
-    private readonly signalRService: SignalRService
-  ) {}
+  constructor(public walls: Wall) {}
 
   draw(gameBoard: any) {
     this.blobBody.forEach((segment) => {

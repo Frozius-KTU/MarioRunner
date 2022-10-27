@@ -13,7 +13,7 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }*/
   --background-color: #ffffff;
   --board-color: #b5b5b5;
   --snake-color: #fed049;
-  --oponent-color: #2110d8;
+  --opponent-color: #2110d8;
   --food-color: #e70f0f;
   --clumsyfood-color: #09ff00;
   --heal-color: #860202;
@@ -49,8 +49,8 @@ body {
   transition: all 0.3ms ease-in;
 }
 
-.oponent {
-  background-color: var(--oponent-color);
+.opponent {
+  background-color: var(--opponent-color);
   border: 0.25vmin solid black;
   transition: all 0.3ms ease-in;
 }

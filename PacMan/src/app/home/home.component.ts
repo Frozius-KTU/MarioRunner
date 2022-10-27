@@ -20,6 +20,7 @@ import { Subject } from '@microsoft/signalr';
 import Swal from 'sweetalert2';
 import { ClientService } from '../core/services/client.service';
 import { Invoker } from '../game-engine/commandTest';
+import { PlatformLocation } from '@angular/common';
 
 @Component({
   selector: 'app-home',
@@ -33,19 +34,22 @@ export class HomeComponent implements OnInit {
   chatmessages: ChatMessage[] = [];
 
   playerName: string = '';
-  lobbyList: Lobby[] = [];
-
   commandTest: Invoker = new Invoker();
 
   constructor(
     private readonly signalRService: SignalRService,
     private router: Router,
     private lobbyService: LobbyService,
-    private clientService: ClientService
-  ) {}
+    private clientService: ClientService,
+    private location: PlatformLocation
+  ) {
+    location.onPopState(() => {
+      this.router.navigate(['/home']).then(() => {});
+    });
+  }
 
   ngOnInit() {
-    this.commandTest.main();
+    //this.commandTest.main();
 
     this.playerName =
       sessionStorage.getItem('playerName') ||
@@ -61,15 +65,6 @@ export class HomeComponent implements OnInit {
           },
         });
     }
-
-    this.lobbyService.getLobbyList().subscribe({
-      next: (data) => {
-        this.lobbyList = data;
-      },
-      error: (error) => {
-        console.log(error);
-      },
-    });
 
     this.signalrConnectionEstablished$ =
       this.signalRService.connectionEstablished$;
@@ -119,7 +114,7 @@ export class HomeComponent implements OnInit {
         willClose: () => {
           client = this.signalRService.createdClient;
           sessionStorage.setItem('playerId', client.id!);
-          console.log(client.id);
+          //console.log(client.id);
         },
       }).then((result) => {
         this.router.navigate(['/lobbies']).then(() => {

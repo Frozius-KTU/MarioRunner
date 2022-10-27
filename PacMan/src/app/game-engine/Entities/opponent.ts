@@ -2,7 +2,7 @@ import { ConsoleLogger } from '@microsoft/signalr/dist/esm/Utils';
 import { SignalRService } from '../../core/services/signalR.service';
 import { ChatMessage } from '../../models/chatMessage.model';
 
-export class Oponent {
+export class Opponent {
   constructor(private readonly signalRService: SignalRService) {}
 
   snakeBody = [{ x: -1, y: -1 }];
@@ -23,7 +23,7 @@ export class Oponent {
         "url('https://i.pinimg.com/originals/f5/75/2c/f5752c7c9f03832209f0bb8b57214281.gif')";
       snakeElement.style.backgroundSize = 'cover';
       snakeElement.style.backgroundColor = 'black';
-      snakeElement.classList.add('oponentas');
+      snakeElement.classList.add('opponentas');
       gameBoard.appendChild(snakeElement);
     });
   }
@@ -58,6 +58,8 @@ export class Oponent {
         data[0] == sessionStorage.getItem('lobbyId') &&
         data[1] != sessionStorage.getItem('playerName')
       ) {
+        console.log(data[2] + '   ' + data[3]);
+
         this.snakeBody[0].x = Number(data[2]);
         this.snakeBody[0].y = Number(data[3]);
       }

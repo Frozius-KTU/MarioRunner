@@ -1,3 +1,4 @@
+import { PlatformLocation } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import Swal from 'sweetalert2';
@@ -16,8 +17,13 @@ export class LobbiesComponent implements OnInit {
   constructor(
     private readonly signalRService: SignalRService,
     private router: Router,
-    private lobbyService: LobbyService
-  ) {}
+    private lobbyService: LobbyService,
+    private location: PlatformLocation
+  ) {
+    location.onPopState(() => {
+      this.router.navigate(['/home']).then(() => {});
+    });
+  }
 
   ngOnInit(): void {
     this.lobbyService.getLobbyList().subscribe({
@@ -28,6 +34,10 @@ export class LobbiesComponent implements OnInit {
         console.log(error);
       },
     });
+  }
+
+  test() {
+    console.log(sessionStorage.getItem('lobbyId'));
   }
 
   play(lobbyId: string) {
@@ -75,15 +85,12 @@ export class LobbiesComponent implements OnInit {
       },
     }).then((result) => {
       /* Read more about handling dismissals below */
+
       this.router.navigate(['/game', lobbyId]).then(() => {
         //window.location.reload();
+        this.signalRService.setLobbyId(lobbyId);
       });
     });
-  }
-
-  getSession() {
-    console.log(sessionStorage.getItem('playerId'));
-    console.log(sessionStorage.getItem('playerName'));
   }
 
   getLobbyPlayerCount(id: string) {

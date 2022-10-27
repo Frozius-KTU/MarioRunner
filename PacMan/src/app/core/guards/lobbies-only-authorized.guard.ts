@@ -11,8 +11,8 @@ import {
 import { ClientService } from '../services/client.service';
 
 @Injectable({ providedIn: 'root' })
-export class OnlyUnauthorizedGuard implements CanActivate, CanLoad {
-  constructor(private router: Router, private clientService: ClientService) {
+export class LobbiesOnlyAuthorizedGuard implements CanActivate, CanLoad {
+  constructor(private router: Router) {
     // Nothing
   }
 
@@ -30,11 +30,13 @@ export class OnlyUnauthorizedGuard implements CanActivate, CanLoad {
   }
 
   public canAccess(): boolean {
-    // if (this.clientService.isAuthenticated) {
-    //   this.router.navigate(['/payment/list']);
-    //   return false;
-    // }
+    //console.log(sessionStorage.getItem('playerId'));
+    if (sessionStorage.getItem('playerId')) {
+      return true;
+    }
 
-    return true;
+    this.router.navigate(['/home']);
+
+    return false;
   }
 }

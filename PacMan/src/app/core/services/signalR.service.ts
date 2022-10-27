@@ -20,6 +20,7 @@ export class SignalRService {
   messageReceived$ = new Subject<ChatMessage>();
   newCpuValue$ = new Subject<number>();
   connectionEstablished$ = new BehaviorSubject<boolean>(false);
+  lobbyId = '########-####-####-####-###########';
 
   private hubConnection!: HubConnection;
 
@@ -29,6 +30,11 @@ export class SignalRService {
     this.startConnection();
   }
 
+  setLobbyId(lobbyId: string) {
+    this.lobbyId = lobbyId;
+    console.log('SET LOBBY' + lobbyId);
+  }
+
   sendChatMessage(message: ChatMessage) {
     this.hubConnection.invoke('SendMessage', message);
   }
@@ -36,7 +42,6 @@ export class SignalRService {
   createClient(client: Client) {
     this.hubConnection.invoke('CreateClient', client);
   }
-
   connectClientToLobby(clientId: string, lobbyId: string) {
     this.hubConnection.invoke('ConnectClientToLobby', clientId, lobbyId);
   }
@@ -86,6 +91,10 @@ export class SignalRService {
       //console.log('data', data);
       this.messageReceived$.next(data);
     });
+    this.hubConnection.on(this.lobbyId, (data: any) => {
+      //console.log('data', data);
+      this.messageReceived$.next(data);
+    });
 
     this.hubConnection.on('newCpuValue', (data: number) => {
       this.newCpuValue$.next(data);
@@ -98,8 +107,18 @@ export class SignalRService {
     this.hubConnection.on('ClientUpdated', (data: any) => {
       this.clientStatusCode = data;
     });
-    this.hubConnection.on('SignalRCreated', (data: any) => {
-      console.log('SignalR !!!!!!!!!!!!!!!!!!!!!!!' + data);
+
+    this.hubConnection.on('Ping', (data: any) => {
+      if (
+        data == sessionStorage.getItem('playerId') &&
+        sessionStorage.getItem('lobbyId')
+      ) {
+        this.hubConnection.invoke('Ping', sessionStorage.getItem('playerId'));
+      }
+    });
+
+    this.hubConnection.on('Restart', (data: any) => {
+      sessionStorage.clear();
     });
   }
 }

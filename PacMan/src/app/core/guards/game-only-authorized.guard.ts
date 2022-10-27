@@ -11,7 +11,7 @@ import {
 import { ClientService } from '../services/client.service';
 
 @Injectable({ providedIn: 'root' })
-export class OnlyAuthorizedGuard implements CanActivate, CanLoad {
+export class GameOnlyAuthorizedGuard implements CanActivate, CanLoad {
   constructor(private router: Router) {
     // Nothing
   }
@@ -30,8 +30,8 @@ export class OnlyAuthorizedGuard implements CanActivate, CanLoad {
   }
 
   public canAccess(): boolean {
-    console.log(sessionStorage.getItem('playerId'));
-    if (sessionStorage.getItem('playerId')) {
+    //console.log(sessionStorage.getItem('playerId'));
+    if (sessionStorage.getItem('lobbyId')) {
       return true;
     }
 

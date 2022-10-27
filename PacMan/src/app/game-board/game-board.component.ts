@@ -1,8 +1,8 @@
 import { AfterViewInit, Component, OnInit } from '@angular/core';
 import { SignalRService } from '../core/services/signalR.service';
-import { Food} from '../game-engine/PickUps/food';
+import { Food } from '../game-engine/PickUps/food';
 import { outsideGrid } from '../game-engine/gameboard-grid.util';
-import { Oponent } from '../game-engine/Entities/oponent';
+import { Opponent } from '../game-engine/Entities/opponent';
 import { ClumsyFood } from '../game-engine/PickUps/ClumsyFood';
 import {
   Wall,
@@ -15,10 +15,10 @@ import {
   YellowBorderDoorDecorator,
 } from '../game-engine/Decorator/wall';
 import { CorrectInput } from '../game-engine/MoveAlgorithm/CorrectInput';
-import { AntidoteFood} from '../game-engine/PickUps/AntidoteFood';
+import { AntidoteFood } from '../game-engine/PickUps/AntidoteFood';
 import { ClumsyInput } from '../game-engine/MoveAlgorithm/ClumsyInput';
-import { MobsFactory} from '../game-engine/Mobs/mob-factory';
-import { PickUpsFactory} from '../game-engine/PickUps/pickup-abstract-factory';
+import { MobsFactory } from '../game-engine/Mobs/mob-factory';
+import { PickUpsFactory } from '../game-engine/PickUps/pickup-abstract-factory';
 import { ActivatedRoute, Router } from '@angular/router';
 import { LobbyService } from '../core/services/lobby.service';
 import { MapService } from '../core/services/map.service';
@@ -29,6 +29,7 @@ import { Snake } from '../game-engine/Entities/snake';
 import { IPowerUp } from '../game-engine/PickUps/PowerUps';
 import { IHeal } from '../game-engine/PickUps/Heals-Factory/Heal';
 import { ConsoleLogger } from '@microsoft/signalr/dist/esm/Utils';
+import { PlatformLocation } from '@angular/common';
 
 interface IObject {}
 @Component({
@@ -37,10 +38,23 @@ interface IObject {}
   styleUrls: ['./game-board.component.scss'],
 })
 export class GameBoardComponent implements OnInit, AfterViewInit {
+  constructor(
+    private readonly signalRService: SignalRService,
+    private router: Router,
+    private activatedRoute: ActivatedRoute,
+    private lobbyService: LobbyService,
+    private mapService: MapService,
+    private location: PlatformLocation
+  ) {
+    location.onPopState(() => {
+      this.quit();
+    });
+  }
+
   lastRenderTime = 0;
   gameOver = false;
   gameBoard: any;
-  oponent = new Oponent(new SignalRService());
+  opponent = new Opponent(this.signalRService);
   clumsyInput = new ClumsyInput();
   correctInput = new CorrectInput();
 
@@ -58,20 +72,14 @@ export class GameBoardComponent implements OnInit, AfterViewInit {
   antidotefood?: AntidoteFood;
   pickupsfactory?: PickUpsFactory;
   pickupPowerUp?: IPowerUp;
-  pickupHeals?:IHeal;
+  pickupHeals?: IHeal;
   mobsfactory?: MobsFactory;
-  current_map?:number;
+  current_map?: number;
 
   map: Map | undefined;
   lobby: Lobby | undefined;
 
-  constructor(
-    private readonly signalRService: SignalRService,
-    private router: Router,
-    private activatedRoute: ActivatedRoute,
-    private lobbyService: LobbyService,
-    private mapService: MapService
-  ) {}
+  loading = true;
 
   ngOnInit(): void {
     let route = this.activatedRoute.params.subscribe((params) => {
@@ -113,6 +121,7 @@ export class GameBoardComponent implements OnInit, AfterViewInit {
               this.wall!.addBorder();
               this.door!.generateElements(this.map);
               this.door!.addBorder();
+
               this.prepareParams(this.wall!.wall);
             },
             error: (error) => {
@@ -126,11 +135,11 @@ export class GameBoardComponent implements OnInit, AfterViewInit {
       });
     });
 
-    this.snake!.listenToInputs();
+    this.snake?.listenToInputs();
   }
 
   prepareParams(wall: Wall) {
-    this.snake = new Snake(new SignalRService(), wall, new CorrectInput());
+    this.snake = new Snake(this.signalRService, wall, new CorrectInput());
     this.food = new Food(this.snake, wall);
     this.clumsyFood = new ClumsyFood(this.snake, wall);
     this.antidotefood = new AntidoteFood(this.snake, wall);
@@ -155,12 +164,20 @@ export class GameBoardComponent implements OnInit, AfterViewInit {
       .setCoordinates(this.snake, wall)
       .setType('default')
       .getResult();
-    this.pickupsfactory = new PickUpsFactory(this.snake,wall);
-    if(this.current_map ==null){
+    this.pickupsfactory = new PickUpsFactory(this.snake, wall);
+    if (this.current_map == null) {
       return;
     }
-    this.pickupPowerUp = this.pickupsfactory.getPowerUps(this.current_map,this.gameBoard);
-    this.pickupHeals = this.pickupsfactory.getHeals(this.current_map,this.gameBoard);
+    this.pickupPowerUp = this.pickupsfactory.getPowerUps(
+      this.current_map,
+      this.gameBoard
+    );
+    this.pickupHeals = this.pickupsfactory.getHeals(
+      this.current_map,
+      this.gameBoard
+    );
+
+    this.loading = false;
   }
 
   ngAfterViewInit() {
@@ -185,7 +202,7 @@ export class GameBoardComponent implements OnInit, AfterViewInit {
   }
 
   get snakeSpeed() {
-    const score = this.food!.currentScore;
+    const score = this.food?.currentScore || 0;
     if (score < 10) return 10;
     if (score > 10 && score < 15) return 10;
     if (score > 15 && score < 20) return 10;
@@ -197,24 +214,28 @@ export class GameBoardComponent implements OnInit, AfterViewInit {
   }
 
   update() {
+    if (this.loading) return console.log('Loading');
+
     this.snake!.update();
-    this.oponent.update();
+    this.opponent.update();
     this.food!.update();
     this.antidotefood!.update();
     this.clumsyFood!.update();
     this.checkDeath();
     this.pickupPowerUp?.update();
     this.pickupHeals?.update();
-    this.snake!.listenToInputs();
+    this.snake?.listenToInputs();
     //this.pickupPowerUp?.effect();
   }
 
   draw() {
+    if (this.loading) return console.log('Loading');
+
     this.gameBoard.innerHTML = '';
     this.wall!.draw(this.gameBoard);
     this.door!.draw(this.gameBoard);
     this.snake!.draw(this.gameBoard);
-    this.oponent.draw(this.gameBoard);
+    this.opponent.draw(this.gameBoard);
     this.pickupPowerUp!.draw(this.gameBoard);
     this.pickupHeals!.draw(this.gameBoard);
     this.food!.draw(this.gameBoard);
@@ -246,17 +267,6 @@ export class GameBoardComponent implements OnInit, AfterViewInit {
     this.router.navigate(['/lobbies']).then(() => {
       window.location.reload();
     });
-
-    // console.log(sessionStorage.getItem('lobbyId')!, sessionStorage.getItem('playerId')!.toString());
-    // this.lobbyService.removePlayerFromLobby(sessionStorage.getItem('lobbyId')!, sessionStorage.getItem('playerId')!).subscribe({
-    //   next: (data) => {
-    //     this.router.navigate(['/home']).then(() => {
-    //       window.location.reload();
-    //     });
-    //   },
-    //   error: (error) => {
-    //     console.log(error);
-
-    //   }})
+    sessionStorage.removeItem('lobbyId')!;
   }
 }

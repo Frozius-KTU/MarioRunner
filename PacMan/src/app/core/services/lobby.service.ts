@@ -4,26 +4,23 @@ import { Observable, of } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { Lobby } from 'src/app/models/game.types';
 
-
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class LobbyService {
-
   readonly APIUrl = environment.baseUrls.server + environment.baseUrls.apiUrl;
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {}
 
-  getLobbyDefaults(){
+  getLobbyDefaults() {
     return of({
       id: '',
       name: '',
       level: 0,
       mapId: '',
       player1: '',
-      player2: ''
+      player2: '',
     } as Lobby);
-
   }
 
   getLobbyList(): Observable<Lobby[]> {
@@ -47,7 +44,9 @@ export class LobbyService {
   }
 
   removePlayerFromLobby(id: string, playerId: string) {
-    return this.http.delete(this.APIUrl + 'Lobby/' + id + '/remove/' + playerId);
+    return this.http.delete(
+      this.APIUrl + 'Lobby/' + id + '/remove/' + playerId
+    );
   }
 
   deleteLobbyFromList(id: string) {
