@@ -175,6 +175,7 @@ export class GameBoardComponent implements OnInit, AfterViewInit {
     );
     //var clone = this.pickupHeals.clone();
     //console.log("kolnas   -- ", clone);
+    this.loading = false;
   }
 
   ngAfterViewInit() {
