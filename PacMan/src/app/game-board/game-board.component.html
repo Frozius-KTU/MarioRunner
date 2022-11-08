@@ -1,21 +1,18 @@
-
 <div class="container">
-
   <div class="score-card">
     <div class="score-board">
       <h1>Score</h1>
-      <h3>{{food!.currentScore}}</h3>
+      <h3>{{ food?.currentScore }}</h3>
     </div>
 
-    <div class="restart-button" (click)="restart()">
-        RESTART
+    <div>
+      <div class="restart-button" (click)="restart()">RESTART</div>
+      <br />
+      <div class="restart-button" (click)="quit()">QUIT</div>
     </div>
   </div>
 
-  <div class="game-board">
-
-
-  </div>
+  <div class="game-board"></div>
 
   <div class="game-over" *ngIf="gameOver">
     <h1>Game Over</h1>
@@ -29,8 +26,4 @@
       <a class="left" (click)="dpadMovement('ArrowLeft')"></a>
     </nav>
   </div>
-
-
-
 </div>
-

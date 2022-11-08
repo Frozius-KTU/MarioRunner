@@ -13,8 +13,12 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }*/
   --background-color: #ffffff;
   --board-color: #b5b5b5;
   --snake-color: #fed049;
-  --oponent-color: #2110d8;
+  --opponent-color: #2110d8;
   --food-color: #e70f0f;
+  --clumsyfood-color: #09ff00;
+  --heal-color: #860202;
+  --powerups-color: #4d0334;
+  --antidotefood-color: #1100ff;
   --wall-color: #1a1a1a;
   --button-color: #000000;
   --dpad-radius: 17%;
@@ -36,32 +40,46 @@ body {
   width: 100%;
   margin: 0;
   background-color: var(--background-color);
-  font-family: 'Anton', sans-serif;
+  font-family: "Anton", sans-serif;
 }
 
 .snake {
   background-color: var(--snake-color);
   border: 0.25vmin solid black;
-  transition: all .3ms ease-in;
+  transition: all 0.3ms ease-in;
 }
 
-.oponent {
-  background-color: var(--oponent-color);
+.opponent {
+  background-color: var(--opponent-color);
   border: 0.25vmin solid black;
-  transition: all .3ms ease-in;
+  transition: all 0.3ms ease-in;
 }
 
 .wall {
   background-color: var(--wall-color);
-  border: 0.25vmin solid black;
-  transition: all .3ms ease-in;
+  //border: 0.25vmin solid black;
+  transition: all 0.3ms ease-in;
 }
 
 .food {
-  background-image: "https://img.lovepik.com/free-png/20210927/lovepik-apple-png-image_401592228_wh1200.png";
   border-radius: 50%;
   background-color: var(--food-color);
   border: 0.5vmin solid black;
-  transition: all .3ms ease-in;
+  transition: all 0.3ms ease-in;
 }
-
+.powerups {
+  background-color: var(--powerup-color);
+  transition: all 0.3ms ease-in;
+}
+.clumsyfood {
+  border-radius: 50%;
+  background-color: var(--clumsyfood-color);
+  border: 0.5vmin solid black;
+  transition: all 0.3ms ease-in;
+}
+.antidotefood {
+  border-radius: 50%;
+  background-color: var(--antidotefood-color);
+  border: 0.5vmin solid black;
+  transition: all 0.3ms ease-in;
+}

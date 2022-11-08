@@ -17,36 +17,25 @@ namespace GameAPI.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "6.0.0")
+                .HasAnnotation("ProductVersion", "6.0.10")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
 
-            modelBuilder.Entity("GameAPI.Model.ClientModel", b =>
-                {
-                    b.Property<Guid?>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier")
-                        .HasDefaultValueSql("NEWID()");
-
-                    b.Property<Guid?>("Lobby")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Client", (string)null);
-                });
-
             modelBuilder.Entity("GameAPI.Model.LobbyModel", b =>
                 {
-                    b.Property<Guid?>("Id")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier")
                         .HasDefaultValueSql("NEWID()");
+
+                    b.Property<int?>("Level")
+                        .IsRequired()
+                        .HasColumnType("int");
+
+                    b.Property<Guid?>("MapId")
+                        .IsRequired()
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -60,7 +49,81 @@ namespace GameAPI.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("MapId");
+
                     b.ToTable("Lobby", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            Id = new Guid("a57bac61-52d5-4eaf-b80f-42560d8a6f2d"),
+                            Level = 1,
+                            MapId = new Guid("3fa85f64-5717-4562-b3fc-2c963f66afa1"),
+                            Name = "Lobby 1"
+                        },
+                        new
+                        {
+                            Id = new Guid("256b0b17-04a8-49e8-9aa0-de10b824502a"),
+                            Level = 2,
+                            MapId = new Guid("3fa85f64-5717-4562-b3fc-2c963f66afa2"),
+                            Name = "Lobby 2"
+                        },
+                        new
+                        {
+                            Id = new Guid("64ce0fed-f6be-441f-922d-a1b92cd08ecd"),
+                            Level = 3,
+                            MapId = new Guid("3fa85f64-5717-4562-b3fc-2c963f66afa3"),
+                            Name = "Lobby 3"
+                        });
+                });
+
+            modelBuilder.Entity("GameAPI.Model.MapModel", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier")
+                        .HasDefaultValueSql("NEWID()");
+
+                    b.Property<string>("Map")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Map", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            Id = new Guid("3fa85f64-5717-4562-b3fc-2c963f66afa1"),
+                            Map = "0 0 0 0 0 0 0 0 0 1 1 0 0 0 0 0 0 0 0 0\n                        0 1 1 0 1 1 1 1 0 1 1 0 1 1 1 1 0 1 1 0\n                        0 1 1 0 1 1 1 1 0 1 1 0 1 1 1 1 0 1 1 0\n                        0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0\n                        0 1 1 0 1 0 1 1 1 1 1 1 1 1 0 1 0 1 1 0\n                        0 0 0 0 1 0 0 0 0 1 1 0 0 0 0 1 0 0 0 0\n                        1 1 1 0 1 1 1 0 0 1 1 0 0 1 1 1 0 1 1 1\n                        1 1 1 0 1 0 0 0 0 0 0 0 0 0 0 1 0 1 1 1\n                        1 1 1 0 1 0 1 1 1 2 2 1 1 1 0 1 0 1 1 1\n                        0 0 0 0 0 0 1 0 0 0 0 0 0 1 0 0 0 0 0 0\n                        0 0 0 0 0 0 1 0 0 0 0 0 0 1 0 0 0 0 0 0\n                        1 1 1 0 1 0 1 1 1 1 1 1 1 1 0 1 0 1 1 1\n                        1 1 1 0 1 0 0 0 0 0 0 0 0 0 0 1 0 1 1 1\n                        0 0 0 0 0 0 1 1 1 1 1 1 1 1 0 0 0 0 0 0\n                        0 1 1 1 0 0 0 0 0 1 1 0 0 0 0 0 1 1 1 0\n                        0 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0\n                        1 1 0 1 0 1 0 1 1 1 1 1 1 0 1 0 1 0 1 1\n                        0 0 0 0 0 1 0 0 0 1 1 0 0 0 1 0 0 0 0 0\n                        0 1 1 1 1 1 1 1 0 1 1 0 1 1 1 1 1 1 1 0\n                        0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0",
+                            Name = "Map 1"
+                        },
+                        new
+                        {
+                            Id = new Guid("3fa85f64-5717-4562-b3fc-2c963f66afa2"),
+                            Map = "1 1 1 1 1 1 1 1 1 0 0 1 1 1 1 1 1 1 1 1\n                        1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1\n                        1 0 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 0 1\n                        1 0 0 0 0 0 0 0 0 1 1 0 0 0 0 0 0 0 0 1\n                        1 0 1 1 1 0 0 0 0 0 0 0 0 0 0 1 1 1 0 1\n                        1 0 0 1 0 0 1 1 1 1 1 1 1 1 0 0 1 0 0 1\n                        1 0 0 1 0 0 0 0 0 1 1 0 0 0 0 0 1 0 0 1\n                        1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1\n                        1 1 1 0 1 0 1 1 1 2 2 1 1 1 0 1 0 1 1 1\n                        0 0 0 0 0 0 1 0 0 0 0 0 0 1 0 0 0 0 0 0\n                        0 0 0 0 0 0 1 0 0 0 0 0 0 1 0 0 0 0 0 0\n                        1 1 1 0 1 0 1 1 1 1 1 1 1 1 0 1 0 1 1 1\n                        1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1\n                        1 0 0 1 0 0 0 0 0 1 1 0 0 0 0 0 1 0 0 1\n                        1 0 0 1 0 0 1 1 1 1 1 1 1 1 0 0 1 0 0 1\n                        1 0 1 1 1 0 0 0 0 0 0 0 0 0 0 1 1 1 0 1\n                        1 0 0 0 0 0 0 0 0 1 1 0 0 0 0 0 0 0 0 1\n                        1 0 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 0 1\n                        1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1\n                        1 1 1 1 1 1 1 1 1 0 0 1 1 1 1 1 1 1 1 1",
+                            Name = "Map 2"
+                        },
+                        new
+                        {
+                            Id = new Guid("3fa85f64-5717-4562-b3fc-2c963f66afa3"),
+                            Map = "1 0 0 0 1 1 1 1 1 1 1 1 1 1 1 1 0 0 0 1\n                        1 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 1\n                        1 0 1 1 1 1 1 1 1 1 1 1 1 1 1 0 0 1 0 1\n                        1 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 1 1 0 1\n                        1 1 0 1 1 1 1 1 1 0 1 0 1 0 1 0 0 1 0 1\n                        0 0 0 1 0 0 0 1 0 0 1 0 1 0 1 0 0 0 0 0\n                        0 0 1 1 1 1 0 1 0 1 1 0 1 0 1 1 1 1 1 0\n                        0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0\n                        1 1 1 1 1 0 1 1 1 2 2 1 1 1 0 1 1 1 1 1\n                        1 0 0 0 0 0 1 0 0 0 0 0 0 1 1 1 0 0 0 1\n                        1 1 1 0 1 0 1 0 0 0 0 0 0 1 0 0 0 1 0 1\n                        1 0 0 0 1 0 1 1 1 1 1 1 1 1 0 1 1 1 0 1\n                        0 0 1 1 1 0 0 0 0 1 1 0 0 0 0 0 0 1 0 0\n                        0 1 1 0 1 0 1 1 1 1 1 1 1 1 1 1 0 1 1 0\n                        0 0 0 0 1 0 1 0 0 0 0 0 0 0 0 0 0 1 0 0\n                        1 1 1 0 1 0 1 0 1 1 1 1 1 1 1 1 1 1 0 1\n                        1 0 0 0 1 0 1 0 0 0 0 0 0 0 0 0 0 0 0 1\n                        1 0 1 0 1 0 1 1 1 1 1 1 1 1 1 1 0 1 0 1\n                        1 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 1\n                        1 0 0 0 1 1 1 1 1 1 1 1 1 1 1 1 0 0 0 1",
+                            Name = "Map 3"
+                        });
+                });
+
+            modelBuilder.Entity("GameAPI.Model.LobbyModel", b =>
+                {
+                    b.HasOne("GameAPI.Model.MapModel", "Map")
+                        .WithMany()
+                        .HasForeignKey("MapId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("Map");
                 });
 #pragma warning restore 612, 618
         }

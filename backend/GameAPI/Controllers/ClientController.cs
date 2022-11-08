@@ -1,34 +1,43 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
-using GameAPI.Data.Client;
-using GameAPI.Model;
+﻿using System.Collections.Generic;
 
-namespace GameAPI.Controllers
+using GameAPI.Hubs;
+using GameAPI.Model;
+using GameAPI.Data.Client;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.SignalR;
+using System.Threading.Tasks;
+using GameAPI.Context;
+using  Microsoft.EntityFrameworkCore;
+
+namespace GameAPI.Controllers;
+
+[ApiController]
+[Route("api/[controller]")]
+public class ClientController : ControllerBase
 {
-    [ApiController]
-    [Route("api/[controller]")]
-    public class ClientController : ControllerBase
-    {
-        public ClientController(IClientRepo repository)
+    //private readonly IClientRepository _clientRepository;
+    //private readonly MemoryContext _context;
+
+    private readonly IHubContext<ChatHub> _chatHubContext;
+    public readonly IClientRepository _repository;
+
+    public ClientController(IClientRepository repository, IHubContext<ChatHub> hubContext)
         {
             _repository = repository;
+            _chatHubContext = hubContext;
         }
 
-        public readonly IClientRepo _repository;
-
+        
         // GET api/client
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<ClientModel>>> GetClientListAsync()
+        public async Task<ActionResult<ICollection<ClientModel>>> GetClientListAsync()
         {
-            var clientList = await _repository.GetClientListAsync();
-            if (clientList is null)
+            var list = await _repository.GetClientListAsync();
+            if (list is null)
             {
                 return NotFound();
             }
-            return Ok(clientList);
+            return Ok(list);
         }
 
 
@@ -36,51 +45,64 @@ namespace GameAPI.Controllers
         [HttpGet("{id:Guid}")]
         public async Task<ActionResult<ClientModel>> GetClientByIdAsync([FromRoute] Guid id)
         {
-            var clientFromRepo = await _repository.GetClientByIdAsync(id);
-            if (clientFromRepo is null)
+            var result = await _repository.GetClientByIdAsync(id);
+            if (result is null)
             {
                 return NotFound();
             }
-            return Ok(clientFromRepo);
+            return Ok(result);
         }
 
         // POST api/client
         [HttpPost]
-        public async Task<ActionResult> CreateClientAsync([FromBody] ClientModel clientModel)
+        public async Task<ActionResult> CreateClientAsync([FromBody] ClientModel request)
         {
-            await _repository.CreateClientAsync(clientModel);
+            if (request == null)
+            {
+                return BadRequest();
+            }
+            await _repository.CreateClientAsync(request);
 
             await _repository.SaveChangesAsync();
 
+            //await _chatHubContext.Clients.All.SendAsync("FoodAdded", request);
+
+            //return Ok(request);
             return NoContent();
         }
 
-        // PUT api/client
+        // PUT api/client/id
         [HttpPut("{id:Guid}")]
-        public async Task<ActionResult> UpdateClientAsync([FromRoute] Guid id, [FromBody] ClientModel clientModel)
+        public async Task<ActionResult> UpdateClientAsync([FromRoute] Guid id, [FromBody] ClientModel request)
         {
             var model = await _repository.GetClientByIdAsync(id);
-            // model.Name = clientModel.Name ?? model.Name;
-            // model.Picture = clientModel.Picture ?? model.Picture;
-            // model.Price = clientModel.Price ?? model.Price;
-            // model.Description = clientModel.Description ?? model.Description;
-            // model.Quantity = clientModel.Quantity ?? model.Quantity;
-            // model.Discount = clientModel.Discount ?? model.Discount;
-            // model.Type = clientModel.Type ?? model.Type;
+            if(model is null){
+                return NotFound();
+            }
 
-            model.Name = !String.IsNullOrEmpty(clientModel.Name) ? clientModel.Name : model.Name;
-            model.Lobby = clientModel.Lobby != null ? clientModel.Lobby : model.Lobby;
-
+            model.Name = !String.IsNullOrEmpty(request.Name) ? request.Name : model.Name;
+            model.Active =  request.Active;
+            if(request.LobbyId == new Guid())
+            {
+                model.LobbyId = null;
+            }
+            else{
+                model.LobbyId = request.LobbyId ?? model.LobbyId;
+            }
+            
 
             await _repository.UpdateClientAsync(model);
 
             await _repository.SaveChangesAsync();
 
-            return NoContent();
+            //await _chatHubContext.Clients.All.SendAsync("FoodUpdated", model);
+
+            return Ok(model);
         }
 
+
         // Delete api/client/{id}
-        [HttpDelete("{id}")]
+        [HttpDelete("{id:Guid}")]
         public async Task<ActionResult> DeleteClientByIdAsync([FromRoute] Guid id)
         {
 
@@ -91,7 +113,140 @@ namespace GameAPI.Controllers
             await _repository.DeleteClientAsync(client);
 
             await _repository.SaveChangesAsync();
+
+            //await _chatHubContext.Clients.All.SendAsync("FoodDeleted");
+
+            
+
             return NoContent();
         }
-    }
+
+
+
+
+
+
+
+
+
+
+
+    // // public ClientController(MemoryContext context, IHubContext<ChatHub> hubContext)
+    // // {
+    // //     _context = context;
+    // //     _chatHubContext = hubContext;
+    // // }
+    // public ClientController(IClientRepository clientRepository, IHubContext<ChatHub> hubContext)
+    // {
+    //     _clientRepository = clientRepository;
+    //     _chatHubContext = hubContext;
+    // }
+
+    // // // GET: api/Clients
+    // // [HttpGet]
+    // // public async Task<ActionResult<ICollection<ClientModel>>> GetUsers()
+    // // {
+    // //     return await _context.Clients.ToListAsync();
+    // // }
+
+    // [HttpGet]
+    // public async Task<ActionResult<List<ClientModel>>> GetClientListAsync()
+    // {
+    //     var clients = await _clientRepository.GetClientListAsync();
+    //     return Ok(clients);
+    // }
+
+    // [HttpGet]
+    // [Route("{id:Guid}", Name = nameof(GetClientByIdAsync))]
+    // public async Task<ActionResult<ClientModel>> GetClientByIdAsync([FromRoute] Guid id)
+    // {
+    //     var result = await _clientRepository.GetClientByIdAsync(id);
+
+    //     if (result == null)
+    //     {
+    //         return NotFound();
+    //     }
+
+    //     return Ok(result);
+    // }
+
+    // // [HttpPost]
+    // // public async Task<ActionResult<ClientModel>> PostStudent(ClientModel student)
+    // // {
+    // //     _context.Clients.Add(student);
+    // //     await _context.SaveChangesAsync();
+
+    // //     //return CreatedAtAction("GetClient", new { id = student.Id }, student);
+    // //     return NoContent();
+    // // }
+
+    // [HttpPost]
+    // public async Task<ActionResult> CreateClientAsync([FromBody] ClientModel request)
+    // {
+    //     if (request == null)
+    //     {
+    //         return BadRequest();
+    //     }
+
+    //     // if (!ModelState.IsValid)
+    //     // {
+    //     //     return BadRequest(ModelState);
+    //     // }
+
+    //     ClientModel model = request;
+    //     model.Created = DateTime.Now;
+    //     ClientModel newModel = await _clientRepository.CreateClientAsync(model);
+
+    //     await _chatHubContext.Clients.All.SendAsync("FoodAdded", newModel);
+
+    //     return Created(nameof(request), request);
+    // }
+
+    // [HttpPut]
+    // [Route("{id:Guid}")]
+    // public async Task<ActionResult<ClientModel>> UpdateClientAsync([FromRoute] Guid id, [FromBody] ClientModel model)
+    // {
+    //     if (model == null)
+    //     {
+    //         return BadRequest();
+    //     }
+
+    //     // if (!ModelState.IsValid)
+    //     // {
+    //     //     return BadRequest(ModelState);
+    //     // }
+
+
+    //     ClientModel result = await _clientRepository.GetClientByIdAsync(id);
+
+    //     if (result == null)
+    //     {
+    //         return NotFound();
+    //     }
+
+    //     result.Name = model.Name;
+
+    //     ClientModel newModel = await _clientRepository.UpdateClientAsync(result);
+    //     await _chatHubContext.Clients.All.SendAsync("FoodUpdated", newModel);
+    //     return Ok(newModel);
+    // }
+
+    // [HttpDelete]
+    // [Route("{id:Guid}")]
+    // public async Task<ActionResult> DeleteClientAsync([FromRoute] Guid id)
+    // {
+
+    //     ClientModel result = await _clientRepository.GetClientByIdAsync(id);
+
+    //     if (result == null)
+    //     {
+    //         return NotFound();
+    //     }
+
+    //     await _clientRepository.DeleteClientAsync(id);
+
+    //     await _chatHubContext.Clients.All.SendAsync("FoodDeleted");
+    //     return NoContent();
+    // }
 }
+

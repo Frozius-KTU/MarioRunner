@@ -6,6 +6,7 @@ import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { HomeComponent } from './home/home.component';
+import { LobbiesComponent } from './lobbies/lobbies.component';
 import { GameBoardComponent } from './game-board/game-board.component';
 
 // angular material
@@ -14,29 +15,33 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { HttpClientModule } from '@angular/common/http';
-import { MatBadgeModule} from '@angular/material/badge';
-import { MatCardModule} from '@angular/material/card';
-import { MatChipsModule} from '@angular/material/chips';
-import { MatMenuModule} from '@angular/material/menu';
-import { MatDividerModule} from '@angular/material/divider';
-import { MatDatepickerModule} from '@angular/material/datepicker';
+import { MatBadgeModule } from '@angular/material/badge';
+import { MatCardModule } from '@angular/material/card';
+import { MatChipsModule } from '@angular/material/chips';
+import { MatMenuModule } from '@angular/material/menu';
+import { MatDividerModule } from '@angular/material/divider';
+import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
-import { MatTableModule } from '@angular/material/table'
+import { MatTableModule } from '@angular/material/table';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatSelectModule } from '@angular/material/select';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatGridListModule } from '@angular/material/grid-list';
-
-
-
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import {
+  UtilsDropdownsModule,
+  UtilsGridModule,
+  UtilsInputsModule,
+} from 'angular-helper-utils';
 
 @NgModule({
   declarations: [
     AppComponent,
     HomeComponent,
-    GameBoardComponent
+    GameBoardComponent,
+    LobbiesComponent,
   ],
   imports: [
     BrowserModule,
@@ -62,8 +67,12 @@ import { MatGridListModule } from '@angular/material/grid-list';
     ReactiveFormsModule,
     MatCheckboxModule,
     MatGridListModule,
+    FontAwesomeModule,
+    UtilsGridModule,
+    UtilsInputsModule,
+    UtilsDropdownsModule,
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}
