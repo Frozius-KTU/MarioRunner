@@ -2,6 +2,7 @@ import { PlatformLocation } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import Swal from 'sweetalert2';
+import { FacadeService } from '../core/services/facade.service';
 import { LobbyService } from '../core/services/lobby.service';
 import { SignalRService } from '../core/services/signalR.service';
 import { Client, Lobby } from '../models/game.types';
@@ -18,6 +19,7 @@ export class LobbiesComponent implements OnInit {
     private readonly signalRService: SignalRService,
     private router: Router,
     private lobbyService: LobbyService,
+    private facadeService: FacadeService,
     private location: PlatformLocation
   ) {
     location.onPopState(() => {
@@ -26,7 +28,7 @@ export class LobbiesComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.lobbyService.getLobbyList().subscribe({
+    this.facadeService.getLobbyList().subscribe({
       next: (data) => {
         this.lobbyList = data;
       },
