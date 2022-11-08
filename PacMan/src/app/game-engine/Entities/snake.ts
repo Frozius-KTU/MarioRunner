@@ -1,9 +1,10 @@
+import { LayoutModule } from '@angular/cdk/layout';
 import { SignalRService } from 'src/app/core/services/signalR.service';
 import { ChatMessage } from 'src/app/models/chatMessage.model';
 import { Wall } from '../Decorator/wall';
 import { fixOutsidePosition, outsideGrid } from '../gameboard-grid.util';
 import { MoveAlgorithm } from '../MoveAlgorithm';
-
+import { IHeal } from '../PickUps/Heals-Factory/Heal';
 export class Snake {
   moveAlgorithm: MoveAlgorithm;
 
@@ -14,8 +15,17 @@ export class Snake {
   ) {
     this.moveAlgorithm = movealgorithm;
   }
-
-  snakeBody = [{ x: 8, y: 11 }];
+  snakeBody = [{ x: 11, y: 11 }];
+  canGetDamaged? = true;
+  getState() {
+    return this.canGetDamaged;
+  }
+  setStateToImortal() {
+    this.canGetDamaged = false;
+  }
+  setNormalState() {
+    this.canGetDamaged = true;
+  }
 
   newSegments = 0;
   //input = new CorrectInput();
@@ -116,5 +126,30 @@ export class Snake {
           direction
       )
     );
+  }
+
+  checkblob(blob1?: any, blob2?: any, blob3?: any, blob4?: any, heal?: IHeal) {
+    if (this.canGetDamaged) {
+      //console.log(this.snakeBody)
+      if (
+        (this.snakeBody[0].x == blob1[0].x &&
+          this.snakeBody[0].y == blob1[0].y) ||
+        (this.snakeBody[0].x == blob2[0].x &&
+          this.snakeBody[0].y == blob2[0].y) ||
+        (this.snakeBody[0].x == blob3[0].x &&
+          this.snakeBody[0].y == blob3[0].y) ||
+        (this.snakeBody[0].x == blob4[0].x && this.snakeBody[0].y == blob4[0].y)
+      ) {
+        if (heal != null) {
+          heal.minusHealth = 1;
+          console.log('numinusavo');
+          this.setStateToImortal();
+          setTimeout(() => {
+            this.setNormalState();
+            console.log('Immortal efektas beigesi po 2 sekundziu');
+          },2000);
+        }
+      }
+    }
   }
 }

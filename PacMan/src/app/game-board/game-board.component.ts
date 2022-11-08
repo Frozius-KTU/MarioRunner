@@ -213,7 +213,7 @@ export class GameBoardComponent implements OnInit, AfterViewInit {
 
   update() {
     if (this.loading) return console.log('Loading');
-
+    this.snake!.checkblob(this.blob1?.blobBody,this.blob2?.blobBody,this.blob3?.blobBody,this.blob4?.blobBody,this.pickupHeals);
     this.snake!.update();
     this.opponent.update();
     this.food!.update();
@@ -223,7 +223,6 @@ export class GameBoardComponent implements OnInit, AfterViewInit {
     this.pickupPowerUp?.update();
     this.pickupHeals?.update();
     this.snake?.listenToInputs();
-    //this.pickupPowerUp?.effect();
   }
 
   draw() {
@@ -244,11 +243,11 @@ export class GameBoardComponent implements OnInit, AfterViewInit {
     this.blob3!.draw(this.gameBoard);
     this.blob4!.draw(this.gameBoard);
   }
-
   checkDeath() {
     this.gameOver =
       outsideGrid(this.snake!.getSnakeHead()) ||
-      this.snake!.snakeIntersection();
+      this.snake!.snakeIntersection() ||
+      this.pickupHeals?.currentHealth == 0;
     if (!this.gameOver) return;
     this.gameBoard.classList.add('blur');
   }
