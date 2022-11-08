@@ -2984,19 +2984,19 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\Kestutis\\.nuget\\packages\\": {}
+    "C:\\Users\\damir\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "c:\\Users\\Kestutis\\Desktop\\PacMan\\backend\\GameAPI\\GameAPI.csproj",
+      "projectUniqueName": "c:\\Users\\damir\\Desktop\\7 Semestras projektai\\PacMan\\MarioRunner\\backend\\GameAPI\\GameAPI.csproj",
       "projectName": "GameAPI",
-      "projectPath": "c:\\Users\\Kestutis\\Desktop\\PacMan\\backend\\GameAPI\\GameAPI.csproj",
-      "packagesPath": "C:\\Users\\Kestutis\\.nuget\\packages\\",
-      "outputPath": "c:\\Users\\Kestutis\\Desktop\\PacMan\\backend\\GameAPI\\obj\\",
+      "projectPath": "c:\\Users\\damir\\Desktop\\7 Semestras projektai\\PacMan\\MarioRunner\\backend\\GameAPI\\GameAPI.csproj",
+      "packagesPath": "C:\\Users\\damir\\.nuget\\packages\\",
+      "outputPath": "c:\\Users\\damir\\Desktop\\7 Semestras projektai\\PacMan\\MarioRunner\\backend\\GameAPI\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\Kestutis\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\damir\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
