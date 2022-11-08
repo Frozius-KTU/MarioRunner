@@ -1,7 +1,6 @@
 import { randomGridPosition } from '../gameboard-grid.util';
 import { BlackBorderWallDecorator, Wall } from '../Decorator/wall';
 import { GameBoardComponent } from 'src/app/game-board/game-board.component';
-import { Snake } from '../Entities/snake';
 
 export interface IPowerUp {
   update(): void;
@@ -20,7 +19,6 @@ export class PowerUp1 implements IPowerUp {
   update() {
     if (this.snake.onSnake(this.powerup) || this.walls.onObject(this.powerup)) {
       this.powerup = this.getRanomPowerUpPosition();
-      this.effect();
     }
   }
 
@@ -48,12 +46,7 @@ export class PowerUp1 implements IPowerUp {
   }
 
   effect() {
-    this.snake.setStateToImortal();
-    setTimeout(logout, 15000, this.snake);
-    function logout(snake : Snake){
-      console.log('Immortal efektas beigesi po 15 sekundziu');
-      snake.setNormalState();
-    }
+    console.log('efektas1');
   }
 }
 
@@ -68,7 +61,6 @@ export class PowerUp2 implements IPowerUp {
   update() {
     if (this.snake.onSnake(this.powerup) || this.walls.onObject(this.powerup)) {
       this.powerup = this.getRanomPowerUpPosition();
-      this.effect();
     }
   }
 
@@ -96,12 +88,7 @@ export class PowerUp2 implements IPowerUp {
   }
 
   effect() {
-    this.snake.setStateToImortal();
-    setTimeout(logout, 10000, this.snake);
-    function logout(snake : Snake){
-      console.log('Immortal efektas beigesi po 10 sekundziu');
-      snake.setNormalState();
-    }
+    console.log('efektas2');
   }
 }
 
@@ -116,7 +103,6 @@ export class PowerUp3 implements IPowerUp {
   update() {
     if (this.snake.onSnake(this.powerup) || this.walls.onObject(this.powerup)) {
       this.powerup = this.getRanomPowerUpPosition();
-      this.effect();
     }
   }
 
@@ -144,11 +130,6 @@ export class PowerUp3 implements IPowerUp {
   }
 
   effect() {
-    this.snake.setStateToImortal();
-    setTimeout(logout, 5000, this.snake);
-    function logout(snake : Snake){
-      console.log('Immortal efektas beigesi po 5 sekundziu');
-      snake.setNormalState();
-    }
+    console.log('efektas3');
   }
 }
