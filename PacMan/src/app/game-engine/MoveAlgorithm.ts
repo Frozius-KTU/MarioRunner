@@ -1,9 +1,6 @@
-import { SignalRService } from "../core/services/signalR.service";
-
-export interface MoveAlgorithm
-{
+export interface MoveAlgorithm {
   moveAlgorithm(direction: String): void;
   getInputs(): void;
-  getInputDirection(): { x: number; y: number; };
+  getInputDirection(): { x: number; y: number };
   resetDirection(): void;
 }

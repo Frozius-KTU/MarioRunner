@@ -3,8 +3,6 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import Swal from 'sweetalert2';
 import { FacadeService } from '../core/services/facade.service';
-import { LobbyService } from '../core/services/lobby.service';
-import { SignalRService } from '../core/services/signalR.service';
 import { Client, Lobby } from '../models/game.types';
 
 @Component({
@@ -16,9 +14,7 @@ export class LobbiesComponent implements OnInit {
   lobbyList: Lobby[] = [];
 
   constructor(
-    private readonly signalRService: SignalRService,
     private router: Router,
-    private lobbyService: LobbyService,
     private facadeService: FacadeService,
     private location: PlatformLocation
   ) {
@@ -31,6 +27,15 @@ export class LobbiesComponent implements OnInit {
     this.facadeService.getLobbyList().subscribe({
       next: (data) => {
         this.lobbyList = data;
+
+        this.facadeService
+          .getClientById(sessionStorage.getItem('playerId')!)
+          .subscribe({
+            error: () => {
+              sessionStorage.clear();
+              this.router.navigate(['/home']);
+            },
+          });
       },
       error: (error) => {
         console.log(error);
@@ -55,7 +60,7 @@ export class LobbiesComponent implements OnInit {
 
     let clientId = sessionStorage.getItem('playerId')!;
 
-    this.signalRService.connectClientToLobby(clientId, lobbyId);
+    this.facadeService.connectClientToLobby(clientId, lobbyId);
 
     Swal.fire({
       title: 'Joining lobby!',
@@ -67,19 +72,21 @@ export class LobbiesComponent implements OnInit {
         Swal.showLoading();
       },
       willClose: () => {
-        if (this.signalRService.clientStatusCode == '406') {
+        if (this.facadeService.signalRService.clientStatusCode == '406') {
           Swal.fire({
             icon: 'error',
             title: 'Sorry',
             text: 'Lobby is full',
             showCloseButton: true,
           });
-        } else if (this.signalRService.clientStatusCode == '200') {
+        } else if (
+          this.facadeService.signalRService.clientStatusCode == '200'
+        ) {
           sessionStorage.setItem('lobbyId', lobbyId);
         } else {
           Swal.fire({
             icon: 'error',
-            title: this.signalRService.clientStatusCode,
+            title: this.facadeService.signalRService.clientStatusCode,
             text: 'Something went wrong!',
             showCloseButton: true,
           });
@@ -90,7 +97,7 @@ export class LobbiesComponent implements OnInit {
 
       this.router.navigate(['/game', lobbyId]).then(() => {
         //window.location.reload();
-        this.signalRService.setLobbyId(lobbyId);
+        this.facadeService.setLobbyId(lobbyId);
       });
     });
   }

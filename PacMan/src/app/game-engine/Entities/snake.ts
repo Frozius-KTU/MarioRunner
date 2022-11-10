@@ -1,4 +1,4 @@
-import { SignalRService } from 'src/app/core/services/signalR.service';
+import { FacadeService } from 'src/app/core/services/facade.service';
 import { ChatMessage } from 'src/app/models/chatMessage.model';
 import { Wall } from '../Decorator/wall';
 import { fixOutsidePosition, outsideGrid } from '../gameboard-grid.util';
@@ -8,7 +8,7 @@ export class Snake {
   moveAlgorithm: MoveAlgorithm;
 
   constructor(
-    private readonly signalRService: SignalRService,
+    private facadeService: FacadeService,
     public walls: Wall,
     movealgorithm: MoveAlgorithm
   ) {
@@ -107,7 +107,7 @@ export class Snake {
   }
 
   sendPosition(direction: string) {
-    this.signalRService.sendChatMessage(
+    this.facadeService.signalRService.sendChatMessage(
       new ChatMessage(
         sessionStorage.getItem('lobbyId') +
           ' ' +

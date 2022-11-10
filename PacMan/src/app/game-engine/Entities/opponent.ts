@@ -1,9 +1,9 @@
 import { ConsoleLogger } from '@microsoft/signalr/dist/esm/Utils';
-import { SignalRService } from '../../core/services/signalR.service';
+import { FacadeService } from 'src/app/core/services/facade.service';
 import { ChatMessage } from '../../models/chatMessage.model';
 
 export class Opponent {
-  constructor(private readonly signalRService: SignalRService) {}
+  constructor(private facadeService: FacadeService) {}
 
   snakeBody = [{ x: -1, y: -1 }];
 
@@ -22,7 +22,6 @@ export class Opponent {
       snakeElement.style.backgroundImage =
         "url('https://i.pinimg.com/originals/f5/75/2c/f5752c7c9f03832209f0bb8b57214281.gif')";
       snakeElement.style.backgroundSize = 'cover';
-      snakeElement.style.backgroundColor = 'black';
       snakeElement.classList.add('opponentas');
       gameBoard.appendChild(snakeElement);
     });
@@ -52,7 +51,7 @@ export class Opponent {
   }
 
   getPosition() {
-    this.signalRService.messageReceived$.subscribe((message) => {
+    this.facadeService.signalRService.messageReceived$.subscribe((message) => {
       var data = message.message.split(' ');
       if (
         data[0] == sessionStorage.getItem('lobbyId') &&

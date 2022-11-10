@@ -1,12 +1,21 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { LoginService } from './login.service';
 import { FacadeService } from './facade.service';
 import { LobbyService } from './/lobby.service';
+import { ClientService } from './client.service';
+import { MapService } from './map.service';
+import { SignalRService } from './signalR.service';
 
 @NgModule({
   imports: [CommonModule],
   declarations: [],
-  providers: [LobbyService, LoginService, FacadeService],
+  providers: [
+    LobbyService,
+    ClientService,
+    MapService,
+    SignalRService,
+
+    FacadeService,
+  ],
 })
 export class ServicesModule {}
