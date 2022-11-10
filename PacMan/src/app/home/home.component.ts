@@ -8,19 +8,17 @@ import {
 } from '@angular/core';
 import { Router } from '@angular/router';
 import { Observable, forkJoin } from 'rxjs';
-import { SignalRService } from '../core/services/signalR.service';
 import { ChatMessage } from '../models/chatMessage.model';
 import { map, tap } from 'rxjs/operators';
 import { ChatComponent } from '../presentational/chat/chat.component';
 
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { LobbyService } from '../core/services/lobby.service';
 import { Client, Lobby } from '../models/game.types';
 import { Subject } from '@microsoft/signalr';
 import Swal from 'sweetalert2';
-import { ClientService } from '../core/services/client.service';
 import { Invoker } from '../game-engine/commandTest';
 import { PlatformLocation } from '@angular/common';
+import { FacadeService } from '../core/services/facade.service';
 
 @Component({
   selector: 'app-home',
@@ -28,8 +26,6 @@ import { PlatformLocation } from '@angular/common';
   styleUrls: ['./home.component.scss'],
 })
 export class HomeComponent implements OnInit {
-  displayedColumns = ['message'];
-
   signalrConnectionEstablished$: Observable<boolean>;
   chatmessages: ChatMessage[] = [];
 
@@ -37,10 +33,8 @@ export class HomeComponent implements OnInit {
   commandTest: Invoker = new Invoker();
 
   constructor(
-    private readonly signalRService: SignalRService,
     private router: Router,
-    private lobbyService: LobbyService,
-    private clientService: ClientService,
+    private facadeService: FacadeService,
     private location: PlatformLocation
   ) {
     location.onPopState(() => {
@@ -57,7 +51,7 @@ export class HomeComponent implements OnInit {
     sessionStorage.removeItem('lobbyId');
 
     if (sessionStorage.getItem('playerId')) {
-      this.clientService
+      this.facadeService
         .getClientById(sessionStorage.getItem('playerId')!)
         .subscribe({
           error: (error) => {
@@ -67,9 +61,9 @@ export class HomeComponent implements OnInit {
     }
 
     this.signalrConnectionEstablished$ =
-      this.signalRService.connectionEstablished$;
+      this.facadeService.signalRService.connectionEstablished$;
 
-    this.signalRService.messageReceived$.subscribe((message) => {
+    this.facadeService.signalRService.messageReceived$.subscribe((message) => {
       this.chatmessages.push(message);
     });
   }
@@ -98,8 +92,8 @@ export class HomeComponent implements OnInit {
         created: new Date().toISOString(),
       };
 
-      this.signalRService.createClient(client);
-      client = this.signalRService.createdClient;
+      this.facadeService.createClient(client);
+      client = this.facadeService.signalRService.createdClient;
 
       Swal.fire({
         title: 'Creating your client!',
@@ -112,7 +106,7 @@ export class HomeComponent implements OnInit {
           sessionStorage.setItem('playerName', this.playerName);
         },
         willClose: () => {
-          client = this.signalRService.createdClient;
+          client = this.facadeService.signalRService.createdClient;
           sessionStorage.setItem('playerId', client.id!);
           //console.log(client.id);
         },
@@ -125,7 +119,7 @@ export class HomeComponent implements OnInit {
       let client: Client = {
         name: this.playerName,
       };
-      this.clientService
+      this.facadeService
         .updateClient(sessionStorage.getItem('playerId')!, client)
         .subscribe({
           next: (data) => {

@@ -1,5 +1,4 @@
 import { AfterViewInit, Component, OnInit } from '@angular/core';
-import { SignalRService } from '../core/services/signalR.service';
 import { Food } from '../game-engine/PickUps/food';
 import { outsideGrid } from '../game-engine/gameboard-grid.util';
 import { Opponent } from '../game-engine/Entities/opponent';
@@ -19,8 +18,6 @@ import { AntidoteFood } from '../game-engine/PickUps/AntidoteFood';
 import { ClumsyInput } from '../game-engine/MoveAlgorithm/ClumsyInput';
 import { PickUpsFactory } from '../game-engine/PickUps/pickup-abstract-factory';
 import { ActivatedRoute, Router } from '@angular/router';
-import { LobbyService } from '../core/services/lobby.service';
-import { MapService } from '../core/services/map.service';
 import { Lobby, Map } from 'src/app/models/game.types';
 import BlobBuilder from '../game-engine/Mobs/Blob/BlobBuilder';
 import { Blob } from '../game-engine/Entities/blobEntity.model';
@@ -29,6 +26,7 @@ import { IPowerUp } from '../game-engine/PickUps/PowerUps';
 import { IHeal } from '../game-engine/PickUps/Heals-Factory/Heal';
 import { ConsoleLogger } from '@microsoft/signalr/dist/esm/Utils';
 import { PlatformLocation } from '@angular/common';
+import { FacadeService } from '../core/services/facade.service';
 
 interface IObject {}
 @Component({
@@ -38,12 +36,10 @@ interface IObject {}
 })
 export class GameBoardComponent implements OnInit, AfterViewInit {
   constructor(
-    private readonly signalRService: SignalRService,
     private router: Router,
     private activatedRoute: ActivatedRoute,
-    private lobbyService: LobbyService,
-    private mapService: MapService,
-    private location: PlatformLocation
+    private location: PlatformLocation,
+    private facadeService: FacadeService
   ) {
     location.onPopState(() => {
       this.quit();
@@ -53,7 +49,7 @@ export class GameBoardComponent implements OnInit, AfterViewInit {
   lastRenderTime = 0;
   gameOver = false;
   gameBoard: any;
-  opponent = new Opponent(this.signalRService);
+  opponent = new Opponent(this.facadeService);
   clumsyInput = new ClumsyInput();
   correctInput = new CorrectInput();
 
@@ -86,7 +82,16 @@ export class GameBoardComponent implements OnInit, AfterViewInit {
         return;
       }
 
-      this.lobbyService.getLobbyById(id).subscribe({
+      this.facadeService
+        .getClientById(sessionStorage.getItem('playerId')!)
+        .subscribe({
+          error: () => {
+            sessionStorage.clear();
+            this.router.navigate(['/home']);
+          },
+        });
+
+      this.facadeService.getLobbyById(id).subscribe({
         next: (data) => {
           this.lobby = data;
           //console.log(this.lobby)
@@ -111,7 +116,7 @@ export class GameBoardComponent implements OnInit, AfterViewInit {
               break;
           }
 
-          this.mapService.getMapById(this.lobby.mapId).subscribe({
+          this.facadeService.getMapById(this.lobby.mapId).subscribe({
             next: (data) => {
               this.map = data;
               //console.log(this.map)
@@ -137,7 +142,7 @@ export class GameBoardComponent implements OnInit, AfterViewInit {
   }
 
   prepareParams(wall: Wall) {
-    this.snake = new Snake(this.signalRService, wall, new CorrectInput());
+    this.snake = new Snake(this.facadeService, wall, new CorrectInput());
     this.food = new Food(this.snake, wall);
     this.clumsyFood = new ClumsyFood(this.snake, wall);
     this.antidotefood = new AntidoteFood(this.snake, wall);
@@ -258,7 +263,7 @@ export class GameBoardComponent implements OnInit, AfterViewInit {
   }
 
   quit() {
-    this.signalRService.disconnectClientFromLobby(
+    this.facadeService.disconnectClientFromLobby(
       sessionStorage.getItem('playerId')!,
       sessionStorage.getItem('lobbyId')!
     );
