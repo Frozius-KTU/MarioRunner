@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "c:\\Users\\damir\\Desktop\\7 Semestras projektai\\PacMan\\MarioRunner\\backend\\GameAPI\\GameAPI.csproj": {}
+    "C:\\Users\\damir\\Desktop\\7 Semestras projektai\\PacMan\\MarioRunner\\backend\\GameAPI\\GameAPI.csproj": {}
   },
   "projects": {
-    "c:\\Users\\damir\\Desktop\\7 Semestras projektai\\PacMan\\MarioRunner\\backend\\GameAPI\\GameAPI.csproj": {
+    "C:\\Users\\damir\\Desktop\\7 Semestras projektai\\PacMan\\MarioRunner\\backend\\GameAPI\\GameAPI.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "c:\\Users\\damir\\Desktop\\7 Semestras projektai\\PacMan\\MarioRunner\\backend\\GameAPI\\GameAPI.csproj",
+        "projectUniqueName": "C:\\Users\\damir\\Desktop\\7 Semestras projektai\\PacMan\\MarioRunner\\backend\\GameAPI\\GameAPI.csproj",
         "projectName": "GameAPI",
-        "projectPath": "c:\\Users\\damir\\Desktop\\7 Semestras projektai\\PacMan\\MarioRunner\\backend\\GameAPI\\GameAPI.csproj",
+        "projectPath": "C:\\Users\\damir\\Desktop\\7 Semestras projektai\\PacMan\\MarioRunner\\backend\\GameAPI\\GameAPI.csproj",
         "packagesPath": "C:\\Users\\damir\\.nuget\\packages\\",
-        "outputPath": "c:\\Users\\damir\\Desktop\\7 Semestras projektai\\PacMan\\MarioRunner\\backend\\GameAPI\\obj\\",
+        "outputPath": "C:\\Users\\damir\\Desktop\\7 Semestras projektai\\PacMan\\MarioRunner\\backend\\GameAPI\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\damir\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -50,7 +50,7 @@
             },
             "Microsoft.EntityFrameworkCore.InMemory": {
               "target": "Package",
-              "version": "[6.0.0, )"
+              "version": "[6.0.10, )"
             },
             "Microsoft.EntityFrameworkCore.SqlServer": {
               "target": "Package",
@@ -60,7 +60,11 @@
               "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
               "suppressParent": "All",
               "target": "Package",
-              "version": "[6.0.0, )"
+              "version": "[6.0.10, )"
+            },
+            "Newtonsoft.Json": {
+              "target": "Package",
+              "version": "[13.0.1, )"
             },
             "Swashbuckle.AspNetCore": {
               "target": "Package",
