@@ -149,27 +149,12 @@ export class GameBoardComponent implements OnInit, AfterViewInit {
     this.clumsyFood = new ClumsyFood(this.snake, wall);
     this.antidotefood = new AntidoteFood(this.snake, wall);
     this.standartBobGenerator = new StandartBob(wall, this.snake);
-    /*this.blob1 = new BlobBuilder(wall)
-      .setColor('red')
-      .setCoordinates(this.snake, wall)
-      .setType('default')
-      .getResult();*/
+
     this.blob1 = this.standartBobGenerator.generateRedBlob();
-    this.blob2 = new BlobBuilder(wall)
-      .setColor('blue')
-      .setCoordinates(this.snake, wall)
-      .setType('default')
-      .getResult();
-    this.blob3 = new BlobBuilder(wall)
-      .setColor('pink')
-      .setCoordinates(this.snake, wall)
-      .setType('default')
-      .getResult();
-    this.blob4 = new BlobBuilder(wall)
-      .setColor('yellow')
-      .setCoordinates(this.snake, wall)
-      .setType('default')
-      .getResult();
+    this.blob2 = this.standartBobGenerator.generateBlueBlob();
+    this.blob3 = this.standartBobGenerator.generatePinkBlob();
+    this.blob4 = this.standartBobGenerator.generateYellowBlob();
+
     this.pickupsfactory = new PickUpsFactory(this.snake, wall);
     if (this.current_map == null) {
       return;
