@@ -9,7 +9,7 @@ export class Blob {
   public blobBody = [{ x: 0, y: 0 }];
   lastRenderTime = 0;
   newSegments = 0;
-  movetime = 10;
+  movetime = 5;
   constructor(public walls: Wall) {}
 
   draw(gameBoard: any) {
@@ -39,6 +39,8 @@ export class Blob {
       gameBoard.appendChild(snakeElement);
     });
   }
+
+  //kesto snargliu movementas
   updatemove() {
     this.addSegments();
     //const inputDirection =  this.moveAlgorithm.getInputDirection();
