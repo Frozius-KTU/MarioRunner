@@ -17,7 +17,6 @@ import { CorrectInput } from '../game-engine/MoveAlgorithm/CorrectInput';
 import { AntidoteFood } from '../game-engine/PickUps/AntidoteFood';
 import { ClumsyInput } from '../game-engine/MoveAlgorithm/ClumsyInput';
 import { PickUpsFactory } from '../game-engine/PickUps/pickup-abstract-factory';
-import { ActivatedRoute, Router } from '@angular/router';
 import { Lobby, Map } from 'src/app/models/game.types';
 import BlobBuilder from '../game-engine/Mobs/Blob/BlobBuilder';
 import { Blob } from '../game-engine/Entities/blobEntity.model';
@@ -27,6 +26,8 @@ import { IHeal } from '../game-engine/PickUps/Heals-Factory/Heal';
 import { ConsoleLogger } from '@microsoft/signalr/dist/esm/Utils';
 import { PlatformLocation } from '@angular/common';
 import { FacadeService } from '../core/services/facade.service';
+import { ActivatedRoute, Router } from '@angular/router';
+import { StandartBob } from '../game-engine/Mobs/BlobTypes/StandartBlob';
 
 interface IObject {}
 @Component({
@@ -62,6 +63,7 @@ export class GameBoardComponent implements OnInit, AfterViewInit {
   blob2?: Blob;
   blob3?: Blob;
   blob4?: Blob;
+  standartBobGenerator?: StandartBob;
 
   clumsyFood?: ClumsyFood;
   antidotefood?: AntidoteFood;
@@ -146,11 +148,13 @@ export class GameBoardComponent implements OnInit, AfterViewInit {
     this.food = new Food(this.snake, wall);
     this.clumsyFood = new ClumsyFood(this.snake, wall);
     this.antidotefood = new AntidoteFood(this.snake, wall);
-    this.blob1 = new BlobBuilder(wall)
+    this.standartBobGenerator = new StandartBob(wall, this.snake);
+    /*this.blob1 = new BlobBuilder(wall)
       .setColor('red')
       .setCoordinates(this.snake, wall)
       .setType('default')
-      .getResult();
+      .getResult();*/
+    this.blob1 = this.standartBobGenerator.generateRedBlob();
     this.blob2 = new BlobBuilder(wall)
       .setColor('blue')
       .setCoordinates(this.snake, wall)

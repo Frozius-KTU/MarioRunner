@@ -19,6 +19,7 @@ import Swal from 'sweetalert2';
 import { Invoker } from '../game-engine/commandTest';
 import { PlatformLocation } from '@angular/common';
 import { FacadeService } from '../core/services/facade.service';
+import { ConsoleLogger } from '@microsoft/signalr/dist/esm/Utils';
 
 @Component({
   selector: 'app-home',
@@ -31,7 +32,6 @@ export class HomeComponent implements OnInit {
 
   playerName: string = '';
   commandTest: Invoker = new Invoker();
-
   constructor(
     private router: Router,
     private facadeService: FacadeService,
@@ -102,7 +102,7 @@ export class HomeComponent implements OnInit {
         allowEscapeKey: false,
         allowOutsideClick: false,
         didOpen: () => {
-          Swal.showLoading();
+          Swal.showLoading(null);
           sessionStorage.setItem('playerName', this.playerName);
         },
         willClose: () => {
