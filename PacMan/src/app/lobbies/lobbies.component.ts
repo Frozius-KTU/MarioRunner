@@ -43,10 +43,6 @@ export class LobbiesComponent implements OnInit {
     });
   }
 
-  test() {
-    console.log(sessionStorage.getItem('lobbyId'));
-  }
-
   play(lobbyId: string) {
     if (this.getLobbyPlayerCount(lobbyId) == 2) {
       Swal.fire({

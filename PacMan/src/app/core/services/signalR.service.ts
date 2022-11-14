@@ -32,7 +32,6 @@ export class SignalRService {
 
   setLobbyId(lobbyId: string) {
     this.lobbyId = lobbyId;
-    console.log('SET LOBBY' + lobbyId);
   }
 
   sendChatMessage(message: ChatMessage) {

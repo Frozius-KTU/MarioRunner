@@ -2,17 +2,17 @@ import { FacadeService } from 'src/app/core/services/facade.service';
 import { ChatMessage } from 'src/app/models/chatMessage.model';
 import { Wall } from '../Decorator/wall';
 import { fixOutsidePosition, outsideGrid } from '../gameboard-grid.util';
-import { MoveAlgorithm } from '../MoveAlgorithm';
+import { IMoveAlgorithm } from '../MoveAlgorithm/IMoveAlgorithm';
 import { IHeal } from '../PickUps/Heals-Factory/Heal';
 import { LayoutModule } from '@angular/cdk/layout';
 
 export class Snake {
-  moveAlgorithm: MoveAlgorithm;
+  moveAlgorithm: IMoveAlgorithm;
 
   constructor(
     private facadeService: FacadeService,
     public walls: Wall,
-    movealgorithm: MoveAlgorithm
+    movealgorithm: IMoveAlgorithm
   ) {
     this.moveAlgorithm = movealgorithm;
   }
@@ -28,13 +28,7 @@ export class Snake {
   setNormalState() {
     this.canGetDamaged = true;
   }
-
   newSegments = 0;
-  //input = new CorrectInput();
-
-  listenToInputs() {
-    this.moveAlgorithm.getInputs();
-  }
 
   update() {
     this.addSegments();
@@ -86,7 +80,7 @@ export class Snake {
   expandSnake(amount: number) {
     //this.newSegments += amount;
   }
-  changeMovement(moveAlgorithm: MoveAlgorithm) {
+  changeMovement(moveAlgorithm: IMoveAlgorithm) {
     this.moveAlgorithm = moveAlgorithm;
     this.moveAlgorithm.resetDirection();
     //this.update();
@@ -148,7 +142,7 @@ export class Snake {
           setTimeout(() => {
             this.setNormalState();
             console.log('Immortal efektas beigesi po 2 sekundziu');
-          },2000);
+          }, 2000);
         }
       }
     }

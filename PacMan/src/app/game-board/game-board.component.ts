@@ -51,8 +51,6 @@ export class GameBoardComponent implements OnInit, AfterViewInit {
   gameOver = false;
   gameBoard: any;
   opponent = new Opponent(this.facadeService);
-  clumsyInput = new ClumsyInput();
-  correctInput = new CorrectInput();
 
   wall?: BlackBorderWallDecorator;
   door?: GrayBorderDoorDecorator;
@@ -67,6 +65,9 @@ export class GameBoardComponent implements OnInit, AfterViewInit {
 
   clumsyFood?: ClumsyFood;
   antidotefood?: AntidoteFood;
+  correctInput = new CorrectInput();
+  clumsyInput = new ClumsyInput();
+
   pickupsfactory?: PickUpsFactory;
   pickupPowerUp?: IPowerUp;
   pickupHeals?: IHeal;
@@ -97,7 +98,7 @@ export class GameBoardComponent implements OnInit, AfterViewInit {
         next: (data) => {
           this.lobby = data;
           //console.log(this.lobby)
-          this.current_map = this.lobby?.level;
+          this.current_map = this.lobby.level;
           switch (this.lobby.level) {
             case 1:
               this.wall = new BlackBorderWallDecorator(new Wall());
@@ -121,7 +122,6 @@ export class GameBoardComponent implements OnInit, AfterViewInit {
           this.facadeService.getMapById(this.lobby.mapId).subscribe({
             next: (data) => {
               this.map = data;
-              //console.log(this.map)
               this.wall!.generateElements(this.map);
               this.wall!.addBorder();
               this.door!.generateElements(this.map);
@@ -139,15 +139,13 @@ export class GameBoardComponent implements OnInit, AfterViewInit {
         },
       });
     });
-
-    this.snake?.listenToInputs();
   }
 
   prepareParams(wall: Wall) {
-    this.snake = new Snake(this.facadeService, wall, new CorrectInput());
+    this.snake = new Snake(this.facadeService, wall, this.correctInput);
     this.food = new Food(this.snake, wall);
-    this.clumsyFood = new ClumsyFood(this.snake, wall);
-    this.antidotefood = new AntidoteFood(this.snake, wall);
+    this.clumsyFood = new ClumsyFood(this.snake, wall, this.clumsyInput);
+    this.antidotefood = new AntidoteFood(this.snake, wall, this.correctInput);
     this.standartBobGenerator = new StandartBob(wall, this.snake);
 
     this.blob1 = this.standartBobGenerator.generateRedBlob();
@@ -156,15 +154,13 @@ export class GameBoardComponent implements OnInit, AfterViewInit {
     this.blob4 = this.standartBobGenerator.generateYellowBlob();
 
     this.pickupsfactory = new PickUpsFactory(this.snake, wall);
-    if (this.current_map == null) {
-      return;
-    }
+
     this.pickupPowerUp = this.pickupsfactory.getPowerUps(
-      this.current_map,
+      this.current_map!,
       this.gameBoard
     );
     this.pickupHeals = this.pickupsfactory.getHeals(
-      this.current_map,
+      this.current_map!,
       this.gameBoard
     );
     //var clone = this.pickupHeals.clone();
@@ -184,7 +180,7 @@ export class GameBoardComponent implements OnInit, AfterViewInit {
     const secondsSinceLastRender = (currentTime - this.lastRenderTime) / 1000;
     if (secondsSinceLastRender < 1 / this.snakeSpeed) return;
     this.lastRenderTime = currentTime;
-    // console.log("rendering");
+
     this.update();
     this.draw();
     this.blob1?.start(currentTime);
@@ -207,7 +203,13 @@ export class GameBoardComponent implements OnInit, AfterViewInit {
 
   update() {
     if (this.loading) return console.log('Loading');
-    this.snake!.checkblob(this.blob1?.blobBody,this.blob2?.blobBody,this.blob3?.blobBody,this.blob4?.blobBody,this.pickupHeals);
+    this.snake!.checkblob(
+      this.blob1?.blobBody,
+      this.blob2?.blobBody,
+      this.blob3?.blobBody,
+      this.blob4?.blobBody,
+      this.pickupHeals
+    );
     this.snake!.update();
     this.opponent.update();
     this.food!.update();
@@ -216,7 +218,6 @@ export class GameBoardComponent implements OnInit, AfterViewInit {
     this.checkDeath();
     this.pickupPowerUp?.update();
     this.pickupHeals?.update();
-    this.snake?.listenToInputs();
     //this.pickupPowerUp?.effect();
   }
 

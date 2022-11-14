@@ -57,8 +57,6 @@ export class Opponent {
         data[0] == sessionStorage.getItem('lobbyId') &&
         data[1] != sessionStorage.getItem('playerName')
       ) {
-        console.log(data[2] + '   ' + data[3]);
-
         this.snakeBody[0].x = Number(data[2]);
         this.snakeBody[0].y = Number(data[3]);
       }

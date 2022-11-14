@@ -20,15 +20,15 @@ export class PickUpsFactory {
   }
   getPowerUps(level: number, gameBoard: GameBoardComponent) {
     if (level == 1) {
-      console.log(1);
+      //console.log(1);
       return new PowerUp1(this.snake, this.wall);
     }
     if (level == 2) {
-      console.log(2);
+      //console.log(2);
       return new PowerUp2(this.snake, this.wall);
     }
     if (level == 3) {
-      console.log(3);
+      //console.log(3);
       return new PowerUp3(this.snake, this.wall);
     } else {
       return new PowerUp1(this.snake, this.wall);
@@ -36,16 +36,16 @@ export class PickUpsFactory {
   }
   getHeals(level: number, gameBoard: GameBoardComponent) {
     if (level == 1) {
-      console.log(1);
+      //console.log(1);
       return new HealMapOne(this.snake, this.wall);
     }
     if (level == 2) {
-      console.log(2);
+      //console.log(2);
       var x = new HealMapTwo(this.snake, this.wall);
       return x;
     }
     if (level == 3) {
-      console.log(3);
+      //console.log(3);
       return new HealMapThree(this.snake, this.wall);
     } else {
       return new HealMapOne(this.snake, this.wall);
