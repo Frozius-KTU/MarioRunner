@@ -30,7 +30,7 @@ export class HealMapOne implements IHeal {
   }
 
   clone(): this {
-    return Object.assign(HealMapOne, this.heal);
+    return this;
   }
 
   draw(gameBoard: any) {
@@ -89,7 +89,7 @@ export class HealMapTwo implements IHeal {
   }
 
   clone(): this {
-    return Object.assign(HealMapTwo, this.heal);
+    return this;
   }
 
   draw(gameBoard: any) {
@@ -148,7 +148,7 @@ export class HealMapThree implements IHeal {
   }
 
   clone(): this {
-    return Object.assign(HealMapThree, this.heal);
+    return this;
   }
 
   draw(gameBoard: any) {
@@ -189,3 +189,4 @@ export class HealMapThree implements IHeal {
     }
   }
 }
+

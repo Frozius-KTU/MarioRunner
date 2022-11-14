@@ -71,6 +71,7 @@ export class GameBoardComponent implements OnInit, AfterViewInit {
   pickupPowerUp?: IPowerUp;
   pickupHeals?: IHeal;
   current_map?: number;
+  clone? : any;
 
   map: Map | undefined;
   lobby: Lobby | undefined;
@@ -167,8 +168,10 @@ export class GameBoardComponent implements OnInit, AfterViewInit {
       this.current_map,
       this.gameBoard
     );
-    //var clone = this.pickupHeals.clone();
-    //console.log("kolnas   -- ", clone);
+    this.clone = this.pickupHeals?.clone();
+    console.log(this.pickupHeals);
+    console.log("klonas");
+    console.log(this.clone);
     this.loading = false;
   }
 
@@ -216,6 +219,7 @@ export class GameBoardComponent implements OnInit, AfterViewInit {
     this.checkDeath();
     this.pickupPowerUp?.update();
     this.pickupHeals?.update();
+    this.clone?.update();
     this.snake?.listenToInputs();
     //this.pickupPowerUp?.effect();
   }
@@ -237,6 +241,7 @@ export class GameBoardComponent implements OnInit, AfterViewInit {
     this.blob2!.draw(this.gameBoard);
     this.blob3!.draw(this.gameBoard);
     this.blob4!.draw(this.gameBoard);
+    this.clone!.draw(this.gameBoard);
   }
 
   checkDeath() {
