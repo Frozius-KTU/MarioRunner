@@ -1,7 +1,7 @@
-import { randomGridPosition } from '../gameboard-grid.util';
-import { BlackBorderWallDecorator, Wall } from '../Decorator/wall';
+import { randomGridPosition } from '..//../gameboard-grid.util';
+import { BlackBorderWallDecorator, Wall } from '../../Decorator/wall';
 import { GameBoardComponent } from 'src/app/game-board/game-board.component';
-import { Snake } from '../Entities/snake';
+import { Snake } from '../../Entities/snake';
 
 export interface IPowerUp {
   update(): void;
