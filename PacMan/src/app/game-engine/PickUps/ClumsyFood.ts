@@ -1,8 +1,9 @@
 import { randomGridPosition } from '../gameboard-grid.util';
 import { Wall } from '../Decorator/wall';
 import { IMoveAlgorithm } from '../MoveAlgorithm/IMoveAlgorithm';
+import { Implementation } from '../Bridge';
 
-export class ClumsyFood {
+export class ClumsyFood implements Implementation {
   EXPANSION_RATE = 1;
   ClumsyFood: any;
   snake;
@@ -25,7 +26,6 @@ export class ClumsyFood {
       ghostBlob.ghostRage(10000);
       blob3.blobRage(10000);
       blob4.blobRage(10000);
-
     }
     if (this.walls.onObject(this.ClumsyFood)) {
       this.ClumsyFood = this.getRandomFoodPosition();
@@ -53,5 +53,9 @@ export class ClumsyFood {
       newFoodPosition = randomGridPosition();
     }
     return newFoodPosition;
+  }
+
+  getPosition() {
+    return this.ClumsyFood;
   }
 }

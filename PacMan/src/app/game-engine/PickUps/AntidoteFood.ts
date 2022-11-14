@@ -1,8 +1,9 @@
 import { randomGridPosition } from '../gameboard-grid.util';
 import { Wall } from '../Decorator/wall';
 import { IMoveAlgorithm } from '../MoveAlgorithm/IMoveAlgorithm';
+import { Implementation } from '../Bridge';
 
-export class AntidoteFood {
+export class AntidoteFood implements Implementation {
   EXPANSION_RATE = 1;
   AntidoteFood: any;
   snake;
@@ -13,7 +14,7 @@ export class AntidoteFood {
     this.correctInput = correctInput;
   }
 
-  update() {
+  update(blob1?: any, ghostBlob?: any, blob3?: any, blob4?: any) {
     if (this.snake.onSnake(this.AntidoteFood)) {
       this.snake.expandSnake(this.EXPANSION_RATE);
       this.snake.changeMovement(this.correctInput);
@@ -49,5 +50,9 @@ export class AntidoteFood {
       newFoodPosition = randomGridPosition();
     }
     return newFoodPosition;
+  }
+
+  getPosition() {
+    return this.AntidoteFood;
   }
 }

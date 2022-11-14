@@ -16,6 +16,7 @@ export class PowerUp1 implements IPowerUp {
     this.snake = snake;
     this.powerup = this.getRanomPowerUpPosition();
   }
+
   update() {
     if (this.snake.onSnake(this.powerup) || this.walls.onObject(this.powerup)) {
       this.powerup = this.getRanomPowerUpPosition();

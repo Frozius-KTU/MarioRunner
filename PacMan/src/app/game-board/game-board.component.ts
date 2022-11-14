@@ -27,9 +27,13 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { StandartBob } from '../game-engine/Mobs/BlobTypes/StandartBlob';
 import { Ghost } from '../game-engine/Entities/ghostMegaEntity.model';
 import { BlobAdapter } from '../game-engine/Entities/blobAdapter';
-import { PickUpsFactoryMap1, PickUpsFactoryMap2, PickUpsFactoryMap3 } from '../game-engine/PickUps/PowerUpsFactory/PowerUpsFactoryCreator';
+import {
+  PickUpsFactoryMap1,
+  PickUpsFactoryMap2,
+  PickUpsFactoryMap3,
+} from '../game-engine/PickUps/PowerUpsFactory/PowerUpsFactoryCreator';
+import { ChemicalsAbstraction } from '../game-engine/Bridge';
 
-interface IObject {}
 @Component({
   selector: 'app-game-board',
   templateUrl: './game-board.component.html',
@@ -48,6 +52,8 @@ export class GameBoardComponent implements OnInit, AfterViewInit {
   }
 
   lastRenderTime = 0;
+  lastRenderTime2 = 0;
+
   gameOver = false;
   gameBoard: any;
   opponent = new Opponent(this.facadeService);
@@ -66,14 +72,16 @@ export class GameBoardComponent implements OnInit, AfterViewInit {
   standartBobGenerator?: StandartBob;
 
   clumsyFood?: ClumsyFood;
-  antidotefood?: AntidoteFood;
+  antidoteFood?: AntidoteFood;
+  clumsyFoodAbstraction?: ChemicalsAbstraction;
+  antidoteFoodAbstraction?: ChemicalsAbstraction;
   correctInput = new CorrectInput();
   clumsyInput = new ClumsyInput();
 
   pickupPowerUp?: IPowerUp;
   pickupHeals?: IHeal;
   current_map?: number;
-  clone? : any;
+  clone?: any;
   pickup?: any;
 
   map: Map | undefined;
@@ -148,7 +156,10 @@ export class GameBoardComponent implements OnInit, AfterViewInit {
     this.snake = new Snake(this.facadeService, wall, this.correctInput);
     this.food = new Food(this.snake, wall);
     this.clumsyFood = new ClumsyFood(this.snake, wall, this.clumsyInput);
-    this.antidotefood = new AntidoteFood(this.snake, wall, this.correctInput);
+    this.antidoteFood = new AntidoteFood(this.snake, wall, this.correctInput);
+
+    this.clumsyFoodAbstraction = new ChemicalsAbstraction(this.clumsyFood);
+    this.antidoteFoodAbstraction = new ChemicalsAbstraction(this.antidoteFood);
 
     this.standartBobGenerator = new StandartBob(wall, this.snake);
     this.blob1 = this.standartBobGenerator.generateRedBlob();
@@ -158,14 +169,8 @@ export class GameBoardComponent implements OnInit, AfterViewInit {
     this.ghostEntity = new BlobAdapter(this.blob1, wall);
     this.ghostEntity.setRandomPosition(this.snake, wall);
 
-    this.pickupPowerUp = this.getPowerUps(
-      this.current_map!,
-      wall
-    );
-    this.pickupHeals = this.getHeals(
-      this.current_map!,
-      wall
-    );
+    this.pickupPowerUp = this.getPowerUps(this.current_map!, wall);
+    this.pickupHeals = this.getHeals(this.current_map!, wall);
 
     console.log(this.pickupPowerUp);
     console.log(this.pickupHeals);
@@ -184,6 +189,7 @@ export class GameBoardComponent implements OnInit, AfterViewInit {
     this.gameBoard = document.querySelector('.game-board');
     window.requestAnimationFrame(this.start.bind(this));
   }
+  currentTIME: any;
 
   start(currentTime: any) {
     if (this.gameOver) return console.log('Game Over');
@@ -193,6 +199,7 @@ export class GameBoardComponent implements OnInit, AfterViewInit {
     if (secondsSinceLastRender < 1 / this.snakeSpeed) return;
     this.lastRenderTime = currentTime;
 
+    this.currentTIME = currentTime;
     this.update();
     this.draw();
     this.blob1?.start(currentTime);
@@ -226,8 +233,20 @@ export class GameBoardComponent implements OnInit, AfterViewInit {
     this.snake!.update();
     this.opponent.update();
     this.food!.update();
-    this.antidotefood!.update();
-    this.clumsyFood!.update(this.blob1, this.ghostEntity, this.blob3, this.blob4);
+    //this.antidoteFood!.update();
+    this.antidoteFoodAbstraction!.implementation.update();
+    // this.clumsyFood!.update(
+    //   this.blob1,
+    //   this.ghostEntity,
+    //   this.blob3,
+    //   this.blob4
+    // );
+    this.clumsyFoodAbstraction!.implementation.update(
+      this.blob1,
+      this.ghostEntity,
+      this.blob3,
+      this.blob4
+    );
     this.checkDeath();
     this.pickupPowerUp?.update();
     this.pickupHeals?.update();
@@ -246,13 +265,28 @@ export class GameBoardComponent implements OnInit, AfterViewInit {
     this.pickupPowerUp!.draw(this.gameBoard);
     this.pickupHeals!.draw(this.gameBoard);
     this.food!.draw(this.gameBoard);
-    this.clumsyFood!.draw(this.gameBoard);
-    this.antidotefood!.draw(this.gameBoard);
+    //this.clumsyFood!.draw(this.gameBoard);
+    //this.clumsyFoodAbstraction!.implementation.draw(this.gameBoard);
+    //this.antidoteFood!.draw(this.gameBoard);
+    //this.antidoteFoodAbstraction!.implementation.draw(this.gameBoard);
+
+    const secondsSinceLastRender =
+      (this.currentTIME - this.lastRenderTime2) / 1000;
+    if (secondsSinceLastRender < 1) {
+      this.clumsyFoodAbstraction!.drawDifferently(this.gameBoard);
+      this.antidoteFoodAbstraction!.drawDifferentlyGood(this.gameBoard);
+    } else if (secondsSinceLastRender < 2) {
+      this.clumsyFoodAbstraction!.implementation.draw(this.gameBoard);
+      this.antidoteFoodAbstraction!.implementation.draw(this.gameBoard);
+    } else {
+      this.clumsyFoodAbstraction!.implementation.draw(this.gameBoard);
+      this.antidoteFoodAbstraction!.implementation.draw(this.gameBoard);
+      this.lastRenderTime2 = this.currentTIME;
+    }
     this.blob1!.draw(this.gameBoard);
     this.ghostEntity!.draw(this.gameBoard);
     this.blob3!.draw(this.gameBoard);
     this.blob4!.draw(this.gameBoard);
-    this.ghostEntity?.draw(this.gameBoard);
     this.clone?.draw(this.gameBoard);
   }
 
@@ -280,10 +314,10 @@ export class GameBoardComponent implements OnInit, AfterViewInit {
     sessionStorage.removeItem('lobbyId')!;
   }
 
-  getPowerUps(level: number, wall : Wall) {
+  getPowerUps(level: number, wall: Wall) {
     if (level == 1) {
       //console.log(1);
-      this.pickup = new PickUpsFactoryMap1(this.snake,wall);
+      this.pickup = new PickUpsFactoryMap1(this.snake, wall);
       return this.pickup.createPowerUp(this.snake, this.wall);
     }
     if (level == 2) {
@@ -300,10 +334,10 @@ export class GameBoardComponent implements OnInit, AfterViewInit {
       return this.pickup.createPowerUp(this.snake, this.wall);
     }
   }
-  getHeals(level: number, wall : Wall) {
+  getHeals(level: number, wall: Wall) {
     if (level == 1) {
       //console.log(1);
-      this.pickup = new PickUpsFactoryMap1(this.snake,wall);
+      this.pickup = new PickUpsFactoryMap1(this.snake, wall);
       console.log(this.pickup.createPowerUp(this.snake, this.wall));
       return this.pickup.createHeal(this.snake, this.wall);
     }

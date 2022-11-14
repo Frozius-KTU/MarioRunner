@@ -1,7 +1,13 @@
 import { Wall } from '../Decorator/wall';
 import { randomGridPosition } from '../gameboard-grid.util';
-import { iGhostMegaEntity } from './iGhostMegaEntity';
 import { Snake } from './snake';
+
+export interface iGhostMegaEntity {
+  color: any;
+  type: any;
+  ghostBody: { x: number; y: number }[];
+  //ghostRage(time: number): void;
+}
 
 export class Ghost implements iGhostMegaEntity {
   public color = '';
@@ -144,8 +150,6 @@ export class Ghost implements iGhostMegaEntity {
     this.lastRenderTime = currentTime;
     this.updatemove();
 
-
-
     // console.log("rendering");
     //this.update();
     //this.draw();
@@ -157,8 +161,7 @@ export class Ghost implements iGhostMegaEntity {
   randomIntBinary(max: number) {
     return Math.floor(Math.random() * max);
   }
-  public ghostRage(time: number): void
-  {
+  public ghostRage(time: number): void {
     this.movetime = 1000;
 
     setTimeout(() => {
