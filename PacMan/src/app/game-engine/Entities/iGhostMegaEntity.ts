@@ -1,4 +1,3 @@
-interface iGhostMegaEntity
+export interface iGhostMegaEntity
 {
-
 }

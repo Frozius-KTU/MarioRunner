@@ -1,3 +1,6 @@
+import { Blob } from "./blobEntity.model";
+import { iGhostMegaEntity } from "./iGhostMegaEntity";
+
 export class BlobAdapter implements iGhostMegaEntity
 {
   blob?: Blob;
@@ -7,5 +10,8 @@ export class BlobAdapter implements iGhostMegaEntity
     this.blob = blob;
   }
 
-
+  public RageBlob(time: number)
+  {
+    //this.blob?.blobRage(time);
+  }
 }

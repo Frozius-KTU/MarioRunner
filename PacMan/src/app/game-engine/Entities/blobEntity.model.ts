@@ -170,7 +170,7 @@ export class Blob {
     return Math.floor(Math.random() * max);
   }
 
-  blobRage(time: number): void
+  public blobRage(time: number): void
   {
     this.movetime = 1000;
 

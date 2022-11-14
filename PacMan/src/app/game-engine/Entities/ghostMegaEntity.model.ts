@@ -1,5 +1,6 @@
 import { Wall } from '../Decorator/wall';
 import { randomGridPosition } from '../gameboard-grid.util';
+import { iGhostMegaEntity } from './iGhostMegaEntity';
 import { Snake } from './snake';
 
 export class Ghost implements iGhostMegaEntity {
@@ -18,7 +19,7 @@ export class Ghost implements iGhostMegaEntity {
       snakeElement.style.gridColumnStart = segment.x.toString();
       //snakeElement.style.backgroundImage = "url('https://icons.iconarchive.com/icons/bokehlicia/captiva/32/games-icon.png')"
       snakeElement.style.backgroundImage =
-          "url('https://i.imgur.com/JHyKpg3.png')";
+        "url('https://icons.iconarchive.com/icons/mad-science/arcade-saturdays/32/Edible-Ghost-icon.png')";
       snakeElement.style.backgroundSize = 'cover';
 
       snakeElement.classList.add('snakeas');
