@@ -22,7 +22,7 @@ export class ClumsyFood {
       this.ClumsyFood = this.getRandomFoodPosition();
 
       blob1.blobRage(10000);
-      //ghostBlob.blobRage(10000);
+      ghostBlob.ghostRage(10000);
       blob3.blobRage(10000);
       blob4.blobRage(10000);
 

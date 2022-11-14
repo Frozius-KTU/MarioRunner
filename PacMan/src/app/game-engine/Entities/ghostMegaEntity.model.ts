@@ -157,4 +157,12 @@ export class Ghost implements iGhostMegaEntity {
   randomIntBinary(max: number) {
     return Math.floor(Math.random() * max);
   }
+  public ghostRage(time: number): void
+  {
+    this.movetime = 1000;
+
+    setTimeout(() => {
+      this.movetime = 5;
+    }, time);
+  }
 }

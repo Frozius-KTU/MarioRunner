@@ -27,6 +27,7 @@ import { FacadeService } from '../core/services/facade.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { StandartBob } from '../game-engine/Mobs/BlobTypes/StandartBlob';
 import { Ghost } from '../game-engine/Entities/ghostMegaEntity.model';
+import { BlobAdapter } from '../game-engine/Entities/blobAdapter';
 
 interface IObject {}
 @Component({
@@ -153,8 +154,8 @@ export class GameBoardComponent implements OnInit, AfterViewInit {
     this.blob1 = this.standartBobGenerator.generateRedBlob();
     this.blob3 = this.standartBobGenerator.generatePinkBlob();
     this.blob4 = this.standartBobGenerator.generateYellowBlob();
-
-    this.ghostEntity = new Ghost(wall);
+    var ghost = new Ghost(wall);
+    this.ghostEntity = new BlobAdapter(this.blob1, wall);
     this.ghostEntity.setRandomPosition(this.snake, wall);
 
     this.pickupsfactory = new PickUpsFactory(this.snake, wall);
