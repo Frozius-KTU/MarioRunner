@@ -172,7 +172,7 @@ export class Blob {
 
   public blobRage(time: number): void
   {
-    this.movetime = 1000;
+    this.movetime = 200;
 
     setTimeout(() => {
       this.movetime = 5;
