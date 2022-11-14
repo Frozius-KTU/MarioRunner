@@ -14,9 +14,15 @@ export class BlobAdapter implements iGhostMegaEntity
   public color = '';
   public type = '';
   public ghostBody = [{ x: 0, y: 0 }];
+  backGroundImage = "url('https://icons.iconarchive.com/icons/mad-science/arcade-saturdays/32/Edible-Ghost-icon.png')";
   lastRenderTime = 0;
   newSegments = 0;
   movetime = 5;
+
+  getBackgroundImage(url: string): string
+  {
+    return url;
+  }
 
   draw(gameBoard: any) {
     this.ghostBody.forEach((segment) => {
@@ -24,8 +30,7 @@ export class BlobAdapter implements iGhostMegaEntity
       snakeElement.style.gridRowStart = segment.y.toString();
       snakeElement.style.gridColumnStart = segment.x.toString();
       //snakeElement.style.backgroundImage = "url('https://icons.iconarchive.com/icons/bokehlicia/captiva/32/games-icon.png')"
-      snakeElement.style.backgroundImage =
-        "url('https://icons.iconarchive.com/icons/mad-science/arcade-saturdays/32/Edible-Ghost-icon.png')";
+      snakeElement.style.backgroundImage = this.backGroundImage;
       snakeElement.style.backgroundSize = 'cover';
 
       snakeElement.classList.add('snakeas');
@@ -163,13 +168,14 @@ export class BlobAdapter implements iGhostMegaEntity
   randomIntBinary(max: number) {
     return Math.floor(Math.random() * max);
   }
-  ghostRage(time: number): void
+  ghostRage(time: number, gameBoard: any): void
   {
-    this.blob?.blobRage(time);
-    // this.movetime = 1000;
+    this.backGroundImage = "url('https://imgur.com/6r4Qclw.png')";
+    this.movetime = 1000;
 
-    // setTimeout(() => {
-    //   this.movetime = 5;
-    // }, time);
+    setTimeout(() => {
+      this.movetime = 5;
+      this.backGroundImage = "url('https://icons.iconarchive.com/icons/mad-science/arcade-saturdays/32/Edible-Ghost-icon.png')";
+    }, time);
   }
 }

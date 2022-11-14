@@ -249,7 +249,6 @@ export class GameBoardComponent implements OnInit, AfterViewInit {
     this.clumsyFood!.draw(this.gameBoard);
     this.antidotefood!.draw(this.gameBoard);
     this.blob1!.draw(this.gameBoard);
-    this.ghostEntity!.draw(this.gameBoard);
     this.blob3!.draw(this.gameBoard);
     this.blob4!.draw(this.gameBoard);
     this.ghostEntity?.draw(this.gameBoard);

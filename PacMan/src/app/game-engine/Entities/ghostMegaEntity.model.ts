@@ -1,3 +1,4 @@
+import { GameBoardComponent } from 'src/app/game-board/game-board.component';
 import { Wall } from '../Decorator/wall';
 import { randomGridPosition } from '../gameboard-grid.util';
 import { iGhostMegaEntity } from './iGhostMegaEntity';
@@ -157,12 +158,28 @@ export class Ghost implements iGhostMegaEntity {
   randomIntBinary(max: number) {
     return Math.floor(Math.random() * max);
   }
-  public ghostRage(time: number): void
+  public ghostRage(time: number, gameBoard: any): void
   {
+    this.ghostBody.forEach((segment) => {
+      const snakeElement = document.createElement('div');
+      snakeElement.style.backgroundImage =
+        "url('https://i.imgur.com/DRHOMaP.png')";
+
+      snakeElement.classList.add('snakeas');
+      gameBoard.appendChild(snakeElement);
+    });
     this.movetime = 1000;
 
     setTimeout(() => {
       this.movetime = 5;
+      this.ghostBody.forEach((segment) => {
+        const snakeElement = document.createElement('div');
+        snakeElement.style.backgroundImage =
+          "url('https://icons.iconarchive.com/icons/mad-science/arcade-saturdays/32/Edible-Ghost-icon.png')";
+
+        snakeElement.classList.add('snakeas');
+        gameBoard.appendChild(snakeElement);
+      });
     }, time);
   }
 }
