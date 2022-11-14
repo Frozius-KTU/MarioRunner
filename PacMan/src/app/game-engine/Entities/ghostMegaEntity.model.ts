@@ -2,36 +2,23 @@ import { Wall } from '../Decorator/wall';
 import { randomGridPosition } from '../gameboard-grid.util';
 import { Snake } from './snake';
 
-export class Blob {
+export class Ghost implements iGhostMegaEntity {
   public color = '';
   public type = '';
-  public blobBody = [{ x: 0, y: 0 }];
+  public ghostBody = [{ x: 0, y: 0 }];
   lastRenderTime = 0;
   newSegments = 0;
   movetime = 5;
   constructor(public walls: Wall) {}
 
   draw(gameBoard: any) {
-    this.blobBody.forEach((segment) => {
+    this.ghostBody.forEach((segment) => {
       const snakeElement = document.createElement('div');
       snakeElement.style.gridRowStart = segment.y.toString();
       snakeElement.style.gridColumnStart = segment.x.toString();
       //snakeElement.style.backgroundImage = "url('https://icons.iconarchive.com/icons/bokehlicia/captiva/32/games-icon.png')"
-      if (this.color == 'red')
-        snakeElement.style.backgroundImage =
-          "url('https://i.imgur.com/aAOhJxn.png')";
-      if (this.color == 'blue')
-        //snakeElement.style.backgroundImage = "url('https://imgur.com/j2rczNm.png')";
-        snakeElement.style.backgroundImage =
-          "url('https://icons.iconarchive.com/icons/mad-science/arcade-saturdays/32/Edible-Ghost-icon.png')";
-
-      if (this.color == 'pink')
-        snakeElement.style.backgroundImage =
-          "url('https://icons.iconarchive.com/icons/mad-science/arcade-saturdays/32/Speedy-Pinky-icon.png')";
-      if (this.color == 'yellow')
-        snakeElement.style.backgroundImage =
-          "url('https://icons.iconarchive.com/icons/mad-science/arcade-saturdays/32/Pokey-Clyde-icon.png')";
-      //snakeElement.style.backgroundImage = "url('https://icons.iconarchive.com/icons/ph03nyx/super-mario/32/Retro-Mushroom-Super-3-icon.png')"
+      snakeElement.style.backgroundImage =
+          "url('https://i.imgur.com/JHyKpg3.png')";
       snakeElement.style.backgroundSize = 'cover';
 
       snakeElement.classList.add('snakeas');
@@ -44,8 +31,8 @@ export class Blob {
     this.addSegments();
     //const inputDirection =  this.moveAlgorithm.getInputDirection();
     //this.moveAlgorithm.resetDirection();
-    for (let i = this.blobBody.length - 2; i >= 0; i--) {
-      this.blobBody[i + 1] = { ...this.blobBody[i] };
+    for (let i = this.ghostBody.length - 2; i >= 0; i--) {
+      this.ghostBody[i + 1] = { ...this.ghostBody[i] };
     }
 
     let moved = false;
@@ -53,42 +40,42 @@ export class Blob {
       if (
         this.randomIntBinary(4) == 0 &&
         !this.walls.onObject({
-          x: this.blobBody[0].x + 1,
-          y: this.blobBody[0].y,
+          x: this.ghostBody[0].x + 1,
+          y: this.ghostBody[0].y,
         }) &&
-        this.blobBody[0].x < 20
+        this.ghostBody[0].x < 20
       ) {
-        this.blobBody[0].x += 1;
+        this.ghostBody[0].x += 1;
         moved = true;
       } else if (
         this.randomIntBinary(4) == 1 &&
         !this.walls.onObject({
-          x: this.blobBody[0].x - 1,
-          y: this.blobBody[0].y,
+          x: this.ghostBody[0].x - 1,
+          y: this.ghostBody[0].y,
         }) &&
-        this.blobBody[0].x > 0
+        this.ghostBody[0].x > 0
       ) {
-        this.blobBody[0].x -= 1;
+        this.ghostBody[0].x -= 1;
         moved = true;
       } else if (
         this.randomIntBinary(4) == 2 &&
         !this.walls.onObject({
-          x: this.blobBody[0].x,
-          y: this.blobBody[0].y + 1,
+          x: this.ghostBody[0].x,
+          y: this.ghostBody[0].y + 1,
         }) &&
-        this.blobBody[0].y < 20
+        this.ghostBody[0].y < 20
       ) {
-        this.blobBody[0].y += 1;
+        this.ghostBody[0].y += 1;
         moved = true;
       } else if (
         this.randomIntBinary(4) == 3 &&
         !this.walls.onObject({
-          x: this.blobBody[0].x,
-          y: this.blobBody[0].y - 1,
+          x: this.ghostBody[0].x,
+          y: this.ghostBody[0].y - 1,
         }) &&
-        this.blobBody[0].y > 0
+        this.ghostBody[0].y > 0
       ) {
-        this.blobBody[0].y -= 1;
+        this.ghostBody[0].y -= 1;
         moved = true;
       }
       moved = true;
@@ -132,7 +119,7 @@ export class Blob {
   }
   addSegments() {
     for (let i = 0; i < this.newSegments; i++) {
-      this.blobBody.push({ ...this.blobBody[this.blobBody.length - 1] });
+      this.ghostBody.push({ ...this.ghostBody[this.ghostBody.length - 1] });
     }
 
     this.newSegments = 0;
@@ -147,7 +134,7 @@ export class Blob {
     ) {
       newFoodPosition = randomGridPosition();
     }
-    this.blobBody[0] = newFoodPosition;
+    this.ghostBody[0] = newFoodPosition;
   }
   start(currentTime: any) {
     window.requestAnimationFrame(this.start.bind(this));
@@ -169,16 +156,4 @@ export class Blob {
   randomIntBinary(max: number) {
     return Math.floor(Math.random() * max);
   }
-
-  blobRage(time: number): void
-  {
-    this.movetime = 1000;
-
-    setTimeout(() => {
-      this.movetime = 5;
-    }, time);
-  }
-  async delay(ms: number) {
-    await new Promise<void>(resolve => setTimeout(()=>resolve(), ms)).then(()=>console.log("fired"));
-}
 }

@@ -26,6 +26,7 @@ import { PlatformLocation } from '@angular/common';
 import { FacadeService } from '../core/services/facade.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { StandartBob } from '../game-engine/Mobs/BlobTypes/StandartBlob';
+import { Ghost } from '../game-engine/Entities/ghostMegaEntity.model';
 
 interface IObject {}
 @Component({
@@ -59,6 +60,8 @@ export class GameBoardComponent implements OnInit, AfterViewInit {
   blob2?: Blob;
   blob3?: Blob;
   blob4?: Blob;
+  ghostEntity?: Ghost;
+
   standartBobGenerator?: StandartBob;
 
   clumsyFood?: ClumsyFood;
@@ -145,13 +148,13 @@ export class GameBoardComponent implements OnInit, AfterViewInit {
     this.food = new Food(this.snake, wall);
     this.clumsyFood = new ClumsyFood(this.snake, wall, this.clumsyInput);
     this.antidotefood = new AntidoteFood(this.snake, wall, this.correctInput);
-    this.standartBobGenerator = new StandartBob(wall, this.snake);
 
+    this.standartBobGenerator = new StandartBob(wall, this.snake);
     this.blob1 = this.standartBobGenerator.generateRedBlob();
     this.blob2 = this.standartBobGenerator.generateBlueBlob();
     this.blob3 = this.standartBobGenerator.generatePinkBlob();
     this.blob4 = this.standartBobGenerator.generateYellowBlob();
-
+    this.ghostEntity = new Ghost(wall);
     this.pickupsfactory = new PickUpsFactory(this.snake, wall);
 
     this.pickupPowerUp = this.pickupsfactory.getPowerUps(
@@ -188,6 +191,7 @@ export class GameBoardComponent implements OnInit, AfterViewInit {
     this.blob2?.start(currentTime);
     this.blob3?.start(currentTime);
     this.blob4?.start(currentTime);
+    this.ghostEntity?.start(currentTime);
   }
 
   get snakeSpeed() {
@@ -215,7 +219,7 @@ export class GameBoardComponent implements OnInit, AfterViewInit {
     this.opponent.update();
     this.food!.update();
     this.antidotefood!.update();
-    this.clumsyFood!.update();
+    this.clumsyFood!.update(this.blob1, this.blob2, this.blob3, this.blob4);
     this.checkDeath();
     this.pickupPowerUp?.update();
     this.pickupHeals?.update();
@@ -240,6 +244,7 @@ export class GameBoardComponent implements OnInit, AfterViewInit {
     this.blob2!.draw(this.gameBoard);
     this.blob3!.draw(this.gameBoard);
     this.blob4!.draw(this.gameBoard);
+    this.ghostEntity?.draw(this.gameBoard);
     this.clone!.draw(this.gameBoard);
   }
 
