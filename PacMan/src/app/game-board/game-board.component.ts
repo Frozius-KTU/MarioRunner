@@ -16,7 +16,6 @@ import {
 import { CorrectInput } from '../game-engine/MoveAlgorithm/CorrectInput';
 import { AntidoteFood } from '../game-engine/PickUps/AntidoteFood';
 import { ClumsyInput } from '../game-engine/MoveAlgorithm/ClumsyInput';
-import { PickUpsFactory } from '../game-engine/PickUps/pickup-abstract-factory';
 import { Lobby, Map } from 'src/app/models/game.types';
 import { Blob } from '../game-engine/Entities/blobEntity.model';
 import { Snake } from '../game-engine/Entities/snake';
@@ -27,6 +26,7 @@ import { FacadeService } from '../core/services/facade.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { StandartBob } from '../game-engine/Mobs/BlobTypes/StandartBlob';
 import { Ghost } from '../game-engine/Entities/ghostMegaEntity.model';
+import { PickUpsFactoryMap1, PickUpsFactoryMap2, PickUpsFactoryMap3 } from '../game-engine/PickUps/PowerUpsFactory/PowerUpsFactoryCreator';
 
 interface IObject {}
 @Component({
@@ -69,11 +69,11 @@ export class GameBoardComponent implements OnInit, AfterViewInit {
   correctInput = new CorrectInput();
   clumsyInput = new ClumsyInput();
 
-  pickupsfactory?: PickUpsFactory;
   pickupPowerUp?: IPowerUp;
   pickupHeals?: IHeal;
   current_map?: number;
   clone? : any;
+  pickup?: any;
 
   map: Map | undefined;
   lobby: Lobby | undefined;
@@ -157,20 +157,25 @@ export class GameBoardComponent implements OnInit, AfterViewInit {
     this.ghostEntity = new Ghost(wall);
     this.ghostEntity.setRandomPosition(this.snake, wall);
 
-    this.pickupsfactory = new PickUpsFactory(this.snake, wall);
+    this.pickupPowerUp = this.getPowerUps(
+      this.current_map!,
+      wall
+    );
+    this.pickupHeals = this.getHeals(
+      this.current_map!,
+      wall
+    );
 
-    this.pickupPowerUp = this.pickupsfactory.getPowerUps(
-      this.current_map!,
-      this.gameBoard
-    );
-    this.pickupHeals = this.pickupsfactory.getHeals(
-      this.current_map!,
-      this.gameBoard
-    );
-    this.clone = this.pickupHeals?.clone();
+    console.log(this.pickupPowerUp);
     console.log(this.pickupHeals);
-    console.log("klonas");
-    console.log(this.clone);
+    // this.pickupHeals = this.pickupsfactory.getHeals(
+    //   this.current_map!,
+    //   this.gameBoard
+    // );
+    this.clone = this.pickupHeals?.clone();
+    // console.log(this.pickupHeals);
+    // console.log("klonas");
+    // console.log(this.clone);
     this.loading = false;
   }
 
@@ -214,7 +219,8 @@ export class GameBoardComponent implements OnInit, AfterViewInit {
       this.ghostEntity?.ghostBody,
       this.blob3?.blobBody,
       this.blob4?.blobBody,
-      this.pickupHeals
+      this.pickupHeals,
+      this.clone
     );
     this.snake!.update();
     this.opponent.update();
@@ -246,6 +252,7 @@ export class GameBoardComponent implements OnInit, AfterViewInit {
     this.blob3!.draw(this.gameBoard);
     this.blob4!.draw(this.gameBoard);
     this.ghostEntity?.draw(this.gameBoard);
+    this.clone?.draw(this.gameBoard);
   }
 
   checkDeath() {
@@ -270,5 +277,47 @@ export class GameBoardComponent implements OnInit, AfterViewInit {
       window.location.reload();
     });
     sessionStorage.removeItem('lobbyId')!;
+  }
+
+  getPowerUps(level: number, wall : Wall) {
+    if (level == 1) {
+      //console.log(1);
+      this.pickup = new PickUpsFactoryMap1(this.snake,wall);
+      return this.pickup.createPowerUp(this.snake, this.wall);
+    }
+    if (level == 2) {
+      //console.log(2);
+      this.pickup = new PickUpsFactoryMap2(this.snake, wall);
+      return this.pickup.createPowerUp(this.snake, this.wall);
+    }
+    if (level == 3) {
+      //console.log(3);
+      this.pickup = new PickUpsFactoryMap3(this.snake, wall);
+      return this.pickup.createPowerUp(this.snake, this.wall);
+    } else {
+      this.pickup = new PickUpsFactoryMap1(this.snake, wall);
+      return this.pickup.createPowerUp(this.snake, this.wall);
+    }
+  }
+  getHeals(level: number, wall : Wall) {
+    if (level == 1) {
+      //console.log(1);
+      this.pickup = new PickUpsFactoryMap1(this.snake,wall);
+      console.log(this.pickup.createPowerUp(this.snake, this.wall));
+      return this.pickup.createHeal(this.snake, this.wall);
+    }
+    if (level == 2) {
+      //console.log(2);
+      this.pickup = new PickUpsFactoryMap2(this.snake, wall);
+      return this.pickup.createHeal(this.snake, this.wall);
+    }
+    if (level == 3) {
+      //console.log(3);
+      this.pickup = new PickUpsFactoryMap3(this.snake, wall);
+      return this.pickup.createHeal(this.snake, this.wall);
+    } else {
+      this.pickup = new PickUpsFactoryMap1(this.snake, wall);
+      return this.pickup.createHeal(this.snake, this.wall);
+    }
   }
 }

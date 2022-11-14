@@ -5,7 +5,7 @@ export interface IHeal {
   update(): void;
   draw(gameBoard: any): void;
   getRanomHealPosition(): void;
-  clone(): void;
+  clone(): IHeal;
   set addHealth(val: number);
   get currentHealth(): number;
   set minusHealth(val: number);
@@ -28,8 +28,8 @@ export class HealMapOne implements IHeal {
     }
   }
 
-  clone(): this {
-    return this;
+  clone(): IHeal {
+    return new HealMapOne(this.snake,this.walls);
   }
 
   draw(gameBoard: any) {
@@ -87,8 +87,8 @@ export class HealMapTwo implements IHeal {
     }
   }
 
-  clone(): this {
-    return this;
+  clone(): IHeal {
+    return new HealMapTwo(this.snake,this.walls);
   }
 
   draw(gameBoard: any) {
@@ -146,8 +146,8 @@ export class HealMapThree implements IHeal {
     }
   }
 
-  clone(): this {
-    return this;
+  clone(): IHeal {
+    return new HealMapThree(this.snake,this.walls);
   }
 
   draw(gameBoard: any) {
