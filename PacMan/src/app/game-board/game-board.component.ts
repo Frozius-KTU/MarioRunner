@@ -21,7 +21,7 @@ import { Lobby, Map } from 'src/app/models/game.types';
 import BlobBuilder from '../game-engine/Mobs/Blob/BlobBuilder';
 import { Blob } from '../game-engine/Entities/blobEntity.model';
 import { Snake } from '../game-engine/Entities/snake';
-import { IPowerUp } from '../game-engine/PickUps/PowerUps';
+import { IPowerUp } from '../game-engine/PickUps/PowerUpsFactory/PowerUps';
 import { IHeal } from '../game-engine/PickUps/Heals-Factory/Heal';
 import { ConsoleLogger } from '@microsoft/signalr/dist/esm/Utils';
 import { PlatformLocation } from '@angular/common';
