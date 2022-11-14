@@ -43,10 +43,6 @@ export class LobbiesComponent implements OnInit {
     });
   }
 
-  test() {
-    console.log(sessionStorage.getItem('lobbyId'));
-  }
-
   play(lobbyId: string) {
     if (this.getLobbyPlayerCount(lobbyId) == 2) {
       Swal.fire({
@@ -69,7 +65,7 @@ export class LobbiesComponent implements OnInit {
       allowEscapeKey: false,
       allowOutsideClick: false,
       didOpen: () => {
-        Swal.showLoading();
+        Swal.showLoading(null);
       },
       willClose: () => {
         if (this.facadeService.signalRService.clientStatusCode == '406') {
@@ -97,7 +93,6 @@ export class LobbiesComponent implements OnInit {
 
       this.router.navigate(['/game', lobbyId]).then(() => {
         //window.location.reload();
-        this.facadeService.setLobbyId(lobbyId);
       });
     });
   }

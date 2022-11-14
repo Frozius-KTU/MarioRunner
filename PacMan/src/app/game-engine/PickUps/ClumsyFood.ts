@@ -1,20 +1,17 @@
-import { randomGridPosition } from "../gameboard-grid.util";
-import { ClumsyInput } from "../MoveAlgorithm/ClumsyInput";
-import { CorrectInput } from "../MoveAlgorithm/CorrectInput";
-import { Wall } from "../Decorator/wall";
+import { randomGridPosition } from '../gameboard-grid.util';
+import { Wall } from '../Decorator/wall';
+import { IMoveAlgorithm } from '../MoveAlgorithm/IMoveAlgorithm';
 
-export class ClumsyFood{
-
-
+export class ClumsyFood {
   EXPANSION_RATE = 1;
   ClumsyFood: any;
   snake;
-  constructor(snake: any, public walls: Wall) {
+  clumsyInput?: IMoveAlgorithm;
+  constructor(snake: any, public walls: Wall, clumsyInput: IMoveAlgorithm) {
     this.snake = snake;
     this.ClumsyFood = this.getRandomFoodPosition();
+    this.clumsyInput = clumsyInput;
   }
-  clumsyInput: any = new ClumsyInput();
-
 
   update() {
     if (this.snake.onSnake(this.ClumsyFood)) {
@@ -24,7 +21,7 @@ export class ClumsyFood{
       //this.snake.changeMovement(new CorrectInput);
       this.ClumsyFood = this.getRandomFoodPosition();
     }
-    if(this.walls.onObject(this.ClumsyFood)){
+    if (this.walls.onObject(this.ClumsyFood)) {
       this.ClumsyFood = this.getRandomFoodPosition();
     }
   }
@@ -33,17 +30,21 @@ export class ClumsyFood{
     const foodElement = document.createElement('div');
     foodElement.style.gridRowStart = this.ClumsyFood.y;
     foodElement.style.gridColumnStart = this.ClumsyFood.x;
-    foodElement.style.backgroundImage = "url('https://icons.iconarchive.com/icons/mozco/symbolic-objects/32/Poison-icon.png')"
-    foodElement.style.backgroundSize = "cover";
+    foodElement.style.backgroundImage =
+      "url('https://icons.iconarchive.com/icons/mozco/symbolic-objects/32/Poison-icon.png')";
+    foodElement.style.backgroundSize = 'cover';
     foodElement.classList.add('clumsyfoodas');
     gameBoard.appendChild(foodElement);
   }
 
-
   getRandomFoodPosition() {
     let newFoodPosition;
-    while (newFoodPosition == null || this.snake.onSnake(newFoodPosition)  || this.walls.onObject(newFoodPosition)) {
-      newFoodPosition = randomGridPosition()
+    while (
+      newFoodPosition == null ||
+      this.snake.onSnake(newFoodPosition) ||
+      this.walls.onObject(newFoodPosition)
+    ) {
+      newFoodPosition = randomGridPosition();
     }
     return newFoodPosition;
   }

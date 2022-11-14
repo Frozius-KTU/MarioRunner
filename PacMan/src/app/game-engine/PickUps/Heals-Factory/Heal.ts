@@ -1,15 +1,14 @@
 import { randomGridPosition } from '../../gameboard-grid.util';
-import { BlackBorderWallDecorator, Wall } from '../../Decorator/wall';
-import { GameBoardComponent } from 'src/app/game-board/game-board.component';
+import { Wall } from '../../Decorator/wall';
 
 export interface IHeal {
   update(): void;
   draw(gameBoard: any): void;
   getRanomHealPosition(): void;
   clone(): void;
-  set addHealth(val:number);
+  set addHealth(val: number);
   get currentHealth(): number;
-  set minusHealth(val:number);
+  set minusHealth(val: number);
 }
 
 export class HealMapOne implements IHeal {
@@ -56,17 +55,17 @@ export class HealMapOne implements IHeal {
     return newFoodPosition;
   }
   set addHealth(val: number) {
-    if(this.health<5){
-      this.health+=val;
+    if (this.health < 5) {
+      this.health += val;
     }
   }
   get currentHealth() {
     return this.health;
   }
 
-  set minusHealth(val: number){
-    if(this.health>0){
-      this.health-=val;
+  set minusHealth(val: number) {
+    if (this.health > 0) {
+      this.health -= val;
     }
   }
 }
@@ -115,17 +114,17 @@ export class HealMapTwo implements IHeal {
     return newFoodPosition;
   }
   set addHealth(val: number) {
-    if(this.health<4){
-      this.health+=val;
+    if (this.health < 4) {
+      this.health += val;
     }
   }
   get currentHealth() {
     return this.health;
   }
 
-  set minusHealth(val: number){
-    if(this.health>0){
-      this.health-=val;
+  set minusHealth(val: number) {
+    if (this.health > 0) {
+      this.health -= val;
     }
   }
 }
@@ -174,17 +173,17 @@ export class HealMapThree implements IHeal {
     return newFoodPosition;
   }
   set addHealth(val: number) {
-    if(this.health<3){
-      this.health+=val;
+    if (this.health < 3) {
+      this.health += val;
     }
   }
   get currentHealth() {
     return this.health;
   }
 
-  set minusHealth(val: number){
-    if(this.health>0){
-      this.health-=val;
+  set minusHealth(val: number) {
+    if (this.health > 0) {
+      this.health -= val;
       console.log('numinusavo');
     }
   }

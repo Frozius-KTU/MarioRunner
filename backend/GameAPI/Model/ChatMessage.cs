@@ -1,10 +1,9 @@
 using System;
 
-namespace GameAPI.Model
+namespace GameAPI.Model;
+public class ChatMessage
 {
-    public class ChatMessage
-    {
-        public string Message { get; set; }
-        public DateTime Sent { get; set; }
-    }
+    public string Message { get; set; }
+    public DateTime Sent { get; set; }
 }
+

@@ -35,19 +35,6 @@ export class Wall implements IObject {
   }
 
   draw(gameBoard: any) {
-    // this.wall.forEach(segment => {
-    //   const wallElement = document.createElement('divas');
-    //   wallElement.style.gridRowStart = segment.y.toString();
-    //   wallElement.style.gridColumnStart = segment.x.toString();
-    //   wallElement.style.border = '0.5vmin solid black'
-    //   wallElement.style.backgroundColor = '#1a1a1a';
-    //   //wallElement.style.backgroundImage = "url('https://img.lovepik.com/free-png/20210927/lovepik-apple-png-image_401592228_wh1200.png')"
-    //   wallElement.classList.add('wall');
-
-    //   //console.log(wallElement)
-    //   gameBoard.appendChild(wallElement);
-    // });
-
     this.wallElements.forEach((segment) => {
       gameBoard.appendChild(segment);
     });
@@ -83,7 +70,7 @@ export class Door implements IObject {
           const doorElement = document.createElement('div');
           doorElement.style.gridRowStart = (y + 1).toString();
           doorElement.style.gridColumnStart = (x + 1).toString();
-          doorElement.style.backgroundColor = '#331d12';
+          doorElement.style.backgroundColor = '#48342b';
           this.doorElements.push(doorElement);
         }
       }
@@ -191,7 +178,7 @@ export class YellowBorderWallDecorator extends Decorator {
 
 //##################################################################################
 
-export class GrayBorderDoorDecorator extends Decorator {
+export class BrownBorderDoorDecorator extends Decorator {
   doorElements: HTMLElement[] = [];
   constructor(public door: Door) {
     super(door);
@@ -200,7 +187,7 @@ export class GrayBorderDoorDecorator extends Decorator {
 
   addBorder() {
     this.doorElements.forEach((segment) => {
-      segment.style.border = '0.5vmin solid #302b28';
+      segment.style.border = '0.5vmin solid #34271f';
     });
   }
 }

@@ -1,25 +1,11 @@
-import {
-  Component,
-  OnInit,
-  Input,
-  EventEmitter,
-  Output,
-  ChangeDetectionStrategy,
-} from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { Observable, forkJoin } from 'rxjs';
+import { Observable } from 'rxjs';
 import { ChatMessage } from '../models/chatMessage.model';
-import { map, tap } from 'rxjs/operators';
-import { ChatComponent } from '../presentational/chat/chat.component';
-
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { Client, Lobby } from '../models/game.types';
-import { Subject } from '@microsoft/signalr';
 import Swal from 'sweetalert2';
-import { Invoker } from '../game-engine/commandTest';
+import { Client } from '../models/game.types';
 import { PlatformLocation } from '@angular/common';
 import { FacadeService } from '../core/services/facade.service';
-import { ConsoleLogger } from '@microsoft/signalr/dist/esm/Utils';
 
 @Component({
   selector: 'app-home',
@@ -27,11 +13,10 @@ import { ConsoleLogger } from '@microsoft/signalr/dist/esm/Utils';
   styleUrls: ['./home.component.scss'],
 })
 export class HomeComponent implements OnInit {
-  signalrConnectionEstablished$?: Observable<boolean>;
+  signalrConnectionEstablished?: Observable<boolean>;
   chatmessages: ChatMessage[] = [];
 
   playerName: string = '';
-  commandTest: Invoker = new Invoker();
   constructor(
     private router: Router,
     private facadeService: FacadeService,
@@ -43,8 +28,6 @@ export class HomeComponent implements OnInit {
   }
 
   ngOnInit() {
-    //this.commandTest.main();
-
     this.playerName =
       sessionStorage.getItem('playerName') ||
       'Player_' + Math.floor(Math.random() * (999 - 100) + 100).toString();
@@ -60,10 +43,10 @@ export class HomeComponent implements OnInit {
         });
     }
 
-    this.signalrConnectionEstablished$ =
-      this.facadeService.signalRService.connectionEstablished$;
+    this.signalrConnectionEstablished =
+      this.facadeService.signalRService.connectionEstablished;
 
-    this.facadeService.signalRService.messageReceived$.subscribe((message) => {
+    this.facadeService.signalRService.messageReceived.subscribe((message) => {
       this.chatmessages.push(message);
     });
   }
@@ -102,13 +85,12 @@ export class HomeComponent implements OnInit {
         allowEscapeKey: false,
         allowOutsideClick: false,
         didOpen: () => {
-          Swal.showLoading();
+          Swal.showLoading(null);
           sessionStorage.setItem('playerName', this.playerName);
         },
         willClose: () => {
           client = this.facadeService.signalRService.createdClient;
           sessionStorage.setItem('playerId', client.id!);
-          //console.log(client.id);
         },
       }).then((result) => {
         this.router.navigate(['/lobbies']).then(() => {

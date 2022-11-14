@@ -1,48 +1,57 @@
-import { MoveAlgorithm } from "../MoveAlgorithm";
+import {
+  CommandDown,
+  CommandLeft,
+  CommandRight,
+  CommandUp,
+  Invoker,
+  Receiver,
+} from './Command';
+import { IMoveAlgorithm } from './IMoveAlgorithm';
 
-export class ClumsyInput implements MoveAlgorithm {
+export class ClumsyInput implements IMoveAlgorithm {
+  constructor() {
+    this.Invoker.register('up', this.CommandUp);
+    this.Invoker.register('down', this.CommandDown);
+    this.Invoker.register('left', this.CommandLeft);
+    this.Invoker.register('right', this.CommandRight);
+    this.getInputs();
+  }
+  Receiver = new Receiver();
+  CommandUp = new CommandUp(this.Receiver);
+  CommandDown = new CommandDown(this.Receiver);
+  CommandLeft = new CommandLeft(this.Receiver);
+  CommandRight = new CommandRight(this.Receiver);
 
-  inputDirection = { x: 0, y: 0 };
-  lastInputDirection = { x: 0, y: 0 };
-  /*constructor(inputDirection : { x: number; y: number; })
-  {
-    this.lastInputDirection = inputDirection;
-    this.inputDirection = inputDirection;
-  }*/
+  Invoker = new Invoker();
+
   getInputs() {
-    window.addEventListener('keydown', e => {
+    window.addEventListener('keydown', (e) => {
       this.moveAlgorithm(e.key);
-    })
+    });
   }
 
   moveAlgorithm(direction: String) {
     switch (direction) {
       case 'ArrowUp':
-        //if (this.lastInputDirection.y !== 0) break;
-        this.inputDirection = { x: 0, y: 1 };
+        this.Invoker.execute('down');
         break;
       case 'ArrowDown':
-        //if (this.lastInputDirection.y !== 0) break;
-        this.inputDirection = { x: 0, y: -1 };
+        this.Invoker.execute('up');
         break;
       case 'ArrowLeft':
-        //if (this.lastInputDirection.x !== 0) break;
-        this.inputDirection = { x: 1, y: 0 };
+        this.Invoker.execute('right');
         break;
       case 'ArrowRight':
-        //if (this.lastInputDirection.x !== 0) break;
-        this.inputDirection = { x: -1, y: 0 };
+        this.Invoker.execute('left');
         break;
     }
   }
 
   getInputDirection() {
-    //this.lastInputDirection = this.inputDirection;
-    return this.inputDirection;
+    return this.Receiver.inputDirection;
   }
 
-  resetDirection(){
-    this.inputDirection = { x: 0, y: 0 };
+  resetDirection() {
+    this.Receiver.inputDirection = { x: 0, y: 0 };
   }
-
 }

@@ -1,6 +1,5 @@
 import { randomGridPosition } from '..//../gameboard-grid.util';
-import { BlackBorderWallDecorator, Wall } from '../../Decorator/wall';
-import { GameBoardComponent } from 'src/app/game-board/game-board.component';
+import { Wall } from '../../Decorator/wall';
 import { Snake } from '../../Entities/snake';
 
 export interface IPowerUp {
@@ -50,7 +49,7 @@ export class PowerUp1 implements IPowerUp {
   effect() {
     this.snake.setStateToImortal();
     setTimeout(logout, 15000, this.snake);
-    function logout(snake : Snake){
+    function logout(snake: Snake) {
       console.log('Immortal efektas beigesi po 15 sekundziu');
       snake.setNormalState();
     }
@@ -98,7 +97,7 @@ export class PowerUp2 implements IPowerUp {
   effect() {
     this.snake.setStateToImortal();
     setTimeout(logout, 10000, this.snake);
-    function logout(snake : Snake){
+    function logout(snake: Snake) {
       console.log('Immortal efektas beigesi po 10 sekundziu');
       snake.setNormalState();
     }
@@ -146,7 +145,7 @@ export class PowerUp3 implements IPowerUp {
   effect() {
     this.snake.setStateToImortal();
     setTimeout(logout, 5000, this.snake);
-    function logout(snake : Snake){
+    function logout(snake: Snake) {
       console.log('Immortal efektas beigesi po 5 sekundziu');
       snake.setNormalState();
     }

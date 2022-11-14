@@ -16,11 +16,8 @@ export class SignalRService {
   createdClient: Client = { name: '' };
   clientStatusCode: string = '';
 
-  foodchanged$ = new Subject();
-  messageReceived$ = new Subject<ChatMessage>();
-  newCpuValue$ = new Subject<number>();
-  connectionEstablished$ = new BehaviorSubject<boolean>(false);
-  lobbyId = '########-####-####-####-###########';
+  messageReceived = new Subject<ChatMessage>();
+  connectionEstablished = new BehaviorSubject<boolean>(false);
 
   private hubConnection!: HubConnection;
 
@@ -30,15 +27,9 @@ export class SignalRService {
     this.startConnection();
   }
 
-  setLobbyId(lobbyId: string) {
-    this.lobbyId = lobbyId;
-    console.log('SET LOBBY' + lobbyId);
-  }
-
   sendChatMessage(message: ChatMessage) {
     this.hubConnection.invoke('SendMessage', message);
   }
-
   createClient(client: Client) {
     this.hubConnection.invoke('CreateClient', client);
   }
@@ -65,39 +56,15 @@ export class SignalRService {
     this.hubConnection.start().then(
       () => {
         console.log('Hub connection started!');
-        this.connectionEstablished$.next(true);
+        this.connectionEstablished.next(true);
       },
       (error) => console.error(error)
     );
   }
 
   private registerOnServerEvents(): void {
-    this.hubConnection.on('FoodAdded', (data: any) => {
-      //console.log(data);
-      this.foodchanged$.next(data);
-    });
-
-    this.hubConnection.on('FoodDeleted', (data: any) => {
-      //console.log(data);
-      this.foodchanged$.next('this could be data');
-    });
-
-    this.hubConnection.on('FoodUpdated', (data: any) => {
-      //console.log(data);
-      this.foodchanged$.next('this could be data');
-    });
-
     this.hubConnection.on('Send', (data: any) => {
-      //console.log('data', data);
-      this.messageReceived$.next(data);
-    });
-    this.hubConnection.on(this.lobbyId, (data: any) => {
-      //console.log('data', data);
-      this.messageReceived$.next(data);
-    });
-
-    this.hubConnection.on('newCpuValue', (data: number) => {
-      this.newCpuValue$.next(data);
+      this.messageReceived.next(data);
     });
 
     this.hubConnection.on('ClientCreated', (data: any) => {

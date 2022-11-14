@@ -132,10 +132,6 @@ public class ChatHub : Hub
             }
         }
         await ClearPing();
-
-
-        //successPing.Clear();
-        //return base.OnDisconnectedAsync(exception);
     }
 
     public async Task CreateClient(ClientModel request)
@@ -187,11 +183,9 @@ public class ChatHub : Hub
         clientHandler.ServerCertificateCustomValidationCallback = (sender, cert, chain, sslPolicyErrors) => { return true; };
         // Pass the handler to httpclient(from you are calling api)
         HttpClient client = new HttpClient(clientHandler);
-
         
         try
         {
-
             ///Update Lobby
             HttpResponseMessage response = await client.GetAsync("https://localhost:5001/api/Lobby/" + lobbyId + "/add/" + clientId);
 
@@ -234,7 +228,6 @@ public class ChatHub : Hub
         
     }
 
-
     public async Task DisconnectClientFromLobby(Guid clientId, Guid lobbyId)
     {
         HttpClientHandler clientHandler = new HttpClientHandler();
@@ -242,7 +235,6 @@ public class ChatHub : Hub
         // Pass the handler to httpclient(from you are calling api)
         HttpClient client = new HttpClient(clientHandler);
 
-        
         try
         {
             ClientModel clientRequest = new ClientModel();
@@ -262,7 +254,6 @@ public class ChatHub : Hub
         {
             throw;
         }
-        
     }
 }
 

@@ -10,7 +10,6 @@ public class GameContext : DbContext
     {
 
     }
-
     public DbSet<LobbyModel> Lobbies => Set<LobbyModel>();
     public DbSet<MapModel> Maps => Set<MapModel>();
 
@@ -19,7 +18,6 @@ public class GameContext : DbContext
     {
         base.OnModelCreating(modelBuilder);
         modelBuilder.ApplyConfigurationsFromAssembly(System.Reflection.Assembly.GetExecutingAssembly());
-
     }
     #endregion
 }
