@@ -70,7 +70,7 @@ export class Door implements IObject {
           const doorElement = document.createElement('div');
           doorElement.style.gridRowStart = (y + 1).toString();
           doorElement.style.gridColumnStart = (x + 1).toString();
-          doorElement.style.backgroundColor = '#331d12';
+          doorElement.style.backgroundColor = '#48342b';
           this.doorElements.push(doorElement);
         }
       }
@@ -178,7 +178,7 @@ export class YellowBorderWallDecorator extends Decorator {
 
 //##################################################################################
 
-export class GrayBorderDoorDecorator extends Decorator {
+export class BrownBorderDoorDecorator extends Decorator {
   doorElements: HTMLElement[] = [];
   constructor(public door: Door) {
     super(door);
@@ -187,7 +187,7 @@ export class GrayBorderDoorDecorator extends Decorator {
 
   addBorder() {
     this.doorElements.forEach((segment) => {
-      segment.style.border = '0.5vmin solid #302b28';
+      segment.style.border = '0.5vmin solid #34271f';
     });
   }
 }

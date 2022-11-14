@@ -1,6 +1,5 @@
 import { Wall } from '../Decorator/wall';
 import { randomGridPosition } from '../gameboard-grid.util';
-import { ChatMessage } from '../../models/chatMessage.model';
 import { Snake } from './snake';
 
 export class Blob {

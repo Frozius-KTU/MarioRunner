@@ -1,5 +1,4 @@
 import { randomGridPosition } from '../gameboard-grid.util';
-import { CorrectInput } from '../MoveAlgorithm/CorrectInput';
 import { Wall } from '../Decorator/wall';
 import { IMoveAlgorithm } from '../MoveAlgorithm/IMoveAlgorithm';
 
@@ -13,7 +12,6 @@ export class AntidoteFood {
     this.AntidoteFood = this.getRandomFoodPosition();
     this.correctInput = correctInput;
   }
-  //correctInput: any = new CorrectInput();
 
   update() {
     if (this.snake.onSnake(this.AntidoteFood)) {

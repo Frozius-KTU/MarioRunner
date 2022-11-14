@@ -53,7 +53,6 @@ export class CommandRight implements ICommand {
 }
 
 export class Invoker {
-  // The Invoker Class
   #commands: { [id: string]: ICommand };
   constructor() {
     this.#commands = {};
@@ -62,7 +61,6 @@ export class Invoker {
     this.#commands[commandName] = command;
   }
   execute(commandName: string) {
-    // Execute any registered commands
     if (commandName in this.#commands) {
       this.#commands[commandName].execute();
     } else {
@@ -70,7 +68,6 @@ export class Invoker {
     }
   }
   undo(commandName: string) {
-    // Execute any registered commands
     if (commandName in this.#commands) {
       this.#commands[commandName].undo();
     } else {
@@ -80,7 +77,7 @@ export class Invoker {
 }
 export class Receiver {
   inputDirection = { x: 0, y: 0 };
-  // The Receiver
+
   Up() {
     // A set of instructions to run
     this.inputDirection = { x: 0, y: -1 };

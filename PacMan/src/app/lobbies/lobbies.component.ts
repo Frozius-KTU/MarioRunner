@@ -93,7 +93,6 @@ export class LobbiesComponent implements OnInit {
 
       this.router.navigate(['/game', lobbyId]).then(() => {
         //window.location.reload();
-        this.facadeService.setLobbyId(lobbyId);
       });
     });
   }

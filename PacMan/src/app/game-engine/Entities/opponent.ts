@@ -1,6 +1,4 @@
-import { ConsoleLogger } from '@microsoft/signalr/dist/esm/Utils';
 import { FacadeService } from 'src/app/core/services/facade.service';
-import { ChatMessage } from '../../models/chatMessage.model';
 
 export class Opponent {
   constructor(private facadeService: FacadeService) {}
@@ -51,7 +49,7 @@ export class Opponent {
   }
 
   getPosition() {
-    this.facadeService.signalRService.messageReceived$.subscribe((message) => {
+    this.facadeService.signalRService.messageReceived.subscribe((message) => {
       var data = message.message.split(' ');
       if (
         data[0] == sessionStorage.getItem('lobbyId') &&

@@ -1,19 +1,9 @@
-import {
-  Component,
-  OnInit,
-  Input,
-  EventEmitter,
-  Output,
-  ChangeDetectionStrategy,
-} from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { Observable, forkJoin } from 'rxjs';
+import { Observable } from 'rxjs';
 import { ChatMessage } from '../models/chatMessage.model';
-import { map, tap } from 'rxjs/operators';
 
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { Client, Lobby } from '../models/game.types';
-import { Subject } from '@microsoft/signalr';
+import { Client } from '../models/game.types';
 import Swal from 'sweetalert2';
 import { PlatformLocation } from '@angular/common';
 import { FacadeService } from '../core/services/facade.service';
@@ -24,7 +14,7 @@ import { FacadeService } from '../core/services/facade.service';
   styleUrls: ['./home.component.scss'],
 })
 export class HomeComponent implements OnInit {
-  signalrConnectionEstablished$?: Observable<boolean>;
+  signalrConnectionEstablished?: Observable<boolean>;
   chatmessages: ChatMessage[] = [];
 
   playerName: string = '';
@@ -54,10 +44,10 @@ export class HomeComponent implements OnInit {
         });
     }
 
-    this.signalrConnectionEstablished$ =
-      this.facadeService.signalRService.connectionEstablished$;
+    this.signalrConnectionEstablished =
+      this.facadeService.signalRService.connectionEstablished;
 
-    this.facadeService.signalRService.messageReceived$.subscribe((message) => {
+    this.facadeService.signalRService.messageReceived.subscribe((message) => {
       this.chatmessages.push(message);
     });
   }

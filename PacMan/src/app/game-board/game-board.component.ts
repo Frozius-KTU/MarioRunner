@@ -9,7 +9,7 @@ import {
   PurpleBorderWallDecorator,
   YellowBorderWallDecorator,
   Door,
-  GrayBorderDoorDecorator,
+  BrownBorderDoorDecorator,
   PurpleBorderDoorDecorator,
   YellowBorderDoorDecorator,
 } from '../game-engine/Decorator/wall';
@@ -18,12 +18,10 @@ import { AntidoteFood } from '../game-engine/PickUps/AntidoteFood';
 import { ClumsyInput } from '../game-engine/MoveAlgorithm/ClumsyInput';
 import { PickUpsFactory } from '../game-engine/PickUps/pickup-abstract-factory';
 import { Lobby, Map } from 'src/app/models/game.types';
-import BlobBuilder from '../game-engine/Mobs/Blob/BlobBuilder';
 import { Blob } from '../game-engine/Entities/blobEntity.model';
 import { Snake } from '../game-engine/Entities/snake';
 import { IPowerUp } from '../game-engine/PickUps/PowerUpsFactory/PowerUps';
 import { IHeal } from '../game-engine/PickUps/Heals-Factory/Heal';
-import { ConsoleLogger } from '@microsoft/signalr/dist/esm/Utils';
 import { PlatformLocation } from '@angular/common';
 import { FacadeService } from '../core/services/facade.service';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -53,7 +51,7 @@ export class GameBoardComponent implements OnInit, AfterViewInit {
   opponent = new Opponent(this.facadeService);
 
   wall?: BlackBorderWallDecorator;
-  door?: GrayBorderDoorDecorator;
+  door?: BrownBorderDoorDecorator;
 
   snake?: Snake;
   food?: Food;
@@ -102,7 +100,7 @@ export class GameBoardComponent implements OnInit, AfterViewInit {
           switch (this.lobby.level) {
             case 1:
               this.wall = new BlackBorderWallDecorator(new Wall());
-              this.door = new GrayBorderDoorDecorator(new Door());
+              this.door = new BrownBorderDoorDecorator(new Door());
               break;
             case 2:
               this.wall = new PurpleBorderWallDecorator(new Wall());
@@ -115,7 +113,7 @@ export class GameBoardComponent implements OnInit, AfterViewInit {
 
             default:
               this.wall = new BlackBorderWallDecorator(new Wall());
-              this.door = new GrayBorderDoorDecorator(new Door());
+              this.door = new BrownBorderDoorDecorator(new Door());
               break;
           }
 

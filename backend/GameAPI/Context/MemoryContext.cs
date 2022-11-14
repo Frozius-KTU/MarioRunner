@@ -9,7 +9,6 @@ public class MemoryContext : DbContext
     {
 
     }
-    //public DbSet<ClientModel> Clients { get; set; }
     public DbSet<ClientModel> Clients => Set<ClientModel>();
 }
 

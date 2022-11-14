@@ -1,5 +1,4 @@
 import { randomGridPosition } from '../gameboard-grid.util';
-import { ClumsyInput } from '../MoveAlgorithm/ClumsyInput';
 import { Wall } from '../Decorator/wall';
 import { IMoveAlgorithm } from '../MoveAlgorithm/IMoveAlgorithm';
 
@@ -13,7 +12,6 @@ export class ClumsyFood {
     this.ClumsyFood = this.getRandomFoodPosition();
     this.clumsyInput = clumsyInput;
   }
-  //clumsyInput: any = new ClumsyInput();
 
   update() {
     if (this.snake.onSnake(this.ClumsyFood)) {

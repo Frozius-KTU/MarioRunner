@@ -1,17 +1,6 @@
-import { NONE_TYPE } from '@angular/compiler';
-import { BlackBorderWallDecorator, Wall } from '../Decorator/wall';
-import {
-  IHeal,
-  HealMapOne,
-  HealMapThree,
-  HealMapTwo,
-} from '../PickUps/Heals-Factory/Heal';
-import {
-  IPowerUp,
-  PowerUp1,
-  PowerUp2,
-  PowerUp3,
-} from '../PickUps/PowerUpsFactory/PowerUps';
+import { Wall } from '../Decorator/wall';
+import { IHeal } from '../PickUps/Heals-Factory/Heal';
+import { IPowerUp } from '../PickUps/PowerUpsFactory/PowerUps';
 import { GameBoardComponent } from 'src/app/game-board/game-board.component';
 import {
   HealsFactoryCreator1,

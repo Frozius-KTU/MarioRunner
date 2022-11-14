@@ -4,7 +4,6 @@ import { Wall } from '../Decorator/wall';
 import { fixOutsidePosition, outsideGrid } from '../gameboard-grid.util';
 import { IMoveAlgorithm } from '../MoveAlgorithm/IMoveAlgorithm';
 import { IHeal } from '../PickUps/Heals-Factory/Heal';
-import { LayoutModule } from '@angular/cdk/layout';
 
 export class Snake {
   moveAlgorithm: IMoveAlgorithm;
