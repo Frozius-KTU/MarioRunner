@@ -86,7 +86,7 @@ export class HomeComponent implements OnInit {
         allowEscapeKey: false,
         allowOutsideClick: false,
         didOpen: () => {
-          Swal.showLoading();
+          Swal.showLoading(null);
           sessionStorage.setItem('playerName', this.playerName);
         },
         willClose: () => {
