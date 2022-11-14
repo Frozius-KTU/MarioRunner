@@ -69,7 +69,7 @@ export class LobbiesComponent implements OnInit {
       allowEscapeKey: false,
       allowOutsideClick: false,
       didOpen: () => {
-        Swal.showLoading(null);
+        Swal.showLoading();
       },
       willClose: () => {
         if (this.facadeService.signalRService.clientStatusCode == '406') {

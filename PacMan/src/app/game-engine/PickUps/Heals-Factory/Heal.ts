@@ -7,11 +7,15 @@ export interface IHeal {
   draw(gameBoard: any): void;
   getRanomHealPosition(): void;
   clone(): void;
+  set addHealth(val:number);
+  get currentHealth(): number;
+  set minusHealth(val:number);
 }
 
 export class HealMapOne implements IHeal {
   public heal: any;
   public snake;
+  health = 5;
 
   constructor(snake: any, public walls: Wall) {
     this.snake = snake;
@@ -21,6 +25,7 @@ export class HealMapOne implements IHeal {
   update() {
     if (this.snake.onSnake(this.heal) || this.walls.onObject(this.heal)) {
       this.heal = this.getRanomHealPosition();
+      this.addHealth = 1;
     }
   }
 
@@ -50,11 +55,26 @@ export class HealMapOne implements IHeal {
     }
     return newFoodPosition;
   }
+  set addHealth(val: number) {
+    if(this.health<5){
+      this.health+=val;
+    }
+  }
+  get currentHealth() {
+    return this.health;
+  }
+
+  set minusHealth(val: number){
+    if(this.health>0){
+      this.health-=val;
+    }
+  }
 }
 
 export class HealMapTwo implements IHeal {
   public heal: any;
   public snake;
+  health = 4;
 
   constructor(snake: any, public walls: Wall) {
     this.snake = snake;
@@ -64,6 +84,7 @@ export class HealMapTwo implements IHeal {
   update() {
     if (this.snake.onSnake(this.heal) || this.walls.onObject(this.heal)) {
       this.heal = this.getRanomHealPosition();
+      this.addHealth = 1;
     }
   }
 
@@ -93,11 +114,26 @@ export class HealMapTwo implements IHeal {
     }
     return newFoodPosition;
   }
+  set addHealth(val: number) {
+    if(this.health<4){
+      this.health+=val;
+    }
+  }
+  get currentHealth() {
+    return this.health;
+  }
+
+  set minusHealth(val: number){
+    if(this.health>0){
+      this.health-=val;
+    }
+  }
 }
 
 export class HealMapThree implements IHeal {
   public heal: any;
   public snake;
+  health = 3;
 
   constructor(snake: any, public walls: Wall) {
     this.snake = snake;
@@ -107,6 +143,7 @@ export class HealMapThree implements IHeal {
   update() {
     if (this.snake.onSnake(this.heal) || this.walls.onObject(this.heal)) {
       this.heal = this.getRanomHealPosition();
+      this.addHealth = 1;
     }
   }
 
@@ -135,5 +172,20 @@ export class HealMapThree implements IHeal {
       newFoodPosition = randomGridPosition();
     }
     return newFoodPosition;
+  }
+  set addHealth(val: number) {
+    if(this.health<3){
+      this.health+=val;
+    }
+  }
+  get currentHealth() {
+    return this.health;
+  }
+
+  set minusHealth(val: number){
+    if(this.health>0){
+      this.health-=val;
+      console.log('numinusavo');
+    }
   }
 }

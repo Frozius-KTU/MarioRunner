@@ -27,7 +27,7 @@ import { ConsoleLogger } from '@microsoft/signalr/dist/esm/Utils';
   styleUrls: ['./home.component.scss'],
 })
 export class HomeComponent implements OnInit {
-  signalrConnectionEstablished$: Observable<boolean>;
+  signalrConnectionEstablished$?: Observable<boolean>;
   chatmessages: ChatMessage[] = [];
 
   playerName: string = '';
@@ -102,7 +102,7 @@ export class HomeComponent implements OnInit {
         allowEscapeKey: false,
         allowOutsideClick: false,
         didOpen: () => {
-          Swal.showLoading(null);
+          Swal.showLoading();
           sessionStorage.setItem('playerName', this.playerName);
         },
         willClose: () => {
