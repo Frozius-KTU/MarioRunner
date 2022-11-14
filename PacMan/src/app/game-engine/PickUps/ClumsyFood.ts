@@ -14,7 +14,7 @@ export class ClumsyFood {
     this.clumsyInput = clumsyInput;
   }
 
-  update(blob1?: any, blob2?: any, blob3?: any, blob4?: any) {
+  update(blob1?: any, ghostBlob?: any, blob3?: any, blob4?: any) {
     if (this.snake.onSnake(this.ClumsyFood)) {
       this.snake.expandSnake(this.EXPANSION_RATE);
       this.snake.changeMovement(this.clumsyInput);
@@ -23,7 +23,7 @@ export class ClumsyFood {
       this.ClumsyFood = this.getRandomFoodPosition();
 
       blob1.blobRage(10000);
-      blob2.blobRage(10000);
+      //ghostBlob.blobRage(10000);
       blob3.blobRage(10000);
       blob4.blobRage(10000);
 

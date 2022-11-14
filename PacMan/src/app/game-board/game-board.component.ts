@@ -58,11 +58,11 @@ export class GameBoardComponent implements OnInit, AfterViewInit {
 
   snake?: Snake;
   food?: Food;
+
   blob1?: Blob;
-  blob2?: Blob;
+  ghostEntity?: Ghost;
   blob3?: Blob;
   blob4?: Blob;
-  ghostEntity?: Ghost;
 
   standartBobGenerator?: StandartBob;
 
@@ -152,10 +152,12 @@ export class GameBoardComponent implements OnInit, AfterViewInit {
 
     this.standartBobGenerator = new StandartBob(wall, this.snake);
     this.blob1 = this.standartBobGenerator.generateRedBlob();
-    this.blob2 = this.standartBobGenerator.generateBlueBlob();
     this.blob3 = this.standartBobGenerator.generatePinkBlob();
     this.blob4 = this.standartBobGenerator.generateYellowBlob();
+
     this.ghostEntity = new Ghost(wall);
+    this.ghostEntity.setRandomPosition(this.snake, wall);
+
     this.pickupsfactory = new PickUpsFactory(this.snake, wall);
 
     this.pickupPowerUp = this.pickupsfactory.getPowerUps(
@@ -187,10 +189,9 @@ export class GameBoardComponent implements OnInit, AfterViewInit {
     this.update();
     this.draw();
     this.blob1?.start(currentTime);
-    this.blob2?.start(currentTime);
+    this.ghostEntity?.start(currentTime);
     this.blob3?.start(currentTime);
     this.blob4?.start(currentTime);
-    this.ghostEntity?.start(currentTime);
   }
 
   get snakeSpeed() {
@@ -209,7 +210,7 @@ export class GameBoardComponent implements OnInit, AfterViewInit {
     if (this.loading) return console.log('Loading');
     this.snake!.checkblob(
       this.blob1?.blobBody,
-      this.blob2?.blobBody,
+      this.ghostEntity?.ghostBody,
       this.blob3?.blobBody,
       this.blob4?.blobBody,
       this.pickupHeals
@@ -218,7 +219,7 @@ export class GameBoardComponent implements OnInit, AfterViewInit {
     this.opponent.update();
     this.food!.update();
     this.antidotefood!.update();
-    this.clumsyFood!.update(this.blob1, this.blob2, this.blob3, this.blob4);
+    this.clumsyFood!.update(this.blob1, this.ghostEntity, this.blob3, this.blob4);
     this.checkDeath();
     this.pickupPowerUp?.update();
     this.pickupHeals?.update();
@@ -239,10 +240,9 @@ export class GameBoardComponent implements OnInit, AfterViewInit {
     this.clumsyFood!.draw(this.gameBoard);
     this.antidotefood!.draw(this.gameBoard);
     this.blob1!.draw(this.gameBoard);
-    this.blob2!.draw(this.gameBoard);
+    this.ghostEntity!.draw(this.gameBoard);
     this.blob3!.draw(this.gameBoard);
     this.blob4!.draw(this.gameBoard);
-    this.ghostEntity?.draw(this.gameBoard);
   }
 
   checkDeath() {
