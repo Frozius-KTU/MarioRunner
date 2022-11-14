@@ -1,8 +1,14 @@
 import { GameBoardComponent } from 'src/app/game-board/game-board.component';
 import { Wall } from '../Decorator/wall';
 import { randomGridPosition } from '../gameboard-grid.util';
-import { iGhostMegaEntity } from './iGhostMegaEntity';
 import { Snake } from './snake';
+
+export interface iGhostMegaEntity {
+  color: any;
+  type: any;
+  ghostBody: { x: number; y: number }[];
+  //ghostRage(time: number): void;
+}
 
 export class Ghost implements iGhostMegaEntity {
   public color = '';
@@ -144,8 +150,6 @@ export class Ghost implements iGhostMegaEntity {
     if (secondsSinceLastRender < 1 / this.movetime) return;
     this.lastRenderTime = currentTime;
     this.updatemove();
-
-
 
     // console.log("rendering");
     //this.update();

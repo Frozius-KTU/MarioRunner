@@ -1,14 +1,13 @@
-import { Wall } from "../Decorator/wall";
-import { randomGridPosition } from "../gameboard-grid.util";
-import { Blob } from "./blobEntity.model";
-import { iGhostMegaEntity } from "./iGhostMegaEntity";
-import { Snake } from "./snake";
+import { Wall } from '../Decorator/wall';
+import { randomGridPosition } from '../gameboard-grid.util';
+import { Blob } from './blobEntity.model';
+import { iGhostMegaEntity } from './ghostMegaEntity.model';
+import { Snake } from './snake';
 
-export class BlobAdapter implements iGhostMegaEntity
-{
+export class BlobAdapter implements iGhostMegaEntity {
   blob?: Blob;
 
-  constructor(blob: Blob, public walls: Wall){
+  constructor(blob: Blob, public walls: Wall) {
     this.blob = blob;
   }
   public color = '';
@@ -154,8 +153,6 @@ export class BlobAdapter implements iGhostMegaEntity
     if (secondsSinceLastRender < 1 / this.movetime) return;
     this.lastRenderTime = currentTime;
     this.updatemove();
-
-
 
     // console.log("rendering");
     //this.update();
