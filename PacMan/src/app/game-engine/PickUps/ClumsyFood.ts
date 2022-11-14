@@ -13,15 +13,20 @@ export class ClumsyFood {
     this.ClumsyFood = this.getRandomFoodPosition();
     this.clumsyInput = clumsyInput;
   }
-  //clumsyInput: any = new ClumsyInput();
 
-  update() {
+  update(blob1?: any, blob2?: any, blob3?: any, blob4?: any) {
     if (this.snake.onSnake(this.ClumsyFood)) {
       this.snake.expandSnake(this.EXPANSION_RATE);
       this.snake.changeMovement(this.clumsyInput);
       //setTimeout(() => { console.log('hello'); }, 10000)
       //this.snake.changeMovement(new CorrectInput);
       this.ClumsyFood = this.getRandomFoodPosition();
+
+      blob1.blobRage(10000);
+      blob2.blobRage(10000);
+      blob3.blobRage(10000);
+      blob4.blobRage(10000);
+
     }
     if (this.walls.onObject(this.ClumsyFood)) {
       this.ClumsyFood = this.getRandomFoodPosition();

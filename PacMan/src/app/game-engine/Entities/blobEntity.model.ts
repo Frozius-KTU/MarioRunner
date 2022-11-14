@@ -156,6 +156,9 @@ export class Blob {
     if (secondsSinceLastRender < 1 / this.movetime) return;
     this.lastRenderTime = currentTime;
     this.updatemove();
+
+
+
     // console.log("rendering");
     //this.update();
     //this.draw();
@@ -167,4 +170,16 @@ export class Blob {
   randomIntBinary(max: number) {
     return Math.floor(Math.random() * max);
   }
+
+  blobRage(time: number): void
+  {
+    this.movetime = 1000;
+
+    setTimeout(() => {
+      this.movetime = 5;
+    }, time);
+  }
+  async delay(ms: number) {
+    await new Promise<void>(resolve => setTimeout(()=>resolve(), ms)).then(()=>console.log("fired"));
+}
 }
