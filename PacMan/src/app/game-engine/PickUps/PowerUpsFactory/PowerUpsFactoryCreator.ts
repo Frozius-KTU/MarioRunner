@@ -1,4 +1,4 @@
-import { Wall } from '../../Decorator/wall';
+import { Wall } from '../../Environment/Decorator';
 import { IPowerUp, PowerUp1, PowerUp2, PowerUp3 } from './PowerUps';
 import {
   IHeal,
@@ -8,42 +8,42 @@ import {
 } from '../Heals-Factory/Heal';
 
 export abstract class PickUpsFactory {
-  public snake;
+  public player;
   public wall;
-  constructor(snake: any, wall: Wall) {
-    this.snake = snake;
+  constructor(player: any, wall: Wall) {
+    this.player = player;
     this.wall = wall;
   }
-  public createPowerUp(snake: any, wall: any) {
+  public createPowerUp(player: any, wall: any) {
     return;
   }
-  public createHeal(snake: any, wall: any) {
+  public createHeal(player: any, wall: any) {
     return;
   }
 }
 export class PickUpsFactoryMap1 extends PickUpsFactory {
-  public override createPowerUp(snake: any, wall: any): IPowerUp {
-    return new PowerUp1(snake, wall);
+  public override createPowerUp(player: any, wall: any): IPowerUp {
+    return new PowerUp1(player, wall);
   }
-  public override createHeal(snake: any, wall: any): IHeal {
-    return new HealMapOne(snake, wall);
+  public override createHeal(player: any, wall: any): IHeal {
+    return new HealMapOne(player, wall);
   }
 }
 
 export class PickUpsFactoryMap2 extends PickUpsFactory {
-  public override createPowerUp(snake: any, wall: any): IPowerUp {
-    return new PowerUp2(snake, wall);
+  public override createPowerUp(player: any, wall: any): IPowerUp {
+    return new PowerUp2(player, wall);
   }
-  public override createHeal(snake: any, wall: any): IHeal {
-    return new HealMapTwo(snake, wall);
+  public override createHeal(player: any, wall: any): IHeal {
+    return new HealMapTwo(player, wall);
   }
 }
 
 export class PickUpsFactoryMap3 extends PickUpsFactory {
-  public override createPowerUp(snake: any, wall: any): IPowerUp {
-    return new PowerUp3(snake, wall);
+  public override createPowerUp(player: any, wall: any): IPowerUp {
+    return new PowerUp3(player, wall);
   }
-  public override createHeal(snake: any, wall: any): IHeal {
-    return new HealMapThree(snake, wall);
+  public override createHeal(player: any, wall: any): IHeal {
+    return new HealMapThree(player, wall);
   }
 }

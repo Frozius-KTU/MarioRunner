@@ -1,7 +1,7 @@
-import { IBlobBuilder } from 'src/app/game-engine/Mobs/Blob/IBlobBuilder';
+import { IBlobBuilder } from 'src/app/game-engine/Entities/Mobs/Blob/IBlobBuilder';
 import { Blob } from 'src/app/game-engine/Entities/blobEntity.model';
-import { Wall } from '../../Decorator/wall';
-import { Snake } from '../../Entities/snake';
+import { Wall } from 'src/app/game-engine/Environment/Decorator';
+import { Player } from 'src/app/game-engine/Entities/player';
 export default class BlobBuilder implements IBlobBuilder {
   blob: Blob;
   constructor(wall: Wall) {
@@ -15,8 +15,8 @@ export default class BlobBuilder implements IBlobBuilder {
     this.blob.type = type;
     return this;
   }
-  setCoordinates(snake: Snake, walls: Wall): this {
-    this.blob.setRandomPosition(snake, walls);
+  setCoordinates(player: Player, walls: Wall): this {
+    this.blob.setRandomPosition(player, walls);
     return this;
   }
   getResult(): Blob {

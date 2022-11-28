@@ -1,5 +1,5 @@
 import { randomGridPosition } from '../../gameboard-grid.util';
-import { Wall } from '../../Decorator/wall';
+import { Wall } from '../../Environment/Decorator';
 
 export interface IHeal {
   update(): void;
@@ -13,23 +13,23 @@ export interface IHeal {
 
 export class HealMapOne implements IHeal {
   public heal: any;
-  public snake;
+  public player;
   health = 5;
 
-  constructor(snake: any, public walls: Wall) {
-    this.snake = snake;
+  constructor(player: any, public walls: Wall) {
+    this.player = player;
     this.heal = this.getRanomHealPosition();
   }
 
   update() {
-    if (this.snake.onSnake(this.heal) || this.walls.onObject(this.heal)) {
+    if (this.player.onPlayer(this.heal) || this.walls.onObject(this.heal)) {
       this.heal = this.getRanomHealPosition();
       this.addHealth = 1;
     }
   }
 
   clone(): IHeal {
-    return new HealMapOne(this.snake,this.walls);
+    return new HealMapOne(this.player, this.walls);
   }
 
   draw(gameBoard: any) {
@@ -47,7 +47,7 @@ export class HealMapOne implements IHeal {
     let newFoodPosition;
     while (
       newFoodPosition == null ||
-      this.snake.onSnake(newFoodPosition) ||
+      this.player.onPlayer(newFoodPosition) ||
       this.walls.onObject(newFoodPosition)
     ) {
       newFoodPosition = randomGridPosition();
@@ -72,23 +72,23 @@ export class HealMapOne implements IHeal {
 
 export class HealMapTwo implements IHeal {
   public heal: any;
-  public snake;
+  public player;
   health = 4;
 
-  constructor(snake: any, public walls: Wall) {
-    this.snake = snake;
+  constructor(player: any, public walls: Wall) {
+    this.player = player;
     this.heal = this.getRanomHealPosition();
   }
 
   update() {
-    if (this.snake.onSnake(this.heal) || this.walls.onObject(this.heal)) {
+    if (this.player.onPlayer(this.heal) || this.walls.onObject(this.heal)) {
       this.heal = this.getRanomHealPosition();
       this.addHealth = 1;
     }
   }
 
   clone(): IHeal {
-    return new HealMapTwo(this.snake,this.walls);
+    return new HealMapTwo(this.player, this.walls);
   }
 
   draw(gameBoard: any) {
@@ -106,7 +106,7 @@ export class HealMapTwo implements IHeal {
     let newFoodPosition;
     while (
       newFoodPosition == null ||
-      this.snake.onSnake(newFoodPosition) ||
+      this.player.onPlayer(newFoodPosition) ||
       this.walls.onObject(newFoodPosition)
     ) {
       newFoodPosition = randomGridPosition();
@@ -131,23 +131,23 @@ export class HealMapTwo implements IHeal {
 
 export class HealMapThree implements IHeal {
   public heal: any;
-  public snake;
+  public player;
   health = 3;
 
-  constructor(snake: any, public walls: Wall) {
-    this.snake = snake;
+  constructor(player: any, public walls: Wall) {
+    this.player = player;
     this.heal = this.getRanomHealPosition();
   }
 
   update() {
-    if (this.snake.onSnake(this.heal) || this.walls.onObject(this.heal)) {
+    if (this.player.onPlayer(this.heal) || this.walls.onObject(this.heal)) {
       this.heal = this.getRanomHealPosition();
       this.addHealth = 1;
     }
   }
 
   clone(): IHeal {
-    return new HealMapThree(this.snake,this.walls);
+    return new HealMapThree(this.player, this.walls);
   }
 
   draw(gameBoard: any) {
@@ -165,7 +165,7 @@ export class HealMapThree implements IHeal {
     let newFoodPosition;
     while (
       newFoodPosition == null ||
-      this.snake.onSnake(newFoodPosition) ||
+      this.player.onPlayer(newFoodPosition) ||
       this.walls.onObject(newFoodPosition)
     ) {
       newFoodPosition = randomGridPosition();
@@ -188,4 +188,3 @@ export class HealMapThree implements IHeal {
     }
   }
 }
-

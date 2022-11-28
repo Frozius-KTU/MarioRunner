@@ -9,7 +9,7 @@
 :root {
   --background-color: #ffffff;
   --board-color: #b5b5b5;
-  --snake-color: #fed049;
+  --player-color: #fed049;
   --opponent-color: #2110d8;
   --food-color: #e70f0f;
   --clumsyfood-color: #09ff00;
@@ -40,8 +40,8 @@ body {
   font-family: "Anton", sans-serif;
 }
 
-.snake {
-  background-color: var(--snake-color);
+.player {
+  background-color: var(--player-color);
   border: 0.25vmin solid black;
   transition: all 0.3ms ease-in;
 }

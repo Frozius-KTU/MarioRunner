@@ -1,8 +1,7 @@
 import { AfterViewInit, Component, OnInit } from '@angular/core';
-import { Food } from '../game-engine/PickUps/food';
 import { outsideGrid } from '../game-engine/gameboard-grid.util';
 import { Opponent } from '../game-engine/Entities/opponent';
-import { ClumsyFood } from '../game-engine/PickUps/ClumsyFood';
+import { ClumsyFood } from '../game-engine/PickUps/Chemicals/ClumsyFood';
 import {
   Wall,
   BlackBorderWallDecorator,
@@ -12,19 +11,19 @@ import {
   BrownBorderDoorDecorator,
   PurpleBorderDoorDecorator,
   YellowBorderDoorDecorator,
-} from '../game-engine/Decorator/wall';
+} from '../game-engine/Environment/Decorator';
 import { CorrectInput } from '../game-engine/MoveAlgorithm/CorrectInput';
-import { AntidoteFood } from '../game-engine/PickUps/AntidoteFood';
+import { AntidoteFood } from '../game-engine/PickUps/Chemicals/AntidoteFood';
 import { ClumsyInput } from '../game-engine/MoveAlgorithm/ClumsyInput';
 import { Lobby, Map } from 'src/app/models/game.types';
 import { Blob } from '../game-engine/Entities/blobEntity.model';
-import { Snake } from '../game-engine/Entities/snake';
+import { Player } from '../game-engine/Entities/player';
 import { IPowerUp } from '../game-engine/PickUps/PowerUpsFactory/PowerUps';
 import { IHeal } from '../game-engine/PickUps/Heals-Factory/Heal';
 import { PlatformLocation } from '@angular/common';
 import { FacadeService } from '../core/services/facade.service';
 import { ActivatedRoute, Router } from '@angular/router';
-import { StandartBob } from '../game-engine/Mobs/BlobTypes/StandartBlob';
+import { StandartBob } from '../game-engine/Entities/Mobs/BlobTypes/StandartBlob';
 import { Ghost } from '../game-engine/Entities/ghostMegaEntity.model';
 import { BlobAdapter } from '../game-engine/Entities/blobAdapter';
 import {
@@ -32,7 +31,8 @@ import {
   PickUpsFactoryMap2,
   PickUpsFactoryMap3,
 } from '../game-engine/PickUps/PowerUpsFactory/PowerUpsFactoryCreator';
-import { ChemicalsAbstraction } from '../game-engine/Bridge';
+import { ChemicalsAbstraction } from '../game-engine/PickUps/Chemicals/Bridge';
+import { Food, SuperFood } from '../game-engine/PickUps/TemplateFood';
 
 @Component({
   selector: 'app-game-board',
@@ -61,8 +61,9 @@ export class GameBoardComponent implements OnInit, AfterViewInit {
   wall?: BlackBorderWallDecorator;
   door?: BrownBorderDoorDecorator;
 
-  snake?: Snake;
-  food?: Food;
+  player?: Player;
+  food1?: Food;
+  food2?: SuperFood;
 
   blob1?: Blob;
   ghostEntity?: Ghost;
@@ -151,21 +152,22 @@ export class GameBoardComponent implements OnInit, AfterViewInit {
   }
 
   prepareParams(wall: Wall) {
-    this.snake = new Snake(this.facadeService, wall, this.correctInput);
-    this.food = new Food(this.snake, wall);
-    this.clumsyFood = new ClumsyFood(this.snake, wall, this.clumsyInput);
-    this.antidoteFood = new AntidoteFood(this.snake, wall, this.correctInput);
+    this.player = new Player(this.facadeService, wall, this.correctInput);
+    this.food1 = new Food(this.player, wall);
+    this.food2 = new SuperFood(this.player, wall);
+    this.clumsyFood = new ClumsyFood(this.player, wall, this.clumsyInput);
+    this.antidoteFood = new AntidoteFood(this.player, wall, this.correctInput);
 
     this.clumsyFoodAbstraction = new ChemicalsAbstraction(this.clumsyFood);
     this.antidoteFoodAbstraction = new ChemicalsAbstraction(this.antidoteFood);
 
-    this.standartBobGenerator = new StandartBob(wall, this.snake);
+    this.standartBobGenerator = new StandartBob(wall, this.player);
     this.blob1 = this.standartBobGenerator.generateRedBlob();
     this.blob3 = this.standartBobGenerator.generatePinkBlob();
     this.blob4 = this.standartBobGenerator.generateYellowBlob();
     var ghost = new Ghost(wall);
     this.ghostEntity = new BlobAdapter(this.blob1, wall);
-    this.ghostEntity.setRandomPosition(this.snake, wall);
+    this.ghostEntity.setRandomPosition(this.player, wall);
 
     this.pickupPowerUp = this.getPowerUps(this.lobby!.level, wall);
     this.pickupHeals = this.getHeals(this.lobby!.level, wall);
@@ -194,7 +196,7 @@ export class GameBoardComponent implements OnInit, AfterViewInit {
 
     window.requestAnimationFrame(this.start.bind(this));
     const secondsSinceLastRender = (currentTime - this.lastRenderTime) / 1000;
-    if (secondsSinceLastRender < 1 / this.snakeSpeed) return;
+    if (secondsSinceLastRender < 1 / this.playerSpeed) return;
     this.lastRenderTime = currentTime;
 
     this.currentTIME = currentTime;
@@ -206,21 +208,21 @@ export class GameBoardComponent implements OnInit, AfterViewInit {
     this.blob4?.start(currentTime);
   }
 
-  get snakeSpeed() {
-    const score = this.food?.currentScore || 0;
-    if (score < 10) return 10;
-    if (score > 10 && score < 15) return 10;
-    if (score > 15 && score < 20) return 10;
+  get playerSpeed() {
+    const score = this.player?.currentScore || 0;
+    if (score < 10) return 7;
+    if (score > 10 && score < 15) return 8;
+    if (score > 15 && score < 20) return 9;
     return 10;
   }
 
   dpadMovement(direction: string) {
-    this.snake!.moveAlgorithm.moveAlgorithm(direction);
+    this.player!.moveAlgorithm.moveAlgorithm(direction);
   }
 
   update() {
     if (this.loading) return console.log('Loading');
-    this.snake!.checkblob(
+    this.player!.checkblob(
       this.blob1?.blobBody,
       this.ghostEntity?.ghostBody,
       this.blob3?.blobBody,
@@ -228,9 +230,9 @@ export class GameBoardComponent implements OnInit, AfterViewInit {
       this.pickupHeals,
       this.clone
     );
-    this.snake!.update();
+    this.player!.update();
     this.opponent.update();
-    this.food!.update();
+
     //this.antidoteFood!.update();
     this.antidoteFoodAbstraction!.implementation.update();
     // this.clumsyFood!.update(
@@ -258,11 +260,12 @@ export class GameBoardComponent implements OnInit, AfterViewInit {
     this.gameBoard.innerHTML = '';
     this.wall!.draw(this.gameBoard);
     this.door!.draw(this.gameBoard);
-    this.snake!.draw(this.gameBoard);
+    this.player!.draw(this.gameBoard);
     this.opponent.draw(this.gameBoard);
     this.pickupPowerUp!.draw(this.gameBoard);
     this.pickupHeals!.draw(this.gameBoard);
-    this.food!.draw(this.gameBoard);
+    this.food1!.templateMethod(this.gameBoard);
+    this.food2!.templateMethod(this.gameBoard);
     //this.clumsyFood!.draw(this.gameBoard);
     //this.clumsyFoodAbstraction!.implementation.draw(this.gameBoard);
     //this.antidoteFood!.draw(this.gameBoard);
@@ -291,8 +294,7 @@ export class GameBoardComponent implements OnInit, AfterViewInit {
 
   checkDeath() {
     this.gameOver =
-      outsideGrid(this.snake!.getSnakeHead()) ||
-      this.snake!.snakeIntersection() ||
+      outsideGrid(this.player!.getPlayer()) ||
       this.pickupHeals?.currentHealth == 0;
     if (!this.gameOver) return;
     this.gameBoard.classList.add('blur');
@@ -316,42 +318,42 @@ export class GameBoardComponent implements OnInit, AfterViewInit {
   getPowerUps(level: number, wall: Wall) {
     if (level == 1) {
       //console.log(1);
-      this.pickup = new PickUpsFactoryMap1(this.snake, wall);
-      return this.pickup.createPowerUp(this.snake, this.wall);
+      this.pickup = new PickUpsFactoryMap1(this.player, wall);
+      return this.pickup.createPowerUp(this.player, this.wall);
     }
     if (level == 2) {
       //console.log(2);
-      this.pickup = new PickUpsFactoryMap2(this.snake, wall);
-      return this.pickup.createPowerUp(this.snake, this.wall);
+      this.pickup = new PickUpsFactoryMap2(this.player, wall);
+      return this.pickup.createPowerUp(this.player, this.wall);
     }
     if (level == 3) {
       //console.log(3);
-      this.pickup = new PickUpsFactoryMap3(this.snake, wall);
-      return this.pickup.createPowerUp(this.snake, this.wall);
+      this.pickup = new PickUpsFactoryMap3(this.player, wall);
+      return this.pickup.createPowerUp(this.player, this.wall);
     } else {
-      this.pickup = new PickUpsFactoryMap1(this.snake, wall);
-      return this.pickup.createPowerUp(this.snake, this.wall);
+      this.pickup = new PickUpsFactoryMap1(this.player, wall);
+      return this.pickup.createPowerUp(this.player, this.wall);
     }
   }
   getHeals(level: number, wall: Wall) {
     if (level == 1) {
       //console.log(1);
-      this.pickup = new PickUpsFactoryMap1(this.snake, wall);
-      //console.log(this.pickup.createPowerUp(this.snake, this.wall));
-      return this.pickup.createHeal(this.snake, this.wall);
+      this.pickup = new PickUpsFactoryMap1(this.player, wall);
+      //console.log(this.pickup.createPowerUp(this.player, this.wall));
+      return this.pickup.createHeal(this.player, this.wall);
     }
     if (level == 2) {
       //console.log(2);
-      this.pickup = new PickUpsFactoryMap2(this.snake, wall);
-      return this.pickup.createHeal(this.snake, this.wall);
+      this.pickup = new PickUpsFactoryMap2(this.player, wall);
+      return this.pickup.createHeal(this.player, this.wall);
     }
     if (level == 3) {
       //console.log(3);
-      this.pickup = new PickUpsFactoryMap3(this.snake, wall);
-      return this.pickup.createHeal(this.snake, this.wall);
+      this.pickup = new PickUpsFactoryMap3(this.player, wall);
+      return this.pickup.createHeal(this.player, this.wall);
     } else {
-      this.pickup = new PickUpsFactoryMap1(this.snake, wall);
-      return this.pickup.createHeal(this.snake, this.wall);
+      this.pickup = new PickUpsFactoryMap1(this.player, wall);
+      return this.pickup.createHeal(this.player, this.wall);
     }
   }
 }

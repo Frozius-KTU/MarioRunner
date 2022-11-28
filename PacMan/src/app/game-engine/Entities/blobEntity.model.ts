@@ -1,6 +1,6 @@
-import { Wall } from '../Decorator/wall';
+import { Wall } from '../Environment/Decorator';
 import { randomGridPosition } from '../gameboard-grid.util';
-import { Snake } from './snake';
+import { Player } from './player';
 
 export class Blob {
   public color = '';
@@ -13,29 +13,29 @@ export class Blob {
 
   draw(gameBoard: any) {
     this.blobBody.forEach((segment) => {
-      const snakeElement = document.createElement('div');
-      snakeElement.style.gridRowStart = segment.y.toString();
-      snakeElement.style.gridColumnStart = segment.x.toString();
-      //snakeElement.style.backgroundImage = "url('https://icons.iconarchive.com/icons/bokehlicia/captiva/32/games-icon.png')"
+      const playerElement = document.createElement('div');
+      playerElement.style.gridRowStart = segment.y.toString();
+      playerElement.style.gridColumnStart = segment.x.toString();
+      //playerElement.style.backgroundImage = "url('https://icons.iconarchive.com/icons/bokehlicia/captiva/32/games-icon.png')"
       if (this.color == 'red')
-        snakeElement.style.backgroundImage =
+        playerElement.style.backgroundImage =
           "url('https://i.imgur.com/aAOhJxn.png')";
       if (this.color == 'blue')
-        //snakeElement.style.backgroundImage = "url('https://imgur.com/j2rczNm.png')";
-        snakeElement.style.backgroundImage =
+        //playerElement.style.backgroundImage = "url('https://imgur.com/j2rczNm.png')";
+        playerElement.style.backgroundImage =
           "url('https://icons.iconarchive.com/icons/mad-science/arcade-saturdays/32/Edible-Ghost-icon.png')";
 
       if (this.color == 'pink')
-        snakeElement.style.backgroundImage =
+        playerElement.style.backgroundImage =
           "url('https://icons.iconarchive.com/icons/mad-science/arcade-saturdays/32/Speedy-Pinky-icon.png')";
       if (this.color == 'yellow')
-        snakeElement.style.backgroundImage =
+        playerElement.style.backgroundImage =
           "url('https://icons.iconarchive.com/icons/mad-science/arcade-saturdays/32/Pokey-Clyde-icon.png')";
-      //snakeElement.style.backgroundImage = "url('https://icons.iconarchive.com/icons/ph03nyx/super-mario/32/Retro-Mushroom-Super-3-icon.png')"
-      snakeElement.style.backgroundSize = 'cover';
+      //playerElement.style.backgroundImage = "url('https://icons.iconarchive.com/icons/ph03nyx/super-mario/32/Retro-Mushroom-Super-3-icon.png')"
+      playerElement.style.backgroundSize = 'cover';
 
-      snakeElement.classList.add('snakeas');
-      gameBoard.appendChild(snakeElement);
+      playerElement.classList.add('playeras');
+      gameBoard.appendChild(playerElement);
     });
   }
 
@@ -138,11 +138,11 @@ export class Blob {
     this.newSegments = 0;
   }
 
-  setRandomPosition(snake: Snake, walls: Wall) {
+  setRandomPosition(player: Player, walls: Wall) {
     let newFoodPosition;
     while (
       newFoodPosition == null ||
-      snake.onSnake(newFoodPosition) ||
+      player.onPlayer(newFoodPosition) ||
       walls.onObject(newFoodPosition)
     ) {
       newFoodPosition = randomGridPosition();
@@ -156,8 +156,6 @@ export class Blob {
     this.lastRenderTime = currentTime;
     this.updatemove();
 
-
-
     // console.log("rendering");
     //this.update();
     //this.draw();
@@ -170,8 +168,7 @@ export class Blob {
     return Math.floor(Math.random() * max);
   }
 
-  public blobRage(time: number): void
-  {
+  public blobRage(time: number): void {
     this.movetime = 200;
 
     setTimeout(() => {
@@ -179,6 +176,8 @@ export class Blob {
     }, time);
   }
   async delay(ms: number) {
-    await new Promise<void>(resolve => setTimeout(()=>resolve(), ms)).then(()=>console.log("fired"));
-}
+    await new Promise<void>((resolve) => setTimeout(() => resolve(), ms)).then(
+      () => console.log('fired')
+    );
+  }
 }

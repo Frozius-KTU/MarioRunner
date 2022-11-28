@@ -1,6 +1,6 @@
 import { randomGridPosition } from '..//../gameboard-grid.util';
-import { Wall } from '../../Decorator/wall';
-import { Snake } from '../../Entities/snake';
+import { Wall } from '../../Environment/Decorator';
+import { Player } from '../../Entities/player';
 
 export interface IPowerUp {
   update(): void;
@@ -11,14 +11,17 @@ export interface IPowerUp {
 
 export class PowerUp1 implements IPowerUp {
   public powerup: any;
-  public snake;
-  constructor(snake: any, public walls: Wall) {
-    this.snake = snake;
+  public player;
+  constructor(player: any, public walls: Wall) {
+    this.player = player;
     this.powerup = this.getRanomPowerUpPosition();
   }
 
   update() {
-    if (this.snake.onSnake(this.powerup) || this.walls.onObject(this.powerup)) {
+    if (
+      this.player.onPlayer(this.powerup) ||
+      this.walls.onObject(this.powerup)
+    ) {
       this.powerup = this.getRanomPowerUpPosition();
       this.effect();
     }
@@ -28,7 +31,7 @@ export class PowerUp1 implements IPowerUp {
     let newFoodPosition;
     while (
       newFoodPosition == null ||
-      this.snake.onSnake(newFoodPosition) ||
+      this.player.onPlayer(newFoodPosition) ||
       this.walls.onObject(newFoodPosition)
     ) {
       newFoodPosition = randomGridPosition();
@@ -48,25 +51,28 @@ export class PowerUp1 implements IPowerUp {
   }
 
   effect() {
-    this.snake.setStateToImortal();
-    setTimeout(logout, 15000, this.snake);
-    function logout(snake: Snake) {
+    this.player.setStateToImortal();
+    setTimeout(logout, 15000, this.player);
+    function logout(player: Player) {
       console.log('Immortal efektas beigesi po 15 sekundziu');
-      snake.setNormalState();
+      player.setNormalState();
     }
   }
 }
 
 export class PowerUp2 implements IPowerUp {
   public powerup: any;
-  public snake;
+  public player;
 
-  constructor(snake: any, public walls: Wall) {
-    this.snake = snake;
+  constructor(player: any, public walls: Wall) {
+    this.player = player;
     this.powerup = this.getRanomPowerUpPosition();
   }
   update() {
-    if (this.snake.onSnake(this.powerup) || this.walls.onObject(this.powerup)) {
+    if (
+      this.player.onPlayer(this.powerup) ||
+      this.walls.onObject(this.powerup)
+    ) {
       this.powerup = this.getRanomPowerUpPosition();
       this.effect();
     }
@@ -76,7 +82,7 @@ export class PowerUp2 implements IPowerUp {
     let newFoodPosition;
     while (
       newFoodPosition == null ||
-      this.snake.onSnake(newFoodPosition) ||
+      this.player.onPlayer(newFoodPosition) ||
       this.walls.onObject(newFoodPosition)
     ) {
       newFoodPosition = randomGridPosition();
@@ -96,25 +102,28 @@ export class PowerUp2 implements IPowerUp {
   }
 
   effect() {
-    this.snake.setStateToImortal();
-    setTimeout(logout, 10000, this.snake);
-    function logout(snake: Snake) {
+    this.player.setStateToImortal();
+    setTimeout(logout, 10000, this.player);
+    function logout(player: Player) {
       console.log('Immortal efektas beigesi po 10 sekundziu');
-      snake.setNormalState();
+      player.setNormalState();
     }
   }
 }
 
 export class PowerUp3 implements IPowerUp {
   public powerup: any;
-  public snake;
+  public player;
 
-  constructor(snake: any, public walls: Wall) {
-    this.snake = snake;
+  constructor(player: any, public walls: Wall) {
+    this.player = player;
     this.powerup = this.getRanomPowerUpPosition();
   }
   update() {
-    if (this.snake.onSnake(this.powerup) || this.walls.onObject(this.powerup)) {
+    if (
+      this.player.onPlayer(this.powerup) ||
+      this.walls.onObject(this.powerup)
+    ) {
       this.powerup = this.getRanomPowerUpPosition();
       this.effect();
     }
@@ -124,7 +133,7 @@ export class PowerUp3 implements IPowerUp {
     let newFoodPosition;
     while (
       newFoodPosition == null ||
-      this.snake.onSnake(newFoodPosition) ||
+      this.player.onPlayer(newFoodPosition) ||
       this.walls.onObject(newFoodPosition)
     ) {
       newFoodPosition = randomGridPosition();
@@ -144,11 +153,11 @@ export class PowerUp3 implements IPowerUp {
   }
 
   effect() {
-    this.snake.setStateToImortal();
-    setTimeout(logout, 5000, this.snake);
-    function logout(snake: Snake) {
+    this.player.setStateToImortal();
+    setTimeout(logout, 5000, this.player);
+    function logout(player: Player) {
       console.log('Immortal efektas beigesi po 5 sekundziu');
-      snake.setNormalState();
+      player.setNormalState();
     }
   }
 }

@@ -1,7 +1,7 @@
 import { GameBoardComponent } from 'src/app/game-board/game-board.component';
-import { Wall } from '../Decorator/wall';
+import { Wall } from '../Environment/Decorator';
 import { randomGridPosition } from '../gameboard-grid.util';
-import { Snake } from './snake';
+import { Player } from './player';
 
 export interface iGhostMegaEntity {
   color: any;
@@ -21,16 +21,16 @@ export class Ghost implements iGhostMegaEntity {
 
   draw(gameBoard: any) {
     this.ghostBody.forEach((segment) => {
-      const snakeElement = document.createElement('div');
-      snakeElement.style.gridRowStart = segment.y.toString();
-      snakeElement.style.gridColumnStart = segment.x.toString();
-      //snakeElement.style.backgroundImage = "url('https://icons.iconarchive.com/icons/bokehlicia/captiva/32/games-icon.png')"
-      snakeElement.style.backgroundImage =
+      const playerElement = document.createElement('div');
+      playerElement.style.gridRowStart = segment.y.toString();
+      playerElement.style.gridColumnStart = segment.x.toString();
+      //playerElement.style.backgroundImage = "url('https://icons.iconarchive.com/icons/bokehlicia/captiva/32/games-icon.png')"
+      playerElement.style.backgroundImage =
         "url('https://icons.iconarchive.com/icons/mad-science/arcade-saturdays/32/Edible-Ghost-icon.png')";
-      snakeElement.style.backgroundSize = 'cover';
+      playerElement.style.backgroundSize = 'cover';
 
-      snakeElement.classList.add('snakeas');
-      gameBoard.appendChild(snakeElement);
+      playerElement.classList.add('playeras');
+      gameBoard.appendChild(playerElement);
     });
   }
 
@@ -133,11 +133,11 @@ export class Ghost implements iGhostMegaEntity {
     this.newSegments = 0;
   }
 
-  setRandomPosition(snake: Snake, walls: Wall) {
+  setRandomPosition(player: Player, walls: Wall) {
     let newFoodPosition;
     while (
       newFoodPosition == null ||
-      snake.onSnake(newFoodPosition) ||
+      player.onPlayer(newFoodPosition) ||
       walls.onObject(newFoodPosition)
     ) {
       newFoodPosition = randomGridPosition();
@@ -162,27 +162,26 @@ export class Ghost implements iGhostMegaEntity {
   randomIntBinary(max: number) {
     return Math.floor(Math.random() * max);
   }
-  public ghostRage(time: number, gameBoard: any): void
-  {
+  public ghostRage(time: number, gameBoard: any): void {
     this.ghostBody.forEach((segment) => {
-      const snakeElement = document.createElement('div');
-      snakeElement.style.backgroundImage =
+      const playerElement = document.createElement('div');
+      playerElement.style.backgroundImage =
         "url('https://i.imgur.com/DRHOMaP.png')";
 
-      snakeElement.classList.add('snakeas');
-      gameBoard.appendChild(snakeElement);
+      playerElement.classList.add('playeras');
+      gameBoard.appendChild(playerElement);
     });
     this.movetime = 1000;
 
     setTimeout(() => {
       this.movetime = 5;
       this.ghostBody.forEach((segment) => {
-        const snakeElement = document.createElement('div');
-        snakeElement.style.backgroundImage =
+        const playerElement = document.createElement('div');
+        playerElement.style.backgroundImage =
           "url('https://icons.iconarchive.com/icons/mad-science/arcade-saturdays/32/Edible-Ghost-icon.png')";
 
-        snakeElement.classList.add('snakeas');
-        gameBoard.appendChild(snakeElement);
+        playerElement.classList.add('playeras');
+        gameBoard.appendChild(playerElement);
       });
     }, time);
   }

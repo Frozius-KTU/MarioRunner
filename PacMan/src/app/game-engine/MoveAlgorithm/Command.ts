@@ -79,19 +79,15 @@ export class Receiver {
   inputDirection = { x: 0, y: 0 };
 
   Up() {
-    // A set of instructions to run
     this.inputDirection = { x: 0, y: -1 };
   }
   Down() {
-    // A set of instructions to run
     this.inputDirection = { x: 0, y: 1 };
   }
   Left() {
-    // A set of instructions to run
     this.inputDirection = { x: -1, y: 0 };
   }
   Right() {
-    // A set of instructions to run
     this.inputDirection = { x: 1, y: 0 };
   }
 }

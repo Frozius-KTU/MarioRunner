@@ -1,25 +1,25 @@
-import { randomGridPosition } from '../gameboard-grid.util';
-import { Wall } from '../Decorator/wall';
-import { IMoveAlgorithm } from '../MoveAlgorithm/IMoveAlgorithm';
-import { Implementation } from '../Bridge';
+import { randomGridPosition } from 'src/app/game-engine/gameboard-grid.util';
+import { Wall } from 'src/app/game-engine/Environment/Decorator';
+import { IMoveAlgorithm } from 'src/app/game-engine/MoveAlgorithm/IMoveAlgorithm';
+import { Implementation } from './Bridge';
 
 export class AntidoteFood implements Implementation {
   EXPANSION_RATE = 1;
   AntidoteFood: any;
-  snake;
+  player;
   correctInput?: IMoveAlgorithm;
-  constructor(snake: any, public walls: Wall, correctInput: IMoveAlgorithm) {
-    this.snake = snake;
+  constructor(player: any, public walls: Wall, correctInput: IMoveAlgorithm) {
+    this.player = player;
     this.AntidoteFood = this.getRandomFoodPosition();
     this.correctInput = correctInput;
   }
 
   update(blob1?: any, ghostBlob?: any, blob3?: any, blob4?: any) {
-    if (this.snake.onSnake(this.AntidoteFood)) {
-      this.snake.expandSnake(this.EXPANSION_RATE);
-      this.snake.changeMovement(this.correctInput);
+    if (this.player.onPlayer(this.AntidoteFood)) {
+      this.player.expandPlayer(this.EXPANSION_RATE);
+      this.player.changeMovement(this.correctInput);
       //setTimeout(() => { console.log('hello'); }, 10000)
-      //this.snake.changeMovement(new CorrectInput);
+      //this.player.changeMovement(new CorrectInput);
       this.AntidoteFood = this.getRandomFoodPosition();
     }
     if (this.walls.onObject(this.AntidoteFood)) {
@@ -44,7 +44,7 @@ export class AntidoteFood implements Implementation {
     let newFoodPosition;
     while (
       newFoodPosition == null ||
-      this.snake.onSnake(newFoodPosition) ||
+      this.player.onPlayer(newFoodPosition) ||
       this.walls.onObject(newFoodPosition)
     ) {
       newFoodPosition = randomGridPosition();
