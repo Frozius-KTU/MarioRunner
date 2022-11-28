@@ -80,7 +80,6 @@ export class GameBoardComponent implements OnInit, AfterViewInit {
 
   pickupPowerUp?: IPowerUp;
   pickupHeals?: IHeal;
-  current_map?: number;
   clone?: any;
   pickup?: any;
 
@@ -108,8 +107,7 @@ export class GameBoardComponent implements OnInit, AfterViewInit {
       this.facadeService.getLobbyById(id).subscribe({
         next: (data) => {
           this.lobby = data;
-          //console.log(this.lobby)
-          this.current_map = this.lobby.level;
+
           switch (this.lobby.level) {
             case 1:
               this.wall = new BlackBorderWallDecorator(new Wall());
@@ -169,11 +167,11 @@ export class GameBoardComponent implements OnInit, AfterViewInit {
     this.ghostEntity = new BlobAdapter(this.blob1, wall);
     this.ghostEntity.setRandomPosition(this.snake, wall);
 
-    this.pickupPowerUp = this.getPowerUps(this.current_map!, wall);
-    this.pickupHeals = this.getHeals(this.current_map!, wall);
+    this.pickupPowerUp = this.getPowerUps(this.lobby!.level, wall);
+    this.pickupHeals = this.getHeals(this.lobby!.level, wall);
 
-    console.log(this.pickupPowerUp);
-    console.log(this.pickupHeals);
+    //console.log(this.pickupPowerUp);
+    //console.log(this.pickupHeals);
     // this.pickupHeals = this.pickupsfactory.getHeals(
     //   this.current_map!,
     //   this.gameBoard
@@ -283,6 +281,7 @@ export class GameBoardComponent implements OnInit, AfterViewInit {
       this.antidoteFoodAbstraction!.implementation.draw(this.gameBoard);
       this.lastRenderTime2 = this.currentTIME;
     }
+
     this.blob1!.draw(this.gameBoard);
     this.blob3!.draw(this.gameBoard);
     this.blob4!.draw(this.gameBoard);
@@ -338,7 +337,7 @@ export class GameBoardComponent implements OnInit, AfterViewInit {
     if (level == 1) {
       //console.log(1);
       this.pickup = new PickUpsFactoryMap1(this.snake, wall);
-      console.log(this.pickup.createPowerUp(this.snake, this.wall));
+      //console.log(this.pickup.createPowerUp(this.snake, this.wall));
       return this.pickup.createHeal(this.snake, this.wall);
     }
     if (level == 2) {

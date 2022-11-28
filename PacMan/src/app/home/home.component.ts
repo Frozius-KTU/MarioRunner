@@ -6,6 +6,7 @@ import Swal from 'sweetalert2';
 import { Client } from '../models/game.types';
 import { PlatformLocation } from '@angular/common';
 import { FacadeService } from '../core/services/facade.service';
+import { Template } from '../game-engine/Template';
 
 @Component({
   selector: 'app-home',
@@ -28,6 +29,9 @@ export class HomeComponent implements OnInit {
   }
 
   ngOnInit() {
+    let template = new Template();
+    template.main();
+
     this.playerName =
       sessionStorage.getItem('playerName') ||
       'Player_' + Math.floor(Math.random() * (999 - 100) + 100).toString();

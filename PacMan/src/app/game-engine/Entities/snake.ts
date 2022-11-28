@@ -16,7 +16,7 @@ export class Snake {
     this.moveAlgorithm = movealgorithm;
   }
 
-  snakeBody = [{ x: 8, y: 11 }];
+  snakeBody = [{ x: 13, y: 16 }];
   canGetDamaged? = true;
   getState() {
     return this.canGetDamaged;
@@ -122,7 +122,14 @@ export class Snake {
       )
     );
   }
-  checkblob(blob1?: any, blob2?: any, blob3?: any, blob4?: any, heal?: IHeal, healClone?: IHeal) {
+  checkblob(
+    blob1?: any,
+    blob2?: any,
+    blob3?: any,
+    blob4?: any,
+    heal?: IHeal,
+    healClone?: IHeal
+  ) {
     if (this.canGetDamaged) {
       //console.log(this.snakeBody)
       if (
@@ -134,7 +141,7 @@ export class Snake {
           this.snakeBody[0].y == blob3[0].y) ||
         (this.snakeBody[0].x == blob4[0].x && this.snakeBody[0].y == blob4[0].y)
       ) {
-        if (heal != null && healClone !=null) {
+        if (heal != null && healClone != null) {
           heal.minusHealth = 1;
           console.log('numinusavo');
           this.setStateToImortal();
