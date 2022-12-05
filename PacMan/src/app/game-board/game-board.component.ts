@@ -33,6 +33,8 @@ import {
 } from '../game-engine/PickUps/PowerUpsFactory/PowerUpsFactoryCreator';
 import { ChemicalsAbstraction } from '../game-engine/PickUps/Chemicals/Bridge';
 import { Food, SuperFood } from '../game-engine/PickUps/TemplateFood';
+import { BlobCollection, BlobIterator } from '../game-engine/Entities/Mobs/Blob/BlobIterator';
+
 
 @Component({
   selector: 'app-game-board',
@@ -65,6 +67,9 @@ export class GameBoardComponent implements OnInit, AfterViewInit {
   food1?: Food;
   food2?: SuperFood;
 
+
+  blobs = new BlobCollection();
+  blobIterator = this.blobs.getIterator();
   blob1?: Blob;
   ghostEntity?: Ghost;
   blob3?: Blob;
@@ -162,11 +167,11 @@ export class GameBoardComponent implements OnInit, AfterViewInit {
     this.antidoteFoodAbstraction = new ChemicalsAbstraction(this.antidoteFood);
 
     this.standartBobGenerator = new StandartBob(wall, this.player);
-    this.blob1 = this.standartBobGenerator.generateRedBlob();
-    this.blob3 = this.standartBobGenerator.generatePinkBlob();
-    this.blob4 = this.standartBobGenerator.generateYellowBlob();
+    this.blobs.addItem(this.standartBobGenerator.generateRedBlob());
+    this.blobs.addItem(this.standartBobGenerator.generatePinkBlob());
+    this.blobs.addItem(this.standartBobGenerator.generateYellowBlob());
     var ghost = new Ghost(wall);
-    this.ghostEntity = new BlobAdapter(this.blob1, wall);
+    this.ghostEntity = new BlobAdapter(this.blobIterator.next(), wall);
     this.ghostEntity.setRandomPosition(this.player, wall);
 
     this.pickupPowerUp = this.getPowerUps(this.lobby!.level, wall);
@@ -202,10 +207,12 @@ export class GameBoardComponent implements OnInit, AfterViewInit {
     this.currentTIME = currentTime;
     this.update();
     this.draw();
-    this.blob1?.start(currentTime);
+
+    this.blobIterator.rewind();
+    while (this.blobIterator.valid()) {
+      this.blobIterator.next()?.start(currentTime);
+    }
     this.ghostEntity?.start(currentTime);
-    this.blob3?.start(currentTime);
-    this.blob4?.start(currentTime);
   }
 
   get playerSpeed() {
@@ -222,11 +229,12 @@ export class GameBoardComponent implements OnInit, AfterViewInit {
 
   update() {
     if (this.loading) return console.log('Loading');
+    this.blobIterator.rewind();
     this.player!.checkblob(
-      this.blob1?.blobBody,
+      this.blobIterator.next()?.blobBody,
+      this.blobIterator.next()?.blobBody,
+      this.blobIterator.next()?.blobBody,
       this.ghostEntity?.ghostBody,
-      this.blob3?.blobBody,
-      this.blob4?.blobBody,
       this.pickupHeals,
       this.clone
     );
@@ -241,11 +249,12 @@ export class GameBoardComponent implements OnInit, AfterViewInit {
     //   this.blob3,
     //   this.blob4
     // );
+    this.blobIterator.rewind();
     this.clumsyFoodAbstraction!.implementation.update(
-      this.blob1,
+      this.blobIterator.next(),
       this.ghostEntity,
-      this.blob3,
-      this.blob4
+      this.blobIterator.next(),
+      this.blobIterator.next()
     );
     this.checkDeath();
     this.pickupPowerUp?.update();
@@ -285,9 +294,10 @@ export class GameBoardComponent implements OnInit, AfterViewInit {
       this.lastRenderTime2 = this.currentTIME;
     }
 
-    this.blob1!.draw(this.gameBoard);
-    this.blob3!.draw(this.gameBoard);
-    this.blob4!.draw(this.gameBoard);
+    this.blobIterator.rewind();
+    while (this.blobIterator.valid()) {
+      this.blobIterator.next()!.draw(this.gameBoard);
+    }
     this.ghostEntity!.draw(this.gameBoard);
     this.clone?.draw(this.gameBoard);
   }
