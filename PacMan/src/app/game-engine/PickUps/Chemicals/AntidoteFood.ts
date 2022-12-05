@@ -16,7 +16,6 @@ export class AntidoteFood implements Implementation {
 
   update(blob1?: any, ghostBlob?: any, blob3?: any, blob4?: any) {
     if (this.player.onPlayer(this.AntidoteFood)) {
-      this.player.expandPlayer(this.EXPANSION_RATE);
       this.player.changeMovement(this.correctInput);
       //setTimeout(() => { console.log('hello'); }, 10000)
       //this.player.changeMovement(new CorrectInput);

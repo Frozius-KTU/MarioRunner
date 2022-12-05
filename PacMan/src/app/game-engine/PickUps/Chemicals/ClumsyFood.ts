@@ -16,7 +16,6 @@ export class ClumsyFood implements Implementation {
 
   update(blob1?: any, ghostBlob?: any, blob3?: any, blob4?: any) {
     if (this.player.onPlayer(this.ClumsyFood)) {
-      this.player.expandPlayer(this.EXPANSION_RATE);
       this.player.changeMovement(this.clumsyInput);
       //setTimeout(() => { console.log('hello'); }, 10000)
       //this.player.changeMovement(new CorrectInput);
