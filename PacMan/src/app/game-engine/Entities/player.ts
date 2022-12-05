@@ -9,7 +9,7 @@ import { PlayerState } from './State/playerState';
 
 export class Player {
   moveAlgorithm: IMoveAlgorithm;
-  state? : PlayerState;
+  state?: PlayerState;
   constructor(
     private facadeService: FacadeService,
     public walls: Wall,
@@ -67,7 +67,7 @@ export class Player {
     return this.score;
   }
 
-  changePlayerState(){
+  changePlayerState() {
     this.state = this.state?.changeState();
   }
 
@@ -108,7 +108,7 @@ export class Player {
     heal?: IHeal,
     healClone?: IHeal
   ) {
-    console.log(this.state?.getState())
+    //console.log(this.state?.getState())
     if (this.state?.getState()) {
       if (
         (this.playerBody.x == blob1[0].x && this.playerBody.y == blob1[0].y) ||

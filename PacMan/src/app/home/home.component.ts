@@ -6,6 +6,7 @@ import Swal from 'sweetalert2';
 import { Client } from '../models/game.types';
 import { PlatformLocation } from '@angular/common';
 import { FacadeService } from '../core/services/facade.service';
+import { Interpreter } from '../game-engine/Interpreter';
 
 @Component({
   selector: 'app-home',
@@ -28,8 +29,8 @@ export class HomeComponent implements OnInit {
   }
 
   ngOnInit() {
-    // let template = new Template();
-    // template.main();
+    let interpreter = new Interpreter();
+    interpreter.main();
 
     this.playerName =
       sessionStorage.getItem('playerName') ||
