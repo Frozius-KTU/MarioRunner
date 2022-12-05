@@ -4,22 +4,23 @@ import { Wall } from '../Environment/Decorator';
 import { fixOutsidePosition, outsideGrid } from '../gameboard-grid.util';
 import { IMoveAlgorithm } from '../MoveAlgorithm/IMoveAlgorithm';
 import { IHeal } from '../PickUps/Heals-Factory/Heal';
+import { MortalState } from './State/mortalState';
+import { PlayerState } from './State/playerState';
 
 export class Player {
   moveAlgorithm: IMoveAlgorithm;
-
+  state? : PlayerState;
   constructor(
     private facadeService: FacadeService,
     public walls: Wall,
     movealgorithm: IMoveAlgorithm
   ) {
     this.moveAlgorithm = movealgorithm;
+    this.state = new MortalState();
   }
 
   playerBody = { x: 13, y: 16 };
   score = 0;
-
-  canGetDamaged? = true;
 
   update() {
     const inputDirection = this.moveAlgorithm.getInputDirection();
@@ -66,6 +67,10 @@ export class Player {
     return this.score;
   }
 
+  changePlayerState(){
+    this.state = this.state?.changeState();
+  }
+
   changeMovement(moveAlgorithm: IMoveAlgorithm) {
     this.moveAlgorithm = moveAlgorithm;
     this.moveAlgorithm.resetDirection();
@@ -95,16 +100,6 @@ export class Player {
     );
   }
 
-  getState() {
-    return this.canGetDamaged;
-  }
-  setStateToImortal() {
-    this.canGetDamaged = false;
-  }
-  setNormalState() {
-    this.canGetDamaged = true;
-  }
-
   checkblob(
     blob1?: any,
     blob2?: any,
@@ -113,8 +108,8 @@ export class Player {
     heal?: IHeal,
     healClone?: IHeal
   ) {
-    if (this.canGetDamaged) {
-      //console.log(this.playerBody)
+    console.log(this.state?.getState())
+    if (this.state?.getState()) {
       if (
         (this.playerBody.x == blob1[0].x && this.playerBody.y == blob1[0].y) ||
         (this.playerBody.x == blob2[0].x && this.playerBody.y == blob2[0].y) ||
@@ -124,9 +119,9 @@ export class Player {
         if (heal != null && healClone != null) {
           heal.minusHealth = 1;
           console.log('numinusavo');
-          this.setStateToImortal();
+          this.changePlayerState();
           setTimeout(() => {
-            this.setNormalState();
+            this.changePlayerState();
             console.log('Immortal efektas beigesi po 2 sekundziu');
           }, 2000);
         }

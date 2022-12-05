@@ -51,19 +51,17 @@ export class PowerUp1 implements IPowerUp {
   }
 
   effect() {
-    this.player.setStateToImortal();
-    setTimeout(logout, 15000, this.player);
-    function logout(player: Player) {
+    this.player.changePlayerState();
+    setTimeout(() => {
+      this.player.changePlayerState();
       console.log('Immortal efektas beigesi po 15 sekundziu');
-      player.setNormalState();
-    }
+    }, 15000);
   }
 }
 
 export class PowerUp2 implements IPowerUp {
   public powerup: any;
   public player;
-
   constructor(player: any, public walls: Wall) {
     this.player = player;
     this.powerup = this.getRanomPowerUpPosition();
@@ -102,19 +100,17 @@ export class PowerUp2 implements IPowerUp {
   }
 
   effect() {
-    this.player.setStateToImortal();
-    setTimeout(logout, 10000, this.player);
-    function logout(player: Player) {
+    this.player.changePlayerState();
+    setTimeout(() => {
+      this.player.changePlayerState();
       console.log('Immortal efektas beigesi po 10 sekundziu');
-      player.setNormalState();
-    }
+    }, 10000);
   }
 }
 
 export class PowerUp3 implements IPowerUp {
   public powerup: any;
   public player;
-
   constructor(player: any, public walls: Wall) {
     this.player = player;
     this.powerup = this.getRanomPowerUpPosition();
@@ -153,11 +149,10 @@ export class PowerUp3 implements IPowerUp {
   }
 
   effect() {
-    this.player.setStateToImortal();
-    setTimeout(logout, 5000, this.player);
-    function logout(player: Player) {
+    this.player.changePlayerState();
+    setTimeout(() => {
+      this.player.changePlayerState();
       console.log('Immortal efektas beigesi po 5 sekundziu');
-      player.setNormalState();
-    }
+    }, 5000);
   }
 }
