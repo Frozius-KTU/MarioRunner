@@ -22,7 +22,7 @@ export class HealMapOne implements IHeal {
   }
 
   update() {
-    if (this.player.onPlayer(this.heal) || this.walls.onObject(this.heal)) {
+    if (this.player.onPlayer(this.heal)) {
       this.heal = this.getRanomHealPosition();
       this.addHealth = 1;
     }
@@ -81,7 +81,7 @@ export class HealMapTwo implements IHeal {
   }
 
   update() {
-    if (this.player.onPlayer(this.heal) || this.walls.onObject(this.heal)) {
+    if (this.player.onPlayer(this.heal)) {
       this.heal = this.getRanomHealPosition();
       this.addHealth = 1;
     }
@@ -140,7 +140,7 @@ export class HealMapThree implements IHeal {
   }
 
   update() {
-    if (this.player.onPlayer(this.heal) || this.walls.onObject(this.heal)) {
+    if (this.player.onPlayer(this.heal)) {
       this.heal = this.getRanomHealPosition();
       this.addHealth = 1;
     }

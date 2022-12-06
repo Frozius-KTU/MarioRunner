@@ -17,6 +17,7 @@ export class SignalRService {
   clientStatusCode: string = '';
 
   messageReceived = new Subject<ChatMessage>();
+  coordinatesReceived = new Subject<ChatMessage>();
   connectionEstablished = new BehaviorSubject<boolean>(false);
 
   private hubConnection!: HubConnection;
@@ -29,6 +30,9 @@ export class SignalRService {
 
   sendChatMessage(message: ChatMessage) {
     this.hubConnection.invoke('SendMessage', message);
+  }
+  sendCoordinates(message: ChatMessage) {
+    this.hubConnection.invoke('SendCoordinates', message);
   }
   createClient(client: Client) {
     this.hubConnection.invoke('CreateClient', client);
@@ -65,6 +69,9 @@ export class SignalRService {
   private registerOnServerEvents(): void {
     this.hubConnection.on('Send', (data: any) => {
       this.messageReceived.next(data);
+    });
+    this.hubConnection.on('Coordinates', (data: any) => {
+      this.coordinatesReceived.next(data);
     });
 
     this.hubConnection.on('ClientCreated', (data: any) => {

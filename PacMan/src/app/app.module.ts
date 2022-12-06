@@ -29,6 +29,7 @@ import { MatSelectModule } from '@angular/material/select';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatGridListModule } from '@angular/material/grid-list';
+import { ScrollingModule } from '@angular/cdk/scrolling';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import {
   UtilsDropdownsModule,
@@ -67,6 +68,7 @@ import {
     ReactiveFormsModule,
     MatCheckboxModule,
     MatGridListModule,
+    ScrollingModule,
     FontAwesomeModule,
     UtilsGridModule,
     UtilsInputsModule,

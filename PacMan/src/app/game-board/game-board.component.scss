@@ -247,6 +247,37 @@
   }
 }
 
+.terminal-window {
+  flex: 2;
+  min-width: 300px;
+  width: 300px;
+  background-color: rgba(138, 137, 137, 0.346);
+  border: 2px solid rgba(0, 0, 0, 0.761);
+}
+.terminal-messages {
+  width: 298px;
+  min-height: 400px;
+  max-height: 1000px;
+  padding: 0px 4px;
+  position: fixed;
+  top: 5px;
+  bottom: 55px;
+  //color: #ddd;
+  font-size: 10px;
+}
+.terminal {
+  width: 298px;
+  padding: 4px;
+
+  position: fixed;
+  bottom: 0%;
+}
+.terminal-input {
+  width: 298px;
+  padding: 0 0 0;
+  color: #ddd;
+}
+
 // Ipads and Mobiles
 @media only screen and (max-width: 1025px) {
   .container {

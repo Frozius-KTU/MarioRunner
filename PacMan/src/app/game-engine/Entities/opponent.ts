@@ -1,9 +1,8 @@
 import { FacadeService } from 'src/app/core/services/facade.service';
+import { AbstractPlayer } from './player';
 
-export class Opponent {
-  constructor(private facadeService: FacadeService) {}
-
-  opponentBody = { x: -1, y: -1 };
+export class Opponent extends AbstractPlayer {
+  override body = { x: -1, y: -1 };
 
   update() {
     this.getPosition();
@@ -11,8 +10,8 @@ export class Opponent {
 
   draw(gameBoard: any) {
     const playerElement = document.createElement('div');
-    playerElement.style.gridRowStart = this.opponentBody.y.toString();
-    playerElement.style.gridColumnStart = this.opponentBody.x.toString();
+    playerElement.style.gridRowStart = this.body.y.toString();
+    playerElement.style.gridColumnStart = this.body.x.toString();
     //playerElement.style.backgroundImage = "url('https://icons.iconarchive.com/icons/ph03nyx/super-mario/32/Retro-Mushroom-Super-3-icon.png')"
     //playerElement.style.backgroundImage = "url('https://icons.iconarchive.com/icons/ph03nyx/super-mario/32/Retro-Mushroom-1UP-3-icon.png')";
     //playerElement.style.backgroundImage = "url('../../assets/icons/luigi.png')";
@@ -24,11 +23,11 @@ export class Opponent {
   }
 
   getOpponentBody() {
-    return this.opponentBody;
+    return this.body;
   }
 
   onPlayer(position: any) {
-    return this.equalPositions(this.opponentBody, position);
+    return this.equalPositions(this.body, position);
   }
 
   equalPositions(pos1: any, pos2: any) {
@@ -36,15 +35,17 @@ export class Opponent {
   }
 
   getPosition() {
-    this.facadeService.signalRService.messageReceived.subscribe((message) => {
-      var data = message.message.split(' ');
-      if (
-        data[0] == sessionStorage.getItem('lobbyId') &&
-        data[1] != sessionStorage.getItem('playerName')
-      ) {
-        this.opponentBody.x = Number(data[2]);
-        this.opponentBody.y = Number(data[3]);
+    this.facadeService.signalRService.coordinatesReceived.subscribe(
+      (message) => {
+        var data = message.message.split(' ');
+        if (
+          data[0] == sessionStorage.getItem('lobbyId') &&
+          data[1] != sessionStorage.getItem('playerName')
+        ) {
+          this.body.x = Number(data[2]);
+          this.body.y = Number(data[3]);
+        }
       }
-    });
+    );
   }
 }

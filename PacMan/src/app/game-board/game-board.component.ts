@@ -33,8 +33,12 @@ import {
 } from '../game-engine/PickUps/PowerUpsFactory/PowerUpsFactoryCreator';
 import { ChemicalsAbstraction } from '../game-engine/PickUps/Chemicals/Bridge';
 import { Food, SuperFood } from '../game-engine/PickUps/TemplateFood';
-import { BlobCollection, BlobIterator } from '../game-engine/Entities/Mobs/Blob/BlobIterator';
-
+import {
+  BlobCollection,
+  BlobIterator,
+} from '../game-engine/Entities/Mobs/Blob/BlobIterator';
+import { ChatMessage } from '../models/chatMessage.model';
+import { ExpressionParser } from '../game-engine/Interpreter';
 
 @Component({
   selector: 'app-game-board',
@@ -67,7 +71,6 @@ export class GameBoardComponent implements OnInit, AfterViewInit {
   food1?: Food;
   food2?: SuperFood;
 
-
   blobs = new BlobCollection();
   blobIterator = this.blobs.getIterator();
   blob1?: Blob;
@@ -94,12 +97,19 @@ export class GameBoardComponent implements OnInit, AfterViewInit {
 
   loading = true;
 
+  chatmessages: ChatMessage[] = [];
+  command: string = '';
+
   ngOnInit(): void {
     let route = this.activatedRoute.params.subscribe((params) => {
       const id = params['id'];
       if (!id) {
         return;
       }
+
+      this.facadeService.signalRService.messageReceived.subscribe((message) => {
+        this.chatmessages.push(message);
+      });
 
       this.facadeService
         .getClientById(sessionStorage.getItem('playerId')!)
@@ -323,6 +333,31 @@ export class GameBoardComponent implements OnInit, AfterViewInit {
       window.location.reload();
     });
     sessionStorage.removeItem('lobbyId')!;
+  }
+
+  executeCommand() {
+    console.log(this.command);
+    if (this.command[0] == '/') {
+      let parser = new ExpressionParser(
+        this.player!,
+        this.opponent!,
+        this.gameBoard
+      );
+      this.chatmessages.push(new ChatMessage(this.command));
+
+      this.command = this.command.substring(1);
+      var error = parser.parse(this.command);
+      if (error) {
+        this.chatmessages.push(new ChatMessage(error));
+      }
+    } else {
+      this.facadeService.signalRService.sendChatMessage(
+        new ChatMessage(
+          sessionStorage.getItem('playerName') + ': ' + this.command
+        )
+      );
+    }
+    this.command = '';
   }
 
   getPowerUps(level: number, wall: Wall) {

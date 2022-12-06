@@ -15,6 +15,10 @@ public class ChatHub : Hub
     {
         await Clients.All.SendAsync("Send", chatMessage);
     }
+    public async Task SendCoordinates(ChatMessage chatMessage)
+    {
+        await Clients.All.SendAsync("Coordinates", chatMessage);
+    }
     public async Task Ping(Guid clientId)
     {
         ClientModel clientRequest = new ClientModel();

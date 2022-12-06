@@ -7,21 +7,27 @@ import { IHeal } from '../PickUps/Heals-Factory/Heal';
 import { MortalState } from './State/mortalState';
 import { PlayerState } from './State/playerState';
 
-export class Player {
-  moveAlgorithm: IMoveAlgorithm;
-  state?: PlayerState;
-  constructor(
-    private facadeService: FacadeService,
-    public walls: Wall,
-    movealgorithm: IMoveAlgorithm
-  ) {
-    this.moveAlgorithm = movealgorithm;
+export abstract class AbstractPlayer {
+  constructor(public facadeService: FacadeService) {
     this.state = new MortalState();
   }
 
-  playerBody = { x: 13, y: 16 };
+  state?: PlayerState;
+  body = { x: 13, y: 16 };
   score = 0;
+}
 
+export class Player extends AbstractPlayer {
+  constructor(
+    override facadeService: FacadeService,
+    public walls: Wall,
+    movealgorithm: IMoveAlgorithm
+  ) {
+    super(facadeService);
+    this.moveAlgorithm = movealgorithm;
+  }
+
+  moveAlgorithm: IMoveAlgorithm;
   update() {
     const inputDirection = this.moveAlgorithm.getInputDirection();
     this.moveAlgorithm.resetDirection();
@@ -29,28 +35,26 @@ export class Player {
     //Collision
     if (
       !this.walls.onObject({
-        x: this.playerBody.x + inputDirection.x,
-        y: this.playerBody.y + inputDirection.y,
+        x: this.body.x + inputDirection.x,
+        y: this.body.y + inputDirection.y,
       })
     ) {
-      this.playerBody.x += inputDirection.x;
-      this.playerBody.y += inputDirection.y;
+      this.body.x += inputDirection.x;
+      this.body.y += inputDirection.y;
     }
 
-    if (outsideGrid(this.playerBody)) {
-      this.playerBody = fixOutsidePosition(this.playerBody);
+    if (outsideGrid(this.body)) {
+      this.body = fixOutsidePosition(this.body);
     }
 
-    this.sendPosition(
-      this.playerBody.x.toString() + ' ' + this.playerBody.y.toString()
-    );
+    this.sendPosition(this.body.x.toString() + ' ' + this.body.y.toString());
     //console.log(inputDirection);
   }
 
   draw(gameBoard: any) {
     const playerElement = document.createElement('div');
-    playerElement.style.gridRowStart = this.playerBody.y.toString();
-    playerElement.style.gridColumnStart = this.playerBody.x.toString();
+    playerElement.style.gridRowStart = this.body.y.toString();
+    playerElement.style.gridColumnStart = this.body.x.toString();
     //playerElement.style.backgroundImage = "url('https://icons.iconarchive.com/icons/bokehlicia/captiva/32/games-icon.png')"
     //playerElement.style.backgroundImage = "url('https://icons.iconarchive.com/icons/ph03nyx/super-mario/32/Retro-Mario-2-icon.png')";
     playerElement.style.backgroundImage =
@@ -77,11 +81,11 @@ export class Player {
     //this.update();
   }
   getPlayer() {
-    return this.playerBody;
+    return this.body;
   }
 
   onPlayer(position: any) {
-    return this.equalPositions(this.playerBody, position);
+    return this.equalPositions(this.body, position);
   }
 
   equalPositions(pos1: any, pos2: any) {
@@ -89,7 +93,7 @@ export class Player {
   }
 
   sendPosition(direction: string) {
-    this.facadeService.signalRService.sendChatMessage(
+    this.facadeService.signalRService.sendCoordinates(
       new ChatMessage(
         sessionStorage.getItem('lobbyId') +
           ' ' +
@@ -111,10 +115,10 @@ export class Player {
     //console.log(this.state?.getState())
     if (this.state?.getState()) {
       if (
-        (this.playerBody.x == blob1[0].x && this.playerBody.y == blob1[0].y) ||
-        (this.playerBody.x == blob2[0].x && this.playerBody.y == blob2[0].y) ||
-        (this.playerBody.x == blob3[0].x && this.playerBody.y == blob3[0].y) ||
-        (this.playerBody.x == blob4[0].x && this.playerBody.y == blob4[0].y)
+        (this.body.x == blob1[0].x && this.body.y == blob1[0].y) ||
+        (this.body.x == blob2[0].x && this.body.y == blob2[0].y) ||
+        (this.body.x == blob3[0].x && this.body.y == blob3[0].y) ||
+        (this.body.x == blob4[0].x && this.body.y == blob4[0].y)
       ) {
         if (heal != null && healClone != null) {
           heal.minusHealth = 1;
