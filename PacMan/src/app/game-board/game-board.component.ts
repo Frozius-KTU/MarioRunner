@@ -40,6 +40,7 @@ import {
 import { ChatMessage } from '../models/chatMessage.model';
 import { ExpressionParser } from '../game-engine/Interpreter';
 import { DotFood } from '../game-engine/PickUps/DotFood/DotFood';
+import { PickUpComposite, AntidoteFoodLeaf, ClumsyFoodLeaf, PickUpsFactoryMap1Leaf } from '../game-engine/PickUps/CompositePickUps';
 
 @Component({
   selector: 'app-game-board',
@@ -102,6 +103,11 @@ export class GameBoardComponent implements OnInit, AfterViewInit {
 
   chatmessages: ChatMessage[] = [];
   command: string = '';
+
+  tree = new PickUpComposite();
+  branch1 = new PickUpComposite();
+  branch2 = new PickUpComposite();
+  branch3 = new PickUpComposite();
 
   ngOnInit(): void {
     let route = this.activatedRoute.params.subscribe((params) => {
@@ -189,6 +195,16 @@ export class GameBoardComponent implements OnInit, AfterViewInit {
 
     this.pickupPowerUp = this.getPowerUps(this.lobby!.level, wall);
     this.pickupHeals = this.getHeals(this.lobby!.level, wall);
+
+
+    this.branch1.add(this.getHealsLeaf(this.lobby!.level, wall));
+    this.branch1.add(this.getPowerUpsLeaf(this.lobby!.level, wall));
+    this.branch1.add(new AntidoteFoodLeaf(this.player, wall, this.correctInput));
+    this.branch2.add(new ClumsyFoodLeaf(this.player, wall, this.clumsyInput));
+    this.tree.add(this.branch1);
+    this.tree.add(this.branch2);
+    console.log('Client: Now I\'ve got a composite tree:');
+    console.log(`RESULT: ${this.tree.operation()}`);
 
     //console.log(this.pickupPowerUp);
     //console.log(this.pickupHeals);
@@ -405,5 +421,13 @@ export class GameBoardComponent implements OnInit, AfterViewInit {
       this.pickup = new PickUpsFactoryMap1(this.player, wall);
       return this.pickup.createHeal(this.player, this.wall);
     }
+  }
+  getHealsLeaf(level: number, wall: Wall) {
+      this.pickup = new PickUpsFactoryMap1Leaf(this.player, wall);
+      return this.pickup.createHeal(this.player, this.wall);
+  }
+  getPowerUpsLeaf(level: number, wall: Wall) {
+      this.pickup = new PickUpsFactoryMap1Leaf(this.player, wall);
+      return this.pickup.createPowerUp(this.player, this.wall);
   }
 }
