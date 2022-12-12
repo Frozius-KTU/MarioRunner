@@ -13,6 +13,7 @@ using GameAPI.Context;
 using GameAPI.Data.Lobby;
 using GameAPI.Data.Client;
 using GameAPI.Data.Map;
+using GameAPI.Data.GameObject;
 
 namespace GameAPI.Web;
 
@@ -57,6 +58,7 @@ public class Startup
         services.AddDbContext<GameContext>(opt => opt.UseSqlServer
             (Configuration.GetConnectionString("PacMan")));
         services.AddScoped<IClientRepository, ClientRepository>();
+        services.AddScoped<IGameObjectRepository, GameObjectRepository>();
         services.AddScoped<ILobbyRepository, LobbyRepository>();
         services.AddScoped<IMapRepository, MapRepository>();
     }

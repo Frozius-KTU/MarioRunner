@@ -6,6 +6,7 @@ import Swal from 'sweetalert2';
 import { Client } from '../models/game.types';
 import { PlatformLocation } from '@angular/common';
 import { FacadeService } from '../core/services/facade.service';
+import { Mediator, MediatorTest } from '../game-engine/Mediator';
 
 @Component({
   selector: 'app-home',
@@ -27,7 +28,12 @@ export class HomeComponent implements OnInit {
     });
   }
 
+  mediator?: MediatorTest;
+
   ngOnInit() {
+    this.mediator = new MediatorTest();
+    this.mediator.main();
+
     this.playerName =
       sessionStorage.getItem('playerName') ||
       'Player_' + Math.floor(Math.random() * (999 - 100) + 100).toString();

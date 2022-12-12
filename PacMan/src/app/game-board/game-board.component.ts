@@ -40,7 +40,12 @@ import {
 import { ChatMessage } from '../models/chatMessage.model';
 import { ExpressionParser } from '../game-engine/Interpreter';
 import { DotFood } from '../game-engine/PickUps/DotFood/DotFood';
-import { PickUpComposite, AntidoteFoodLeaf, ClumsyFoodLeaf, PickUpsFactoryMap1Leaf } from '../game-engine/PickUps/CompositePickUps';
+import {
+  PickUpComposite,
+  AntidoteFoodLeaf,
+  ClumsyFoodLeaf,
+  PickUpsFactoryMap1Leaf,
+} from '../game-engine/PickUps/CompositePickUps';
 
 @Component({
   selector: 'app-game-board',
@@ -181,7 +186,7 @@ export class GameBoardComponent implements OnInit, AfterViewInit {
     this.food2 = new SuperFood(this.player, wall);
     this.clumsyFood = new ClumsyFood(this.player, wall, this.clumsyInput);
     this.antidoteFood = new AntidoteFood(this.player, wall, this.correctInput);
-    this.dotFood = new DotFood(this.player, wall);
+    //this.dotFood = new DotFood(this.player, wall);
     this.clumsyFoodAbstraction = new ChemicalsAbstraction(this.clumsyFood);
     this.antidoteFoodAbstraction = new ChemicalsAbstraction(this.antidoteFood);
 
@@ -196,14 +201,15 @@ export class GameBoardComponent implements OnInit, AfterViewInit {
     this.pickupPowerUp = this.getPowerUps(this.lobby!.level, wall);
     this.pickupHeals = this.getHeals(this.lobby!.level, wall);
 
-
     this.branch1.add(this.getHealsLeaf(this.lobby!.level, wall));
     this.branch1.add(this.getPowerUpsLeaf(this.lobby!.level, wall));
-    this.branch1.add(new AntidoteFoodLeaf(this.player, wall, this.correctInput));
+    this.branch1.add(
+      new AntidoteFoodLeaf(this.player, wall, this.correctInput)
+    );
     this.branch2.add(new ClumsyFoodLeaf(this.player, wall, this.clumsyInput));
     this.tree.add(this.branch1);
     this.tree.add(this.branch2);
-    console.log('Client: Now I\'ve got a composite tree:');
+    console.log("Client: Now I've got a composite tree:");
     console.log(`RESULT: ${this.tree.operation()}`);
 
     //console.log(this.pickupPowerUp);
@@ -286,7 +292,7 @@ export class GameBoardComponent implements OnInit, AfterViewInit {
       this.blobIterator.next()
     );
     this.checkDeath();
-    this.dotFood?.update();
+    //this.dotFood?.update();
     this.pickupPowerUp?.update();
     this.pickupHeals?.update();
     this.clone?.update();
@@ -305,7 +311,7 @@ export class GameBoardComponent implements OnInit, AfterViewInit {
     this.pickupHeals!.draw(this.gameBoard);
     this.food1!.templateMethod(this.gameBoard);
     this.food2!.templateMethod(this.gameBoard);
-    this.dotFood!.draw(this.gameBoard);
+    //this.dotFood!.draw(this.gameBoard);
     //this.clumsyFood!.draw(this.gameBoard);
     //this.clumsyFoodAbstraction!.implementation.draw(this.gameBoard);
     //this.antidoteFood!.draw(this.gameBoard);
@@ -423,11 +429,11 @@ export class GameBoardComponent implements OnInit, AfterViewInit {
     }
   }
   getHealsLeaf(level: number, wall: Wall) {
-      this.pickup = new PickUpsFactoryMap1Leaf(this.player, wall);
-      return this.pickup.createHeal(this.player, this.wall);
+    this.pickup = new PickUpsFactoryMap1Leaf(this.player, wall);
+    return this.pickup.createHeal(this.player, this.wall);
   }
   getPowerUpsLeaf(level: number, wall: Wall) {
-      this.pickup = new PickUpsFactoryMap1Leaf(this.player, wall);
-      return this.pickup.createPowerUp(this.player, this.wall);
+    this.pickup = new PickUpsFactoryMap1Leaf(this.player, wall);
+    return this.pickup.createPowerUp(this.player, this.wall);
   }
 }

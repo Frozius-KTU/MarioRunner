@@ -10,5 +10,6 @@ public class MemoryContext : DbContext
 
     }
     public DbSet<ClientModel> Clients => Set<ClientModel>();
+    public DbSet<GameObjectModel> GameObjects => Set<GameObjectModel>();
 }
 

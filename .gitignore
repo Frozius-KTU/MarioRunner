@@ -6,6 +6,7 @@ backend/GameAPI/Properties/PublishProfiles/
 /backend/GameAPI/.vs
 /backend/GameAPI/GameAPI/bin
 /backend/GameAPI/GameAPI/obj
+/.vscode
 
 # compiled output
 /dist
