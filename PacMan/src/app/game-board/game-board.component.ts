@@ -46,6 +46,7 @@ import {
   ClumsyFoodLeaf,
   PickUpsFactoryMap1Leaf,
 } from '../game-engine/PickUps/CompositePickUps';
+import { CareTaker, Originator } from '../game-engine/memento';
 
 @Component({
   selector: 'app-game-board',
@@ -114,6 +115,8 @@ export class GameBoardComponent implements OnInit, AfterViewInit {
   branch2 = new PickUpComposite();
   branch3 = new PickUpComposite();
 
+  ORIGINATOR = new Originator();
+  CARETAKER = new CareTaker(this.ORIGINATOR);
   ngOnInit(): void {
     let route = this.activatedRoute.params.subscribe((params) => {
       const id = params['id'];
@@ -178,6 +181,7 @@ export class GameBoardComponent implements OnInit, AfterViewInit {
         },
       });
     });
+    this.ORIGINATOR.state = 'Play';
   }
 
   prepareParams(wall: Wall) {
@@ -233,7 +237,7 @@ export class GameBoardComponent implements OnInit, AfterViewInit {
 
   start(currentTime: any) {
     if (this.gameOver) return console.log('Game Over');
-
+    if (this.ORIGINATOR.state === 'Pause') return console.log('Paused');
     window.requestAnimationFrame(this.start.bind(this));
     const secondsSinceLastRender = (currentTime - this.lastRenderTime) / 1000;
     if (secondsSinceLastRender < 1 / this.playerSpeed) return;
@@ -435,5 +439,15 @@ export class GameBoardComponent implements OnInit, AfterViewInit {
   getPowerUpsLeaf(level: number, wall: Wall) {
     this.pickup = new PickUpsFactoryMap1Leaf(this.player, wall);
     return this.pickup.createPowerUp(this.player, this.wall);
+  }
+  Pause() {
+    this.ORIGINATOR.state = 'Pause';
+    this.gameBoard.classList.add('blur');
+    window.requestAnimationFrame(this.start.bind(this));
+  }
+  Play() {
+    this.ORIGINATOR.state = 'Play';
+    this.gameBoard.classList.remove('blur');
+    window.requestAnimationFrame(this.start.bind(this));
   }
 }

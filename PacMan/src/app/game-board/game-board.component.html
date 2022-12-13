@@ -12,6 +12,21 @@
         <div class="restart-button" (click)="restart()">RESTART</div>
         <br />
         <div class="restart-button" (click)="quit()">QUIT</div>
+        <br />
+        <div
+          class="restart-button"
+          *ngIf="this.ORIGINATOR.state == 'Play'"
+          (click)="Pause()"
+        >
+          PAUSE
+        </div>
+        <div
+          class="restart-button"
+          *ngIf="this.ORIGINATOR.state == 'Pause'"
+          (click)="Play()"
+        >
+          Play
+        </div>
       </div>
     </div>
 
