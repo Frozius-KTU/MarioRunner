@@ -1,5 +1,6 @@
 import { FacadeService } from 'src/app/core/services/facade.service';
 import { ChatMessage } from 'src/app/models/chatMessage.model';
+import { GameObject } from 'src/app/models/game.types';
 import { Wall } from '../Environment/Decorator';
 import { fixOutsidePosition, outsideGrid } from '../gameboard-grid.util';
 import { IMoveAlgorithm } from '../MoveAlgorithm/IMoveAlgorithm';
@@ -12,9 +13,9 @@ export abstract class AbstractPlayer {
     this.state = new MortalState();
   }
 
-  state?: PlayerState;
   body = { x: 13, y: 16 };
   score = 0;
+  state?: PlayerState;
 
   changeMovement(moveAlgorithm: IMoveAlgorithm) {}
 }
@@ -23,12 +24,23 @@ export class Player extends AbstractPlayer {
   constructor(
     override facadeService: FacadeService,
     public walls: Wall,
-    movealgorithm: IMoveAlgorithm
+    movealgorithm: IMoveAlgorithm,
+    name: string
   ) {
     super(facadeService);
     this.moveAlgorithm = movealgorithm;
+    this.name = name;
+
+    var gameObject: GameObject = {
+      name: name,
+      lobbyId: sessionStorage.getItem('lobbyId')!,
+      x: this.body.x,
+      y: this.body.y,
+    };
+    facadeService.mediatorService.createGameObject(gameObject);
   }
 
+  name: string;
   moveAlgorithm: IMoveAlgorithm;
   update() {
     const inputDirection = this.moveAlgorithm.getInputDirection();
@@ -50,6 +62,12 @@ export class Player extends AbstractPlayer {
     }
 
     this.sendPosition(this.body.x.toString() + ' ' + this.body.y.toString());
+    let lobbyId = sessionStorage.getItem('lobbyId')!;
+    this.facadeService.mediatorService.updateGameObject(lobbyId, {
+      name: this.name,
+      x: this.body.x,
+      y: this.body.y,
+    });
     //console.log(inputDirection);
   }
 
@@ -117,14 +135,14 @@ export class Player extends AbstractPlayer {
     //console.log(this.state?.getState())
     if (this.state?.getState()) {
       if (
-        (this.body.x == blob1[0].x && this.body.y == blob1[0].y) ||
-        (this.body.x == blob2[0].x && this.body.y == blob2[0].y) ||
-        (this.body.x == blob3[0].x && this.body.y == blob3[0].y) ||
-        (this.body.x == blob4[0].x && this.body.y == blob4[0].y)
+        (this.body.x == blob1.x && this.body.y == blob1.y) ||
+        (this.body.x == blob2.x && this.body.y == blob2.y) ||
+        (this.body.x == blob3.x && this.body.y == blob3.y) ||
+        (this.body.x == blob4.x && this.body.y == blob4.y)
       ) {
         if (heal != null && healClone != null) {
           heal.minusHealth = 1;
-          console.log('numinusavo');
+          //console.log('numinusavo');
           this.changePlayerState();
           setTimeout(() => {
             this.changePlayerState();

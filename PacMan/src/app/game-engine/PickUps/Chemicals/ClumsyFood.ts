@@ -62,10 +62,6 @@ export class ClumsyFood implements Implementation {
       });
     }
 
-    this.facadeService.mediatorService.getGameObjects(
-      sessionStorage.getItem('lobbyId')!
-    );
-
     var objects = this.gameObjects.split(';');
     objects.forEach((object) => {
       var data = object.split(' ');

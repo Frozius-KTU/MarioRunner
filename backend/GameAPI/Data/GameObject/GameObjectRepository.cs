@@ -37,6 +37,18 @@ public class GameObjectRepository : IGameObjectRepository
         GameObjectModel result = await _context.GameObjects.FirstOrDefaultAsync(x => x.LobbyId == lobbyId && x.Name == name);
         return result;
     }
+    public async Task<ICollection<GameObjectModel>> GetPlayerGameObjects()
+    {
+        
+        var result = _context.GameObjects.Where(x => x.Name[0] == 'P' && x.Name[1] == 'l' && x.Name[2] == 'a' && x.Name[3] == 'y' && x.Name[4] == 'e' && x.Name[5] == 'r'&& x.Name[6] == '|').ToList(); //It ain't dumb if it works
+        return await Task.FromResult(result);
+    }
+    public async Task<ICollection<GameObjectModel>> GetGhostGameObjects()
+    {
+        
+        var result = _context.GameObjects.Where(x => x.Name[0] == 'G' && x.Name[1] == 'h' && x.Name[2] == 'o' && x.Name[3] == 's' && x.Name[4] == 't').ToList(); //It ain't dumb if it works
+        return await Task.FromResult(result);
+    }
     public async Task CreateGameObject(GameObjectModel request)
     {
         await _context.GameObjects.AddAsync(request);

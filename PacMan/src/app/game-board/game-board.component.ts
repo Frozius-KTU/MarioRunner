@@ -16,7 +16,7 @@ import { CorrectInput } from '../game-engine/MoveAlgorithm/CorrectInput';
 import { AntidoteFood } from '../game-engine/PickUps/Chemicals/AntidoteFood';
 import { ClumsyInput } from '../game-engine/MoveAlgorithm/ClumsyInput';
 import { Lobby, Map } from 'src/app/models/game.types';
-import { Blob } from '../game-engine/Entities/blobEntity.model';
+import { Blob } from '../game-engine/Entities/Mobs/Blob/blobEntity.model';
 import { Player } from '../game-engine/Entities/player';
 import { IPowerUp } from '../game-engine/PickUps/PowerUpsFactory/PowerUps';
 import { IHeal } from '../game-engine/PickUps/Heals-Factory/Heal';
@@ -24,8 +24,8 @@ import { PlatformLocation } from '@angular/common';
 import { FacadeService } from '../core/services/facade.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { StandartBob } from '../game-engine/Entities/Mobs/BlobTypes/StandartBlob';
-import { Ghost } from '../game-engine/Entities/ghostMegaEntity.model';
-import { BlobAdapter } from '../game-engine/Entities/blobAdapter';
+import { Ghost } from '../game-engine/Entities/Mobs/Blob/ghostMegaEntity.model';
+import { BlobAdapter } from '../game-engine/Entities/Mobs/Blob/blobAdapter';
 import {
   PickUpsFactoryMap1,
   PickUpsFactoryMap2,
@@ -185,7 +185,12 @@ export class GameBoardComponent implements OnInit, AfterViewInit {
   }
 
   prepareParams(wall: Wall) {
-    this.player = new Player(this.facadeService, wall, this.correctInput);
+    this.player = new Player(
+      this.facadeService,
+      wall,
+      this.correctInput,
+      'Player|' + sessionStorage.getItem('playerName')
+    );
     this.food1 = new Food(this.player, wall, 'Food1', this.facadeService);
     this.food2 = new SuperFood(this.player, wall, 'Food2', this.facadeService);
     this.clumsyFood = new ClumsyFood(
@@ -206,16 +211,33 @@ export class GameBoardComponent implements OnInit, AfterViewInit {
     this.clumsyFoodAbstraction = new ChemicalsAbstraction(this.clumsyFood);
     this.antidoteFoodAbstraction = new ChemicalsAbstraction(this.antidoteFood);
 
-    this.standartBobGenerator = new StandartBob(wall, this.player);
+    this.standartBobGenerator = new StandartBob(
+      wall,
+      this.player,
+      this.facadeService,
+      this.map!.id!
+    );
     this.blobs.addItem(this.standartBobGenerator.generateRedBlob());
     this.blobs.addItem(this.standartBobGenerator.generatePinkBlob());
     this.blobs.addItem(this.standartBobGenerator.generateYellowBlob());
-    var ghost = new Ghost(wall);
-    this.ghostEntity = new BlobAdapter(this.blobIterator.next(), wall);
-    this.ghostEntity.setRandomPosition(this.player, wall);
+
+    this.blobIterator.rewind();
+    while (this.blobIterator.valid()) {
+      this.blobIterator.next().start();
+    }
+
+    this.ghostEntity = new BlobAdapter(
+      this.blobIterator.next(),
+      wall,
+      'GhostEdible',
+      this.facadeService,
+      this.map!.id!
+    );
+    this.ghostEntity.start(this.player, wall);
 
     this.pickupPowerUp = this.getPowerUps(this.lobby!.level, wall);
     this.pickupHeals = this.getHeals(this.lobby!.level, wall);
+    this.clone = this.pickupHeals?.clone();
 
     this.branch1.add(this.getHealsLeaf(this.lobby!.level, wall));
     this.branch1.add(this.getPowerUpsLeaf(this.lobby!.level, wall));
@@ -228,49 +250,34 @@ export class GameBoardComponent implements OnInit, AfterViewInit {
     console.log("Client: Now I've got a composite tree:");
     console.log(`RESULT: ${this.tree.operation()}`);
 
-    //console.log(this.pickupPowerUp);
-    //console.log(this.pickupHeals);
-    // this.pickupHeals = this.pickupsfactory.getHeals(
-    //   this.current_map!,
-    //   this.gameBoard
-    // );
-    this.clone = this.pickupHeals?.clone();
-    // console.log(this.pickupHeals);
-    // console.log("klonas");
-    // console.log(this.clone);
     this.loading = false;
   }
 
   ngAfterViewInit() {
     this.gameBoard = document.querySelector('.game-board');
-    window.requestAnimationFrame(this.start.bind(this));
+    window.requestAnimationFrame(this.execute.bind(this));
   }
   currentTIME: any;
 
-  start(currentTime: any) {
+  execute(currentTime: any) {
     if (this.gameOver) return console.log('Game Over');
     if (this.ORIGINATOR.state === 'Pause') return console.log('Paused');
-    window.requestAnimationFrame(this.start.bind(this));
+
+    window.requestAnimationFrame(this.execute.bind(this));
     const secondsSinceLastRender = (currentTime - this.lastRenderTime) / 1000;
     if (secondsSinceLastRender < 1 / this.playerSpeed) return;
     this.lastRenderTime = currentTime;
-
     this.currentTIME = currentTime;
+
     this.update();
     this.draw();
-
-    this.blobIterator.rewind();
-    while (this.blobIterator.valid()) {
-      this.blobIterator.next()?.start(currentTime);
-    }
-    this.ghostEntity?.start(currentTime);
   }
 
   get playerSpeed() {
     const score = this.player?.currentScore || 0;
-    if (score < 10) return 7;
-    if (score > 10 && score < 15) return 8;
-    if (score > 15 && score < 20) return 9;
+    if (score < 10) return 10;
+    if (score > 10 && score < 15) return 10;
+    if (score > 15 && score < 20) return 10;
     return 10;
   }
 
@@ -280,11 +287,16 @@ export class GameBoardComponent implements OnInit, AfterViewInit {
 
   update() {
     if (this.loading) return console.log('Loading');
+
+    this.facadeService.mediatorService.getGameObjects(
+      sessionStorage.getItem('lobbyId')!
+    );
+
     this.blobIterator.rewind();
     this.player!.checkblob(
-      this.blobIterator.next()?.blobBody,
-      this.blobIterator.next()?.blobBody,
-      this.blobIterator.next()?.blobBody,
+      this.blobIterator.next().blobBody,
+      this.blobIterator.next().blobBody,
+      this.blobIterator.next().blobBody,
       this.ghostEntity?.ghostBody,
       this.pickupHeals,
       this.clone
@@ -313,6 +325,12 @@ export class GameBoardComponent implements OnInit, AfterViewInit {
     this.pickupHeals?.update();
     this.clone?.update();
     //this.pickupPowerUp?.effect();
+
+    this.blobIterator.rewind();
+    while (this.blobIterator.valid()) {
+      this.blobIterator.next().update();
+    }
+    this.ghostEntity?.update();
   }
 
   draw() {
@@ -368,6 +386,10 @@ export class GameBoardComponent implements OnInit, AfterViewInit {
   }
 
   quit() {
+    this.facadeService.mediatorService.deleteGameObject(
+      sessionStorage.getItem('lobbyId')!,
+      { name: this.player!.name }
+    );
     this.facadeService.disconnectClientFromLobby(
       sessionStorage.getItem('playerId')!,
       sessionStorage.getItem('lobbyId')!
@@ -379,7 +401,6 @@ export class GameBoardComponent implements OnInit, AfterViewInit {
   }
 
   executeCommand() {
-    console.log(this.command);
     if (this.command[0] == '/') {
       let parser = new ExpressionParser(
         this.player!,
@@ -446,9 +467,8 @@ export class GameBoardComponent implements OnInit, AfterViewInit {
   }
   getHeals(level: number, wall: Wall) {
     if (level == 1) {
-      //console.log(1);
       this.pickup = new PickUpsFactoryMap1(this.player, wall);
-      //console.log(this.pickup.createPowerUp(this.player, this.wall));
+
       return this.pickup.createHeal(
         this.player,
         this.wall,
@@ -457,7 +477,6 @@ export class GameBoardComponent implements OnInit, AfterViewInit {
       );
     }
     if (level == 2) {
-      //console.log(2);
       this.pickup = new PickUpsFactoryMap2(this.player, wall);
       return this.pickup.createHeal(
         this.player,
@@ -467,7 +486,6 @@ export class GameBoardComponent implements OnInit, AfterViewInit {
       );
     }
     if (level == 3) {
-      //console.log(3);
       this.pickup = new PickUpsFactoryMap3(this.player, wall);
       return this.pickup.createHeal(
         this.player,
@@ -496,11 +514,11 @@ export class GameBoardComponent implements OnInit, AfterViewInit {
   Pause() {
     this.ORIGINATOR.state = 'Pause';
     this.gameBoard.classList.add('blur');
-    window.requestAnimationFrame(this.start.bind(this));
+    //window.requestAnimationFrame(this.start.bind(this));
   }
   Play() {
     this.ORIGINATOR.state = 'Play';
     this.gameBoard.classList.remove('blur');
-    window.requestAnimationFrame(this.start.bind(this));
+    //window.requestAnimationFrame(this.start.bind(this));
   }
 }

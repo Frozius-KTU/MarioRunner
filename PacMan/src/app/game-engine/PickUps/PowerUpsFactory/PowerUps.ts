@@ -58,10 +58,6 @@ export class PowerUp1 implements IPowerUp {
       });
     }
 
-    this.facadeService.mediatorService.getGameObjects(
-      sessionStorage.getItem('lobbyId')!
-    );
-
     var objects = this.gameObjects.split(';');
     objects.forEach((object) => {
       var data = object.split(' ');
@@ -156,10 +152,6 @@ export class PowerUp2 implements IPowerUp {
       });
     }
 
-    this.facadeService.mediatorService.getGameObjects(
-      sessionStorage.getItem('lobbyId')!
-    );
-
     var objects = this.gameObjects.split(';');
     objects.forEach((object) => {
       var data = object.split(' ');
@@ -253,10 +245,6 @@ export class PowerUp3 implements IPowerUp {
         y: newPosition.y,
       });
     }
-
-    this.facadeService.mediatorService.getGameObjects(
-      sessionStorage.getItem('lobbyId')!
-    );
 
     var objects = this.gameObjects.split(';');
     objects.forEach((object) => {

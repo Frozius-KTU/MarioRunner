@@ -1,6 +1,10 @@
 <br class="p-50 m-50" />
 
-<utils-textbox [(ngModel)]="playerName" [clearButton]="true"></utils-textbox>
+<utils-textbox
+  style="margin-left: 10px"
+  [(ngModel)]="playerName"
+  [clearButton]="true"
+></utils-textbox>
 
 <button mat-button (click)="createClient()">
   <i class="fa-solid fa-gamepad">Play</i>
@@ -11,7 +15,3 @@
     {{ message.sent }}: {{ message.message }}
   </li>
 </ul> -->
-
-<button mat-button (click)="createGameObject()">
-  <i class="fa-solid fa-gamepad">Test</i>
-</button>

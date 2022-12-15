@@ -1,4 +1,4 @@
-import { Blob } from 'src/app/game-engine/Entities/blobEntity.model';
+import { Blob } from 'src/app/game-engine/Entities/Mobs/Blob/blobEntity.model';
 import { Wall } from 'src/app/game-engine/Environment/Decorator';
 import { Player } from 'src/app/game-engine/Entities/player';
 

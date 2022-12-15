@@ -31,7 +31,6 @@ public class Mediator : Hub
             var stringContent = new StringContent(jsonString, Encoding.UTF8, "application/json");
 
             HttpResponseMessage httpResponse = await client.PutAsync("https://localhost:5001/api/GameObject/" + gameObject.Id, stringContent);
-            Console.WriteLine("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! Updated" + gameObject.X + " " + gameObject.Y);
         }
         else{
             string jsonString = JsonConvert.SerializeObject(gameObject);
@@ -73,7 +72,7 @@ public class Mediator : Hub
         }
         
     }
-    public async Task UpdateGameObject1(string lobbyId, GameObjectModel gameObject)
+    public async Task UpdateGameObjectByLobby(string lobbyId, GameObjectModel gameObject)
     {
         HttpClientHandler clientHandler = new HttpClientHandler();
         clientHandler.ServerCertificateCustomValidationCallback = (sender, cert, chain, sslPolicyErrors) => { return true; };
@@ -92,6 +91,19 @@ public class Mediator : Hub
         string jsonString = JsonConvert.SerializeObject(gameObject);
         var stringContent = new StringContent(jsonString, Encoding.UTF8, "application/json");
         HttpResponseMessage httpResponse = await client.PutAsync("https://localhost:5001/api/GameObject/" + result.Id, stringContent);
+    }
+
+    public async Task DeleteGameObjectByLobby(string lobbyId, GameObjectModel gameObject)
+    {
+        HttpClientHandler clientHandler = new HttpClientHandler();
+        clientHandler.ServerCertificateCustomValidationCallback = (sender, cert, chain, sslPolicyErrors) => { return true; };
+        HttpClient client = new HttpClient(clientHandler);
+
+        //Get gameObject
+        var response = await client.DeleteAsync($"https://localhost:5001/api/GameObject/{lobbyId}/{gameObject.Name}");
+        var finalData = await response.Content.ReadAsStringAsync();
+        GameObjectModel result = JsonConvert.DeserializeObject<GameObjectModel>(finalData);
+
     }
     
 }

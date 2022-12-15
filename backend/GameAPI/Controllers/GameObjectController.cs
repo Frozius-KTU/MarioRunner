@@ -74,6 +74,30 @@ public class GameObjectController : ControllerBase
         return Ok(result);
     }
 
+    // GET api/client/{id}
+    [HttpGet("players")]
+    public async Task<ActionResult<ICollection<GameObjectModel>>> GetPlayerGameObjects()
+    {
+        var result = await _repository.GetPlayerGameObjects();
+        if (result is null)
+        {
+            return NotFound();
+        }
+        return Ok(result);
+    }
+
+    // GET api/client/{id}
+    [HttpGet("ghosts")]
+    public async Task<ActionResult<ICollection<GameObjectModel>>> GetGhostGameObjects()
+    {
+        var result = await _repository.GetGhostGameObjects();
+        if (result is null)
+        {
+            return NotFound();
+        }
+        return Ok(result);
+    }
+
         // POST api/client
     [HttpPost]
     public async Task<ActionResult> CreateGameObject([FromBody] GameObjectModel request)
@@ -97,7 +121,7 @@ public class GameObjectController : ControllerBase
         if(model is null){
             return NotFound();
         }
-        Console.WriteLine("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!" + request.X);
+        //Console.WriteLine("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!" + request.X);
         model.Name = !String.IsNullOrEmpty(request.Name) ? request.Name : model.Name;
         model.LobbyId = request.LobbyId != null ? request.LobbyId : model.LobbyId;
         model.X = request.X != null ? request.X : model.X;
@@ -117,11 +141,27 @@ public class GameObjectController : ControllerBase
     public async Task<ActionResult> DeleteGameObjectById([FromRoute] Guid id)
     {
 
-        var client = await _repository.GetGameObjectById(id);
-        if (client is null)
-            return NotFound("Not a valid client id");
+        var result = await _repository.GetGameObjectById(id);
+        if (result is null)
+            return NotFound("Not a valid object id");
 
-        await _repository.DeleteGameObject(client);
+        await _repository.DeleteGameObject(result);
+
+        await _repository.SaveChanges();
+
+        return NoContent();
+    }
+
+    // Delete api/client/{id}
+    [HttpDelete("{lobbyId:Guid}/{name}")]
+    public async Task<ActionResult> DeleteGameObjectByLobbyIdAndName([FromRoute] Guid lobbyId, [FromRoute] string name)
+    {
+
+        var result = await _repository.GetGameObjectByLobbyIdAndName(lobbyId, name);
+        if (result is null)
+            return NotFound("Not valid lobbyId or object name");
+
+        await _repository.DeleteGameObject(result);
 
         await _repository.SaveChanges();
 

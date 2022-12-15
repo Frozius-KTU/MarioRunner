@@ -10,6 +10,8 @@ public interface IGameObjectRepository
     Task<GameObjectModel> GetGameObjectById(Guid id);
     Task<ICollection<GameObjectModel>> GetGameObjectsByLobbyId(Guid lobbyId);
     Task<GameObjectModel> GetGameObjectByLobbyIdAndName(Guid lobbyId, string name);
+    Task<ICollection<GameObjectModel>> GetPlayerGameObjects();
+    Task<ICollection<GameObjectModel>> GetGhostGameObjects();
     Task CreateGameObject(GameObjectModel request);
     Task UpdateGameObject(GameObjectModel request);
     Task DeleteGameObject(GameObjectModel request);

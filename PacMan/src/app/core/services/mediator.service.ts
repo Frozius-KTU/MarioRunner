@@ -32,7 +32,10 @@ export class MediatorService {
     this.hubConnection.invoke('GetGameObjects', lobbyId);
   }
   updateGameObject(lobbyId: string, gameObject: GameObject) {
-    this.hubConnection.invoke('UpdateGameObject1', lobbyId, gameObject);
+    this.hubConnection.invoke('UpdateGameObjectByLobby', lobbyId, gameObject);
+  }
+  deleteGameObject(lobbyId: string, gameObject: GameObject) {
+    this.hubConnection.invoke('DeleteGameObjectByLobby', lobbyId, gameObject);
   }
 
   private createConnection() {

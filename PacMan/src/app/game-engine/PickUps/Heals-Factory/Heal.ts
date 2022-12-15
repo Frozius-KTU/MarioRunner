@@ -61,10 +61,6 @@ export class HealMapOne implements IHeal {
       });
     }
 
-    this.facadeService.mediatorService.getGameObjects(
-      sessionStorage.getItem('lobbyId')!
-    );
-
     var objects = this.gameObjects.split(';');
     objects.forEach((object) => {
       var data = object.split(' ');
@@ -176,10 +172,6 @@ export class HealMapTwo implements IHeal {
         y: newPosition.y,
       });
     }
-
-    this.facadeService.mediatorService.getGameObjects(
-      sessionStorage.getItem('lobbyId')!
-    );
 
     var objects = this.gameObjects.split(';');
     objects.forEach((object) => {
@@ -293,10 +285,6 @@ export class HealMapThree implements IHeal {
       });
     }
 
-    this.facadeService.mediatorService.getGameObjects(
-      sessionStorage.getItem('lobbyId')!
-    );
-
     var objects = this.gameObjects.split(';');
     objects.forEach((object) => {
       var data = object.split(' ');
@@ -355,7 +343,7 @@ export class HealMapThree implements IHeal {
   set minusHealth(val: number) {
     if (this.health > 0) {
       this.health -= val;
-      console.log('numinusavo');
+      //console.log('numinusavo');
     }
   }
 }

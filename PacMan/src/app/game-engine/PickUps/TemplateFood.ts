@@ -56,10 +56,6 @@ export abstract class AbstractFood {
       this.addScore = 1;
     }
 
-    this.facadeService.mediatorService.getGameObjects(
-      sessionStorage.getItem('lobbyId')!
-    );
-
     var objects = this.gameObjects.split(';');
     objects.forEach((object) => {
       var data = object.split(' ');

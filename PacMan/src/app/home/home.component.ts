@@ -120,14 +120,4 @@ export class HomeComponent implements OnInit {
       });
     }
   }
-
-  createGameObject() {
-    const gameObject: GameObject = {
-      name: 'Food1',
-      lobbyId: 'fd64ce06-3d83-4a8e-b984-a10a8cbfc69f',
-      x: 7,
-      y: 7,
-    };
-    this.facadeService.mediatorService.createGameObject(gameObject);
-  }
 }
