@@ -14,29 +14,29 @@ public class MapRepository : IMapRepository
         _context = context;
     }
     private readonly GameContext _context;
-    public Task SaveChangesAsync()
+    public Task SaveChanges()
     {
         return _context.SaveChangesAsync();
     }
-    public async Task<ICollection<MapModel>> GetMapListAsync()
+    public async Task<ICollection<MapModel>> GetMapList()
     {
         var list = _context.Maps.ToList();
         return await Task.FromResult(list);
     }
-    public async Task<MapModel> GetMapByIdAsync(Guid id)
+    public async Task<MapModel> GetMapById(Guid id)
     {
         MapModel model = await _context.Maps.FirstOrDefaultAsync(x => x.Id == id);
         return model;
     }
-    public async Task CreateMapAsync(MapModel request)
+    public async Task CreateMap(MapModel request)
     {
         await _context.Maps.AddAsync(request);
     }
-    public async Task UpdateMapAsync(MapModel request)
+    public async Task UpdateMap(MapModel request)
     {
         await Task.CompletedTask;
     }
-    public async Task DeleteMapAsync(MapModel request)
+    public async Task DeleteMap(MapModel request)
     {
         if (request is null)
         {

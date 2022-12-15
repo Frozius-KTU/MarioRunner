@@ -186,10 +186,22 @@ export class GameBoardComponent implements OnInit, AfterViewInit {
 
   prepareParams(wall: Wall) {
     this.player = new Player(this.facadeService, wall, this.correctInput);
-    this.food1 = new Food(this.player, wall);
-    this.food2 = new SuperFood(this.player, wall);
-    this.clumsyFood = new ClumsyFood(this.player, wall, this.clumsyInput);
-    this.antidoteFood = new AntidoteFood(this.player, wall, this.correctInput);
+    this.food1 = new Food(this.player, wall, 'Food1', this.facadeService);
+    this.food2 = new SuperFood(this.player, wall, 'Food2', this.facadeService);
+    this.clumsyFood = new ClumsyFood(
+      this.player,
+      wall,
+      this.clumsyInput,
+      'ClumsyFood',
+      this.facadeService
+    );
+    this.antidoteFood = new AntidoteFood(
+      this.player,
+      wall,
+      this.correctInput,
+      'AntidoteFood',
+      this.facadeService
+    );
     //this.dotFood = new DotFood(this.player, wall);
     this.clumsyFoodAbstraction = new ChemicalsAbstraction(this.clumsyFood);
     this.antidoteFoodAbstraction = new ChemicalsAbstraction(this.antidoteFood);
@@ -372,7 +384,8 @@ export class GameBoardComponent implements OnInit, AfterViewInit {
       let parser = new ExpressionParser(
         this.player!,
         this.opponent!,
-        this.gameBoard
+        this.correctInput,
+        this.clumsyInput
       );
       this.chatmessages.push(new ChatMessage(this.command));
 
@@ -395,20 +408,40 @@ export class GameBoardComponent implements OnInit, AfterViewInit {
     if (level == 1) {
       //console.log(1);
       this.pickup = new PickUpsFactoryMap1(this.player, wall);
-      return this.pickup.createPowerUp(this.player, this.wall);
+      return this.pickup.createPowerUp(
+        this.player,
+        this.wall,
+        'PowerUp1',
+        this.facadeService
+      );
     }
     if (level == 2) {
       //console.log(2);
       this.pickup = new PickUpsFactoryMap2(this.player, wall);
-      return this.pickup.createPowerUp(this.player, this.wall);
+      return this.pickup.createPowerUp(
+        this.player,
+        this.wall,
+        'PowerUp2',
+        this.facadeService
+      );
     }
     if (level == 3) {
       //console.log(3);
       this.pickup = new PickUpsFactoryMap3(this.player, wall);
-      return this.pickup.createPowerUp(this.player, this.wall);
+      return this.pickup.createPowerUp(
+        this.player,
+        this.wall,
+        'PowerUp3',
+        this.facadeService
+      );
     } else {
       this.pickup = new PickUpsFactoryMap1(this.player, wall);
-      return this.pickup.createPowerUp(this.player, this.wall);
+      return this.pickup.createPowerUp(
+        this.player,
+        this.wall,
+        'PowerUp1',
+        this.facadeService
+      );
     }
   }
   getHeals(level: number, wall: Wall) {
@@ -416,20 +449,40 @@ export class GameBoardComponent implements OnInit, AfterViewInit {
       //console.log(1);
       this.pickup = new PickUpsFactoryMap1(this.player, wall);
       //console.log(this.pickup.createPowerUp(this.player, this.wall));
-      return this.pickup.createHeal(this.player, this.wall);
+      return this.pickup.createHeal(
+        this.player,
+        this.wall,
+        'HealMap1',
+        this.facadeService
+      );
     }
     if (level == 2) {
       //console.log(2);
       this.pickup = new PickUpsFactoryMap2(this.player, wall);
-      return this.pickup.createHeal(this.player, this.wall);
+      return this.pickup.createHeal(
+        this.player,
+        this.wall,
+        'HealMap2',
+        this.facadeService
+      );
     }
     if (level == 3) {
       //console.log(3);
       this.pickup = new PickUpsFactoryMap3(this.player, wall);
-      return this.pickup.createHeal(this.player, this.wall);
+      return this.pickup.createHeal(
+        this.player,
+        this.wall,
+        'HealMap3',
+        this.facadeService
+      );
     } else {
       this.pickup = new PickUpsFactoryMap1(this.player, wall);
-      return this.pickup.createHeal(this.player, this.wall);
+      return this.pickup.createHeal(
+        this.player,
+        this.wall,
+        'HealMap1',
+        this.facadeService
+      );
     }
   }
   getHealsLeaf(level: number, wall: Wall) {

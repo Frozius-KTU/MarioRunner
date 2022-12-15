@@ -3,10 +3,9 @@ import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { ChatMessage } from '../models/chatMessage.model';
 import Swal from 'sweetalert2';
-import { Client } from '../models/game.types';
+import { Client, GameObject } from '../models/game.types';
 import { PlatformLocation } from '@angular/common';
 import { FacadeService } from '../core/services/facade.service';
-import { Mediator, MediatorTest } from '../game-engine/Mediator';
 
 @Component({
   selector: 'app-home',
@@ -28,12 +27,7 @@ export class HomeComponent implements OnInit {
     });
   }
 
-  mediator?: MediatorTest;
-
   ngOnInit() {
-    this.mediator = new MediatorTest();
-    this.mediator.main();
-
     this.playerName =
       sessionStorage.getItem('playerName') ||
       'Player_' + Math.floor(Math.random() * (999 - 100) + 100).toString();
@@ -125,5 +119,15 @@ export class HomeComponent implements OnInit {
         //window.location.reload();
       });
     }
+  }
+
+  createGameObject() {
+    const gameObject: GameObject = {
+      name: 'Food1',
+      lobbyId: 'fd64ce06-3d83-4a8e-b984-a10a8cbfc69f',
+      x: 7,
+      y: 7,
+    };
+    this.facadeService.mediatorService.createGameObject(gameObject);
   }
 }

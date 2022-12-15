@@ -13,29 +13,29 @@ public class LobbyRepository : ILobbyRepository
         _context = context;
     }
     private readonly GameContext _context;
-    public Task SaveChangesAsync()
+    public Task SaveChanges()
     {
         return _context.SaveChangesAsync();
     }
-    public async Task<ICollection<LobbyModel>> GetLobbyListAsync()
+    public async Task<ICollection<LobbyModel>> GetLobbyList()
     {
         var list = _context.Lobbies.OrderBy(x => x.Name).ToList();
         return await Task.FromResult(list);
     }
-    public async Task<LobbyModel> GetLobbyByIdAsync(Guid id)
+    public async Task<LobbyModel> GetLobbyById(Guid id)
     {
         LobbyModel model = await _context.Lobbies.FirstOrDefaultAsync(x => x.Id == id);
         return model;
     }
-    public async Task CreateLobbyAsync(LobbyModel request)
+    public async Task CreateLobby(LobbyModel request)
     {
         await _context.Lobbies.AddAsync(request);
     }
-    public async Task UpdateLobbyAsync(LobbyModel request)
+    public async Task UpdateLobby(LobbyModel request)
     {
         await Task.CompletedTask;
     }
-    public async Task DeleteLobbyAsync(LobbyModel request)
+    public async Task DeleteLobby(LobbyModel request)
     {
         if (request is null)
         {

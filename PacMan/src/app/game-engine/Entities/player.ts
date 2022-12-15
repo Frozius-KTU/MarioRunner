@@ -15,6 +15,8 @@ export abstract class AbstractPlayer {
   state?: PlayerState;
   body = { x: 13, y: 16 };
   score = 0;
+
+  changeMovement(moveAlgorithm: IMoveAlgorithm) {}
 }
 
 export class Player extends AbstractPlayer {
@@ -75,7 +77,7 @@ export class Player extends AbstractPlayer {
     this.state = this.state?.changeState();
   }
 
-  changeMovement(moveAlgorithm: IMoveAlgorithm) {
+  override changeMovement(moveAlgorithm: IMoveAlgorithm) {
     this.moveAlgorithm = moveAlgorithm;
     this.moveAlgorithm.resetDirection();
     //this.update();

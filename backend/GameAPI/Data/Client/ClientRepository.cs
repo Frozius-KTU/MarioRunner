@@ -13,29 +13,29 @@ public class ClientRepository : IClientRepository
         _context = context;
     }
     private readonly MemoryContext _context;
-    public Task SaveChangesAsync()
+    public Task SaveChanges()
     {
         return _context.SaveChangesAsync();
     }
-    public async Task<ICollection<ClientModel>> GetClientListAsync()
+    public async Task<ICollection<ClientModel>> GetClientList()
     {
         var list = _context.Clients.ToList();
         return await Task.FromResult(list);
     }
-    public async Task<ClientModel> GetClientByIdAsync(Guid id)
+    public async Task<ClientModel> GetClientById(Guid id)
     {
         ClientModel result = await _context.Clients.FirstOrDefaultAsync(x => x.Id == id);
         return result;
     }
-    public async Task CreateClientAsync(ClientModel request)
+    public async Task CreateClient(ClientModel request)
     {
         await _context.Clients.AddAsync(request);
     }
-    public async Task UpdateClientAsync(ClientModel request)
+    public async Task UpdateClient(ClientModel request)
     {
         await Task.CompletedTask;
     }
-    public async Task DeleteClientAsync(ClientModel request)
+    public async Task DeleteClient(ClientModel request)
     {
         if (request is null)
         {

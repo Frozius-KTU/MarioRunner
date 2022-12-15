@@ -1,3 +1,4 @@
+import { FacadeService } from 'src/app/core/services/facade.service';
 import { Wall } from '../../Environment/Decorator';
 import { IHeal, HealMapOne, HealMapTwo, HealMapThree } from './Heal';
 
@@ -6,8 +7,13 @@ export class HealsFactoryCreator1 {
   constructor(public wall: Wall, player: any) {
     this.player = player;
   }
-  public factoryMethod1(player: any, wall: any): IHeal {
-    return new HealMapOne(player, wall);
+  public factoryMethod1(
+    player: any,
+    wall: any,
+    name: string,
+    facadeService: FacadeService
+  ): IHeal {
+    return new HealMapOne(player, wall, name, facadeService);
   }
 }
 
@@ -16,8 +22,13 @@ export class HealsFactoryCreator2 {
   constructor(public wall: Wall, player: any) {
     this.player = player;
   }
-  public factoryMethod2(player: any, wall: any): IHeal {
-    return new HealMapTwo(player, wall);
+  public factoryMethod2(
+    player: any,
+    wall: any,
+    name: string,
+    facadeService: FacadeService
+  ): IHeal {
+    return new HealMapTwo(player, wall, name, facadeService);
   }
 }
 
@@ -26,7 +37,12 @@ export class HealsFactoryCreator3 {
   constructor(public wall: Wall, player: any) {
     this.player = player;
   }
-  public factoryMethod3(player: any, wall: any): IHeal {
-    return new HealMapThree(player, wall);
+  public factoryMethod3(
+    player: any,
+    wall: any,
+    name: string,
+    facadeService: FacadeService
+  ): IHeal {
+    return new HealMapThree(player, wall, name, facadeService);
   }
 }

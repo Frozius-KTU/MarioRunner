@@ -5,6 +5,7 @@ import { LobbyService } from './/lobby.service';
 import { ClientService } from './client.service';
 import { MapService } from './map.service';
 import { SignalRService } from './signalR.service';
+import { MediatorService } from './mediator.service';
 
 @NgModule({
   imports: [CommonModule],
@@ -14,7 +15,7 @@ import { SignalRService } from './signalR.service';
     ClientService,
     MapService,
     SignalRService,
-
+    MediatorService,
     FacadeService,
   ],
 })

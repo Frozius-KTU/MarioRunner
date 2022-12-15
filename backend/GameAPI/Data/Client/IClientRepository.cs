@@ -5,11 +5,11 @@ using GameAPI.Model;
 namespace GameAPI.Data.Client;
 public interface IClientRepository
 {
-    Task SaveChangesAsync();
-    Task<ICollection<ClientModel>> GetClientListAsync();
-    Task<ClientModel> GetClientByIdAsync(Guid id);
-    Task CreateClientAsync(ClientModel request);
-    Task UpdateClientAsync(ClientModel request);
-    Task DeleteClientAsync(ClientModel request);
+    Task SaveChanges();
+    Task<ICollection<ClientModel>> GetClientList();
+    Task<ClientModel> GetClientById(Guid id);
+    Task CreateClient(ClientModel request);
+    Task UpdateClient(ClientModel request);
+    Task DeleteClient(ClientModel request);
 }
 

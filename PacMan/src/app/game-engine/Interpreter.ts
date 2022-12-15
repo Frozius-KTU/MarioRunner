@@ -1,5 +1,7 @@
 import { GameBoardComponent } from '../game-board/game-board.component';
 import { AbstractPlayer, Player } from './Entities/player';
+import { ClumsyInput } from './MoveAlgorithm/ClumsyInput';
+import { CorrectInput } from './MoveAlgorithm/CorrectInput';
 
 // export class Context {
 //   x: number;
@@ -21,21 +23,31 @@ export interface IExpression {
 export class GiveExpresion implements IExpression {
   constructor(
     player: AbstractPlayer,
-    gameBoard: GameBoardComponent,
+    correctInput: CorrectInput,
+    clumsyInput: ClumsyInput,
     token: string[]
   ) {
     this.player = player;
     this.token = token;
-    this.gameBoard = gameBoard;
+    this.correctInput = correctInput;
+    this.clumsyInput = clumsyInput;
   }
   player: AbstractPlayer;
   token: string[];
-  gameBoard: GameBoardComponent;
+  correctInput: CorrectInput;
+  clumsyInput: ClumsyInput;
 
   Interpret(): any {
-    if (this.token[0] == 'immortal') {
-      //this.player.immortal = true;
-      return 'not implamented';
+    if (
+      this.token[0] == 'correct_movement' ||
+      this.token[0] == 'correct_input'
+    ) {
+      this.player.changeMovement(this.correctInput);
+    } else if (
+      this.token[0] == 'clumsy_movement' ||
+      this.token[0] == 'clumsy_input'
+    ) {
+      this.player.changeMovement(this.clumsyInput);
     } else if (this.token[0] == 'points') {
       if (parseInt(this.token[1])) {
         this.player.score += parseInt(this.token[1]);
@@ -59,21 +71,31 @@ export class GiveExpresion implements IExpression {
 export class RemoveExpresion implements IExpression {
   constructor(
     player: AbstractPlayer,
-    gameBoard: GameBoardComponent,
+    correctInput: CorrectInput,
+    clumsyInput: ClumsyInput,
     token: string[]
   ) {
     this.player = player;
     this.token = token;
-    this.gameBoard = gameBoard;
+    this.correctInput = correctInput;
+    this.clumsyInput = clumsyInput;
   }
   player: AbstractPlayer;
   token: string[];
-  gameBoard: GameBoardComponent;
+  correctInput: CorrectInput;
+  clumsyInput: ClumsyInput;
 
   Interpret(): any {
-    if (this.token[0] == 'immortal') {
-      //this.player.immortal = false;
-      return 'not implamented';
+    if (
+      this.token[0] == 'correct_movement' ||
+      this.token[0] == 'correct_input'
+    ) {
+      this.player.changeMovement(this.clumsyInput);
+    } else if (
+      this.token[0] == 'clumsy_movement' ||
+      this.token[0] == 'clumsy_input'
+    ) {
+      this.player.changeMovement(this.correctInput);
     } else if (this.token[0] == 'points') {
       if (parseInt(this.token[1])) {
         this.player.score -= parseInt(this.token[1]);
@@ -134,16 +156,19 @@ export class MoveExpresion implements IExpression {
 export class PlayerExpresion implements IExpression {
   constructor(
     player: AbstractPlayer,
-    gameBoard: GameBoardComponent,
+    correctInput: CorrectInput,
+    clumsyInput: ClumsyInput,
     token: string[]
   ) {
     this.player = player;
     this.token = token;
-    this.gameBoard = gameBoard;
+    this.correctInput = correctInput;
+    this.clumsyInput = clumsyInput;
   }
   player: AbstractPlayer;
   token: string[];
-  gameBoard: GameBoardComponent;
+  correctInput: CorrectInput;
+  clumsyInput: ClumsyInput;
 
   Interpret(): any {
     let expression;
@@ -158,11 +183,21 @@ export class PlayerExpresion implements IExpression {
       return expression.Interpret();
     } else if (this.token[0] == 'give') {
       this.token.splice(0, 1);
-      expression = new GiveExpresion(this.player, this.gameBoard, this.token);
+      expression = new GiveExpresion(
+        this.player,
+        this.correctInput,
+        this.clumsyInput,
+        this.token
+      );
       return expression.Interpret();
     } else if (this.token[0] == 'remove') {
       this.token.splice(0, 1);
-      expression = new RemoveExpresion(this.player, this.gameBoard, this.token);
+      expression = new RemoveExpresion(
+        this.player,
+        this.correctInput,
+        this.clumsyInput,
+        this.token
+      );
       return expression.Interpret();
     } else {
       return 'invalid player command';
@@ -174,19 +209,20 @@ export class ExpressionParser {
   constructor(
     player: AbstractPlayer,
     opponent: AbstractPlayer,
-    gameBoard: GameBoardComponent
+    correctInput: CorrectInput,
+    clumsyInput: ClumsyInput
   ) {
     this.player = player;
     this.opponent = opponent;
-    this.gameBoard = gameBoard;
+    this.correctInput = correctInput;
+    this.clumsyInput = clumsyInput;
   }
   player: AbstractPlayer;
   opponent: AbstractPlayer;
-  gameBoard: GameBoardComponent;
+  correctInput: CorrectInput;
+  clumsyInput: ClumsyInput;
 
   parse(command: string): any {
-    console.log(this.gameBoard);
-
     let token: string[] = command.split(' ');
     for (let i = 0; i < token.length; i++) {
       if (token[i] == '') {
@@ -194,38 +230,29 @@ export class ExpressionParser {
         i--;
       }
     }
-    console.log(token);
 
     let expression;
 
     if (token[0] == 'player') {
       token.splice(0, 1);
-      expression = new PlayerExpresion(this.player, this.gameBoard, token);
+      expression = new PlayerExpresion(
+        this.player,
+        this.correctInput,
+        this.clumsyInput,
+        token
+      );
       return expression.Interpret();
     } else if (token[0] == 'opponent') {
       token.splice(0, 1);
-      expression = new PlayerExpresion(this.opponent, this.gameBoard, token);
+      expression = new PlayerExpresion(
+        this.opponent,
+        this.correctInput,
+        this.clumsyInput,
+        token
+      );
       return expression.Interpret();
     } else {
       return 'invalid command';
     }
   }
 }
-
-// export class Interpreter {
-//   main() {
-//     let player = new Context(0, 0);
-//     let opponent = new Context(0, 0);
-//     let parser = new ExpressionParser(player, opponent);
-//     let command = 'player tp 10 10';
-//     let command2 = 'opponent move down';
-//     let command3 = 'player give immortal';
-
-//     parser.parse(command);
-//     parser.parse(command2);
-//     parser.parse(command3);
-
-//     console.log(player);
-//     console.log(opponent);
-//   }
-// }

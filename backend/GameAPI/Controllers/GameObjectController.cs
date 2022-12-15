@@ -29,9 +29,9 @@ public class GameObjectController : ControllerBase
 
     // GET api/client
     [HttpGet]
-    public async Task<ActionResult<ICollection<GameObjectModel>>> GetGameObjectListAsync()
+    public async Task<ActionResult<ICollection<GameObjectModel>>> GetGameObjectList()
     {
-        var list = await _repository.GetGameObjectListAsync();
+        var list = await _repository.GetGameObjectList();
         if (list is null)
         {
             return NotFound();
@@ -41,9 +41,32 @@ public class GameObjectController : ControllerBase
 
     // GET api/client/{id}
     [HttpGet("{id:Guid}")]
-    public async Task<ActionResult<GameObjectModel>> GetGameObjectByIdAsync([FromRoute] Guid id)
+    public async Task<ActionResult<GameObjectModel>> GetGameObjectById([FromRoute] Guid id)
     {
-        var result = await _repository.GetGameObjectByIdAsync(id);
+        var result = await _repository.GetGameObjectById(id);
+        if (result is null)
+        {
+            return NotFound();
+        }
+        return Ok(result);
+    }
+
+    // GET api/client/{id}
+    [HttpGet("lobbyId/{lobbyId:Guid}")]
+    public async Task<ActionResult<ICollection<GameObjectModel>>> GetGameObjectsByLobbyId([FromRoute] Guid lobbyId)
+    {
+        var result = await _repository.GetGameObjectsByLobbyId(lobbyId);
+        if (result is null)
+        {
+            return NotFound();
+        }
+        return Ok(result);
+    }
+    // GET api/client/{id}
+    [HttpGet("lobbyId/{lobbyId:Guid}/{name}")]
+    public async Task<ActionResult<ICollection<GameObjectModel>>> GetGameObjectByLobbyIdAndName([FromRoute] Guid lobbyId, [FromRoute] string name)
+    {
+        var result = await _repository.GetGameObjectByLobbyIdAndName(lobbyId, name);
         if (result is null)
         {
             return NotFound();
@@ -53,62 +76,54 @@ public class GameObjectController : ControllerBase
 
         // POST api/client
     [HttpPost]
-    public async Task<ActionResult> CreateGameObjectAsync([FromBody] GameObjectModel request)
+    public async Task<ActionResult> CreateGameObject([FromBody] GameObjectModel request)
     {
         if (request == null)
         {
             return BadRequest();
         }
-        await _repository.CreateGameObjectAsync(request);
+        await _repository.CreateGameObject(request);
 
-        await _repository.SaveChangesAsync();
+        await _repository.SaveChanges();
 
-        //await _chatHubContext.GameObjects.All.SendAsync("FoodAdded", request);
-
-        //return Ok(request);
         return Created(nameof(request), request);
     }
 
     // PUT api/client/id
     [HttpPut("{id:Guid}")]
-    public async Task<ActionResult> UpdateGameObjectAsync([FromRoute] Guid id, [FromBody] GameObjectModel request)
+    public async Task<ActionResult> UpdateGameObject([FromRoute] Guid id, [FromBody] GameObjectModel request)
     {
-        var model = await _repository.GetGameObjectByIdAsync(id);
+        var model = await _repository.GetGameObjectById(id);
         if(model is null){
             return NotFound();
         }
-
+        Console.WriteLine("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!" + request.X);
         model.Name = !String.IsNullOrEmpty(request.Name) ? request.Name : model.Name;
+        model.LobbyId = request.LobbyId != null ? request.LobbyId : model.LobbyId;
         model.X = request.X != null ? request.X : model.X;
         model.Y = request.Y != null ? request.Y : model.Y;
         model.Parameters = !String.IsNullOrEmpty(request.Parameters) ? request.Parameters : model.Parameters;
         
 
-        await _repository.UpdateGameObjectAsync(model);
+        await _repository.UpdateGameObject(model);
 
-        await _repository.SaveChangesAsync();
-
-        //await _chatHubContext.GameObjects.All.SendAsync("FoodUpdated", model);
+        await _repository.SaveChanges();
 
         return Ok(model);
     }
 
     // Delete api/client/{id}
     [HttpDelete("{id:Guid}")]
-    public async Task<ActionResult> DeleteGameObjectByIdAsync([FromRoute] Guid id)
+    public async Task<ActionResult> DeleteGameObjectById([FromRoute] Guid id)
     {
 
-        var client = await _repository.GetGameObjectByIdAsync(id);
+        var client = await _repository.GetGameObjectById(id);
         if (client is null)
             return NotFound("Not a valid client id");
 
-        await _repository.DeleteGameObjectAsync(client);
+        await _repository.DeleteGameObject(client);
 
-        await _repository.SaveChangesAsync();
-
-        //await _chatHubContext.GameObjects.All.SendAsync("FoodDeleted");
-
-        
+        await _repository.SaveChanges();
 
         return NoContent();
     }

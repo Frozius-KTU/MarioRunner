@@ -19,9 +19,9 @@ public class MapController : ControllerBase
 
     // GET api/map
     [HttpGet]
-    public async Task<ActionResult<ICollection<MapModel>>> GetMapListAsync()
+    public async Task<ActionResult<ICollection<MapModel>>> GetMapList()
     {
-        var list = await _repository.GetMapListAsync();
+        var list = await _repository.GetMapList();
         if (list is null)
         {
             return NotFound();
@@ -32,9 +32,9 @@ public class MapController : ControllerBase
 
     // GET api/map/{id}
     [HttpGet("{id:Guid}")]
-    public async Task<ActionResult<MapModel>> GetMapByIdAsync([FromRoute] Guid id)
+    public async Task<ActionResult<MapModel>> GetMapById([FromRoute] Guid id)
     {
-        var mapFromRepo = await _repository.GetMapByIdAsync(id);
+        var mapFromRepo = await _repository.GetMapById(id);
         if (mapFromRepo is null)
         {
             return NotFound();
@@ -44,20 +44,20 @@ public class MapController : ControllerBase
 
     // POST api/map
     [HttpPost]
-    public async Task<ActionResult> CreateMapAsync([FromBody] MapModel mapModel)
+    public async Task<ActionResult> CreateMap([FromBody] MapModel mapModel)
     {
-        await _repository.CreateMapAsync(mapModel);
+        await _repository.CreateMap(mapModel);
 
-        await _repository.SaveChangesAsync();
+        await _repository.SaveChanges();
 
         return NoContent();
     }
 
     // PUT api/map/id
     [HttpPut("{id:Guid}")]
-    public async Task<ActionResult> UpdateMapAsync([FromRoute] Guid id, [FromBody] MapModel mapModel)
+    public async Task<ActionResult> UpdateMap([FromRoute] Guid id, [FromBody] MapModel mapModel)
     {
-        var model = await _repository.GetMapByIdAsync(id);
+        var model = await _repository.GetMapById(id);
         if(model is null){
             return NotFound();
         }
@@ -65,25 +65,25 @@ public class MapController : ControllerBase
         model.Name = !String.IsNullOrEmpty(mapModel.Name) ? mapModel.Name : model.Name;
         model.Map = mapModel.Map ?? model.Map;
 
-        await _repository.UpdateMapAsync(model);
+        await _repository.UpdateMap(model);
 
-        await _repository.SaveChangesAsync();
+        await _repository.SaveChanges();
 
         return NoContent();
     }
 
     // Delete api/map/{id}
     [HttpDelete("{id:Guid}")]
-    public async Task<ActionResult> DeleteMapByIdAsync([FromRoute] Guid id)
+    public async Task<ActionResult> DeleteMapById([FromRoute] Guid id)
     {
 
-        var map = await _repository.GetMapByIdAsync(id);
+        var map = await _repository.GetMapById(id);
         if (map is null)
             return NotFound("Not a valid map id");
 
-        await _repository.DeleteMapAsync(map);
+        await _repository.DeleteMap(map);
 
-        await _repository.SaveChangesAsync();
+        await _repository.SaveChanges();
         return NoContent();
     }
 }

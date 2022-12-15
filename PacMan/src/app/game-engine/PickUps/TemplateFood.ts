@@ -1,14 +1,37 @@
 import { randomGridPosition } from '../gameboard-grid.util';
 import { Wall } from '../Environment/Decorator';
+import { FacadeService } from 'src/app/core/services/facade.service';
+import { GameObject } from 'src/app/models/game.types';
 
 export abstract class AbstractFood {
-  constructor(player: any, public walls: Wall) {
+  constructor(
+    player: any,
+    public walls: Wall,
+    name: string,
+    private facadeService: FacadeService
+  ) {
     this.player = player;
     this.food = this.getRandomFoodPosition();
+    this.name = name;
+    var gameObject: GameObject = {
+      name: name,
+      lobbyId: sessionStorage.getItem('lobbyId')!,
+      x: this.food.x,
+      y: this.food.y,
+    };
+    facadeService.mediatorService.createGameObject(gameObject);
+
+    this.facadeService.mediatorService.gameObjects.subscribe((gameObjects) => {
+      this.gameObjects = gameObjects;
+    });
   }
 
   food: any;
+  name: string;
   player;
+
+  gameObjects: string = '';
+  oldPosition = { x: -1, y: -1 };
 
   public templateMethod(gameBoard: any): void {
     this.update();
@@ -20,9 +43,36 @@ export abstract class AbstractFood {
 
   protected update(): void {
     if (this.player.onPlayer(this.food)) {
-      this.food = this.getRandomFoodPosition();
+      this.oldPosition = this.food;
+      this.food = { x: -1, y: -1 };
+      const newPosition: any = this.getRandomFoodPosition();
+
+      let lobbyId = sessionStorage.getItem('lobbyId')!;
+      this.facadeService.mediatorService.updateGameObject(lobbyId, {
+        name: this.name,
+        x: newPosition.x,
+        y: newPosition.y,
+      });
       this.addScore = 1;
     }
+
+    this.facadeService.mediatorService.getGameObjects(
+      sessionStorage.getItem('lobbyId')!
+    );
+
+    var objects = this.gameObjects.split(';');
+    objects.forEach((object) => {
+      var data = object.split(' ');
+      if (
+        data[0] == this.name &&
+        data[1] != undefined &&
+        data[2] != undefined &&
+        (parseInt(data[1]) != this.oldPosition.x ||
+          parseInt(data[2]) != this.oldPosition.y)
+      ) {
+        this.food = { x: parseInt(data[1]), y: parseInt(data[2]) };
+      }
+    });
   }
 
   protected getRandomFoodPosition() {

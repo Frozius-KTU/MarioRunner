@@ -19,9 +19,9 @@ public class LobbyController : ControllerBase
 
     // GET api/lobby
     [HttpGet]
-    public async Task<ActionResult<ICollection<LobbyModel>>> GetLobbyListAsync()
+    public async Task<ActionResult<ICollection<LobbyModel>>> GetLobbyList()
     {
-        var lobbyList = await _repository.GetLobbyListAsync();
+        var lobbyList = await _repository.GetLobbyList();
         if (lobbyList is null)
         {
             return NotFound();
@@ -31,9 +31,9 @@ public class LobbyController : ControllerBase
 
     // GET api/lobby/{id}
     [HttpGet("{id:Guid}")]
-    public async Task<ActionResult<LobbyModel>> GetLobbyByIdAsync([FromRoute] Guid id)
+    public async Task<ActionResult<LobbyModel>> GetLobbyById([FromRoute] Guid id)
     {
-        var lobbyFromRepo = await _repository.GetLobbyByIdAsync(id);
+        var lobbyFromRepo = await _repository.GetLobbyById(id);
         if (lobbyFromRepo is null)
         {
             return NotFound();
@@ -43,20 +43,20 @@ public class LobbyController : ControllerBase
 
     // POST api/lobby
     [HttpPost]
-    public async Task<ActionResult> CreateLobbyAsync([FromBody] LobbyModel lobbyModel)
+    public async Task<ActionResult> CreateLobby([FromBody] LobbyModel lobbyModel)
     {
-        await _repository.CreateLobbyAsync(lobbyModel);
+        await _repository.CreateLobby(lobbyModel);
 
-        await _repository.SaveChangesAsync();
+        await _repository.SaveChanges();
 
         return NoContent();
     }
 
     // PUT api/lobby/id
     [HttpPut("{id:Guid}")]
-    public async Task<ActionResult> UpdateLobbyAsync([FromRoute] Guid id, [FromBody] LobbyModel lobbyModel)
+    public async Task<ActionResult> UpdateLobby([FromRoute] Guid id, [FromBody] LobbyModel lobbyModel)
     {
-        var model = await _repository.GetLobbyByIdAsync(id);
+        var model = await _repository.GetLobbyById(id);
         if(model is null){
             return NotFound();
         }
@@ -71,18 +71,18 @@ public class LobbyController : ControllerBase
         model.Name = !String.IsNullOrEmpty(lobbyModel.Name) ? lobbyModel.Name : model.Name;
         model.Level = lobbyModel.Level ?? model.Level;
 
-        await _repository.UpdateLobbyAsync(model);
+        await _repository.UpdateLobby(model);
 
-        await _repository.SaveChangesAsync();
+        await _repository.SaveChanges();
 
         return NoContent();
     }
 
     // PUT api/lobby/id/add/playerId
     [HttpGet("{id:Guid}/add/{playerId:Guid}")]
-    public async Task<ActionResult<Guid>> AddPlayerToLobbyAsync([FromRoute] Guid id, [FromRoute] Guid playerId)
+    public async Task<ActionResult<Guid>> AddPlayerToLobby([FromRoute] Guid id, [FromRoute] Guid playerId)
     {
-        var model = await _repository.GetLobbyByIdAsync(id);
+        var model = await _repository.GetLobbyById(id);
         if(model is null){
             return NotFound();
         }
@@ -97,18 +97,18 @@ public class LobbyController : ControllerBase
             return StatusCode(406);
         }
 
-        await _repository.UpdateLobbyAsync(model);
+        await _repository.UpdateLobby(model);
 
-        await _repository.SaveChangesAsync();
+        await _repository.SaveChanges();
 
         return Ok(playerId);
     }
 
     // PUT api/lobby/id/remove/playerId
     [HttpDelete("{id:Guid}/remove/{playerId:Guid}")]
-    public async Task<ActionResult> RemovePlayerFromLobbyAsync([FromRoute] Guid id, [FromRoute] Guid playerId)
+    public async Task<ActionResult> RemovePlayerFromLobby([FromRoute] Guid id, [FromRoute] Guid playerId)
     {
-        var model = await _repository.GetLobbyByIdAsync(id);
+        var model = await _repository.GetLobbyById(id);
         if(model is null){
             return NotFound();
         }
@@ -121,20 +121,20 @@ public class LobbyController : ControllerBase
         else{
             return NotFound();
         }
-        await _repository.UpdateLobbyAsync(model);
-        await _repository.SaveChangesAsync();
+        await _repository.UpdateLobby(model);
+        await _repository.SaveChanges();
         return NoContent();
     }
 
     // Delete api/lobby/{id}
     [HttpDelete("{id:Guid}")]
-    public async Task<ActionResult> DeleteLobbyByIdAsync([FromRoute] Guid id)
+    public async Task<ActionResult> DeleteLobbyById([FromRoute] Guid id)
     {
-        var lobby = await _repository.GetLobbyByIdAsync(id);
+        var lobby = await _repository.GetLobbyById(id);
         if (lobby is null)
             return NotFound("Not a valid lobby id");
-        await _repository.DeleteLobbyAsync(lobby);
-        await _repository.SaveChangesAsync();
+        await _repository.DeleteLobby(lobby);
+        await _repository.SaveChanges();
         return NoContent();
     }
 }

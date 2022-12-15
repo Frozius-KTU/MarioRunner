@@ -81,6 +81,7 @@ public class Startup
         {
             endpoints.MapControllers();
             endpoints.MapHub<ChatHub>("/pacman");
+            endpoints.MapHub<Mediator>("/pacman/mediator");
         });
         using (var serviceScope = app.ApplicationServices.GetRequiredService<IServiceScopeFactory>().CreateScope())
         {

@@ -1,9 +1,10 @@
 import { Injectable, Injector } from '@angular/core';
 import { ChatMessage } from 'src/app/models/chatMessage.model';
-import { Client } from 'src/app/models/game.types';
+import { Client, GameObject } from 'src/app/models/game.types';
 import { ClientService } from './client.service';
 import { LobbyService } from './lobby.service';
 import { MapService } from './map.service';
+import { MediatorService } from './mediator.service';
 import { SignalRService } from './signalR.service';
 
 @Injectable({ providedIn: 'root' })
@@ -82,5 +83,18 @@ export class FacadeService {
 
   disconnectClientFromLobby(clientId: string, lobbyId: string) {
     this.signalRService.disconnectClientFromLobby(clientId, lobbyId);
+  }
+  //###############################################################################################################################################################
+
+  private _mediatorService?: MediatorService;
+  public get mediatorService(): MediatorService {
+    if (!this._mediatorService) {
+      this._mediatorService = this.injector.get(MediatorService);
+    }
+    return this._mediatorService;
+  }
+
+  sendChatMessageMediator(gameObject: GameObject) {
+    return this.mediatorService.createGameObject(gameObject);
   }
 }

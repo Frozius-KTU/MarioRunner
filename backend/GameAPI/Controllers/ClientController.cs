@@ -29,9 +29,9 @@ public class ClientController : ControllerBase
 
     // GET api/client
     [HttpGet]
-    public async Task<ActionResult<ICollection<ClientModel>>> GetClientListAsync()
+    public async Task<ActionResult<ICollection<ClientModel>>> GetClientList()
     {
-        var list = await _repository.GetClientListAsync();
+        var list = await _repository.GetClientList();
         if (list is null)
         {
             return NotFound();
@@ -41,9 +41,9 @@ public class ClientController : ControllerBase
 
     // GET api/client/{id}
     [HttpGet("{id:Guid}")]
-    public async Task<ActionResult<ClientModel>> GetClientByIdAsync([FromRoute] Guid id)
+    public async Task<ActionResult<ClientModel>> GetClientById([FromRoute] Guid id)
     {
-        var result = await _repository.GetClientByIdAsync(id);
+        var result = await _repository.GetClientById(id);
         if (result is null)
         {
             return NotFound();
@@ -53,17 +53,17 @@ public class ClientController : ControllerBase
 
         // POST api/client
     [HttpPost]
-    public async Task<ActionResult> CreateClientAsync([FromBody] ClientModel request)
+    public async Task<ActionResult> CreateClient([FromBody] ClientModel request)
     {
         if (request == null)
         {
             return BadRequest();
         }
-        await _repository.CreateClientAsync(request);
+        await _repository.CreateClient(request);
 
-        await _repository.SaveChangesAsync();
+        await _repository.SaveChanges();
 
-        //await _chatHubContext.Clients.All.SendAsync("FoodAdded", request);
+        //await _chatHubContext.Clients.All.Send("FoodAdded", request);
 
         //return Ok(request);
         return NoContent();
@@ -71,9 +71,9 @@ public class ClientController : ControllerBase
 
     // PUT api/client/id
     [HttpPut("{id:Guid}")]
-    public async Task<ActionResult> UpdateClientAsync([FromRoute] Guid id, [FromBody] ClientModel request)
+    public async Task<ActionResult> UpdateClient([FromRoute] Guid id, [FromBody] ClientModel request)
     {
-        var model = await _repository.GetClientByIdAsync(id);
+        var model = await _repository.GetClientById(id);
         if(model is null){
             return NotFound();
         }
@@ -89,29 +89,29 @@ public class ClientController : ControllerBase
         }
         
 
-        await _repository.UpdateClientAsync(model);
+        await _repository.UpdateClient(model);
 
-        await _repository.SaveChangesAsync();
+        await _repository.SaveChanges();
 
-        //await _chatHubContext.Clients.All.SendAsync("FoodUpdated", model);
+        //await _chatHubContext.Clients.All.Send("FoodUpdated", model);
 
         return Ok(model);
     }
 
     // Delete api/client/{id}
     [HttpDelete("{id:Guid}")]
-    public async Task<ActionResult> DeleteClientByIdAsync([FromRoute] Guid id)
+    public async Task<ActionResult> DeleteClientById([FromRoute] Guid id)
     {
 
-        var client = await _repository.GetClientByIdAsync(id);
+        var client = await _repository.GetClientById(id);
         if (client is null)
             return NotFound("Not a valid client id");
 
-        await _repository.DeleteClientAsync(client);
+        await _repository.DeleteClient(client);
 
-        await _repository.SaveChangesAsync();
+        await _repository.SaveChanges();
 
-        //await _chatHubContext.Clients.All.SendAsync("FoodDeleted");
+        //await _chatHubContext.Clients.All.Send("FoodDeleted");
 
         
 
