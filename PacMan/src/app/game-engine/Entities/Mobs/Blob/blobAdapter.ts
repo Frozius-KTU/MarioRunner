@@ -5,6 +5,7 @@ import { iGhostMegaEntity } from './ghostMegaEntity.model';
 import { Player } from '../../player';
 import { FacadeService } from 'src/app/core/services/facade.service';
 import { GameObject } from 'src/app/models/game.types';
+import { Visitor } from 'src/app/game-engine/visitor';
 
 export class BlobAdapter implements iGhostMegaEntity {
   blob?: Blob;
@@ -37,7 +38,9 @@ export class BlobAdapter implements iGhostMegaEntity {
   getBackgroundImage(url: string): string {
     return url;
   }
-
+  public accept(visitor: Visitor, time: number): void {
+    visitor.visitConcreteComponentB(this.blob!, time);
+  }
   draw(gameBoard: any) {
     const playerElement = document.createElement('div');
     playerElement.style.gridRowStart = this.ghostBody.y.toString();
@@ -63,7 +66,6 @@ export class BlobAdapter implements iGhostMegaEntity {
       }
     });
   }
-
   start(player: Player, walls: Wall) {
     this.setRandomPosition(player, walls);
     this.update();

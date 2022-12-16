@@ -47,6 +47,7 @@ import {
   PickUpsFactoryMap1Leaf,
 } from '../game-engine/PickUps/CompositePickUps';
 import { CareTaker, Originator } from '../game-engine/memento';
+import { ConcreteVisitor1, ConcreteVisitor2 } from '../game-engine/visitor';
 
 @Component({
   selector: 'app-game-board',
@@ -117,6 +118,7 @@ export class GameBoardComponent implements OnInit, AfterViewInit {
 
   ORIGINATOR = new Originator();
   CARETAKER = new CareTaker(this.ORIGINATOR);
+
   ngOnInit(): void {
     let route = this.activatedRoute.params.subscribe((params) => {
       const id = params['id'];
@@ -514,11 +516,11 @@ export class GameBoardComponent implements OnInit, AfterViewInit {
   Pause() {
     this.ORIGINATOR.state = 'Pause';
     this.gameBoard.classList.add('blur');
-    //window.requestAnimationFrame(this.start.bind(this));
+    // window.requestAnimationFrame(this.execute.bind(this));
   }
   Play() {
     this.ORIGINATOR.state = 'Play';
     this.gameBoard.classList.remove('blur');
-    //window.requestAnimationFrame(this.start.bind(this));
+    window.requestAnimationFrame(this.execute.bind(this));
   }
 }

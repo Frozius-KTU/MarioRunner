@@ -1,5 +1,6 @@
 import { FacadeService } from 'src/app/core/services/facade.service';
 import { GameBoardComponent } from 'src/app/game-board/game-board.component';
+import { Visitor } from 'src/app/game-engine/visitor';
 import { GameObject } from 'src/app/models/game.types';
 import { Wall } from '../../../Environment/Decorator';
 import { randomGridPosition } from '../../../gameboard-grid.util';
@@ -32,7 +33,9 @@ export class Ghost implements iGhostMegaEntity {
     this.mapId = mapId;
     this.name = name;
   }
-
+  public accept(visitor: Visitor, time: number, gameBoard: any): void {
+    visitor.visitConcreteComponentA(this, time, gameBoard);
+  }
   draw(gameBoard: any) {
     const playerElement = document.createElement('div');
     playerElement.style.gridRowStart = this.ghostBody.y.toString();

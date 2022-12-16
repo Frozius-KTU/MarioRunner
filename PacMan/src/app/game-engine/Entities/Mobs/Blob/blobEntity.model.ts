@@ -1,4 +1,5 @@
 import { FacadeService } from 'src/app/core/services/facade.service';
+import { Visitor } from 'src/app/game-engine/visitor';
 import { GameObject } from 'src/app/models/game.types';
 import { Wall } from '../../../Environment/Decorator';
 import { randomGridPosition } from '../../../gameboard-grid.util';
@@ -22,7 +23,9 @@ export class Blob {
   ) {
     this.mapId = mapId;
   }
-
+  public accept(visitor: Visitor, time: number): void {
+    visitor.visitConcreteComponentB(this, time);
+  }
   draw(gameBoard: any) {
     const playerElement = document.createElement('div');
     playerElement.style.gridRowStart = this.blobBody.y.toString();
