@@ -56,24 +56,31 @@ namespace GameAPI.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("fd64ce06-3d83-4a8e-b984-a10a8cbfc69f"),
+                            Id = new Guid("422d93e1-caf1-4be8-a64d-1e83d4bb74a1"),
                             Level = 1,
                             MapId = new Guid("3fa85f64-5717-4562-b3fc-2c963f66afa1"),
                             Name = "Lobby 1"
                         },
                         new
                         {
-                            Id = new Guid("a61061ce-c80e-4353-8f98-de59a215fc37"),
+                            Id = new Guid("88b19c03-e51f-4cc7-8edb-0f9e10d4f9b3"),
                             Level = 2,
                             MapId = new Guid("3fa85f64-5717-4562-b3fc-2c963f66afa2"),
                             Name = "Lobby 2"
                         },
                         new
                         {
-                            Id = new Guid("1cc68188-a54c-4c3b-bfe2-2ea184d905e3"),
+                            Id = new Guid("0a76a397-8d1e-44d3-aa64-143cd3ca558a"),
                             Level = 3,
                             MapId = new Guid("3fa85f64-5717-4562-b3fc-2c963f66afa3"),
                             Name = "Lobby 3"
+                        },
+                        new
+                        {
+                            Id = new Guid("cbf386f8-e4b4-447b-88cc-b66117eeda57"),
+                            Level = 0,
+                            MapId = new Guid("3fa85f64-5717-4562-b3fc-2c963f66afa1"),
+                            Name = "Progressive"
                         });
                 });
 
