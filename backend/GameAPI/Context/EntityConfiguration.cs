@@ -24,7 +24,8 @@ namespace GameAPI.Context
             builder.HasData(
                 new LobbyModel { Id = Guid.NewGuid(), Name = "Lobby 1", Level = 1, MapId = Guid.Parse("3fa85f64-5717-4562-b3fc-2c963f66afa1") },
                 new LobbyModel { Id = Guid.NewGuid(), Name = "Lobby 2", Level = 2, MapId = Guid.Parse("3fa85f64-5717-4562-b3fc-2c963f66afa2") },
-                new LobbyModel { Id = Guid.NewGuid(), Name = "Lobby 3", Level = 3, MapId = Guid.Parse("3fa85f64-5717-4562-b3fc-2c963f66afa3") }
+                new LobbyModel { Id = Guid.NewGuid(), Name = "Lobby 3", Level = 3, MapId = Guid.Parse("3fa85f64-5717-4562-b3fc-2c963f66afa3") },
+                new LobbyModel { Id = Guid.NewGuid(), Name = "Progressive", Level = 0, MapId = Guid.Parse("3fa85f64-5717-4562-b3fc-2c963f66afa1") }
                 );
         }
     }

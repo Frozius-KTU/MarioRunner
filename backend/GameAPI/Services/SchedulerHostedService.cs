@@ -259,7 +259,7 @@ public class SchedulerHostedService : HostedServiceBase
                 }
             }
 
-            await Task.Delay(TimeSpan.FromMilliseconds(_options.Value.Period)*0.25, cancellationToken);
+            await Task.Delay(TimeSpan.FromMilliseconds(_options.Value.Period)*1, cancellationToken);
         }
     }
     async Task RestartSignal()

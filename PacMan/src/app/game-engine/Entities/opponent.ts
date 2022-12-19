@@ -40,10 +40,19 @@ export class Opponent extends AbstractPlayer {
         var data = message.message.split(' ');
         if (
           data[0] == sessionStorage.getItem('lobbyId') &&
-          data[1] != sessionStorage.getItem('playerName')
+          data[1] != sessionStorage.getItem('playerName') &&
+          data[2] == this.progressMap.toString()
         ) {
-          this.body.x = Number(data[2]);
-          this.body.y = Number(data[3]);
+          this.body.x = Number(data[3]);
+          this.body.y = Number(data[4]);
+        }
+        if (
+          data[0] == sessionStorage.getItem('lobbyId') &&
+          data[1] != sessionStorage.getItem('playerName') &&
+          data[2] != this.progressMap.toString()
+        ) {
+          this.body.x = -1;
+          this.body.y = -1;
         }
       }
     );
