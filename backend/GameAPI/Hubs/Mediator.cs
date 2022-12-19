@@ -12,6 +12,7 @@ namespace GameAPI.Hubs;
 
 public class Mediator : Hub
 {
+    public string IP = "http://192.168.43.161:5000/";
     public async Task CreateGameObject(GameObjectModel gameObject)
     {
         HttpClientHandler clientHandler = new HttpClientHandler();
@@ -19,7 +20,7 @@ public class Mediator : Hub
         HttpClient client = new HttpClient(clientHandler);
 
         //Get gameObject
-        var response = await client.GetAsync($"https://localhost:5001/api/GameObject/lobbyId/{gameObject.LobbyId}/{gameObject.Name}");
+        var response = await client.GetAsync($"{IP}api/GameObject/lobbyId/{gameObject.LobbyId}/{gameObject.Name}");
         var finalData = await response.Content.ReadAsStringAsync();
         GameObjectModel result = JsonConvert.DeserializeObject<GameObjectModel>(finalData);
 
@@ -30,13 +31,13 @@ public class Mediator : Hub
             string jsonString = JsonConvert.SerializeObject(gameObject);
             var stringContent = new StringContent(jsonString, Encoding.UTF8, "application/json");
 
-            HttpResponseMessage httpResponse = await client.PutAsync("https://localhost:5001/api/GameObject/" + gameObject.Id, stringContent);
+            HttpResponseMessage httpResponse = await client.PutAsync(IP + "api/GameObject/" + gameObject.Id, stringContent);
         }
         else{
             string jsonString = JsonConvert.SerializeObject(gameObject);
             var stringContent = new StringContent(jsonString, Encoding.UTF8, "application/json");
 
-            HttpResponseMessage responseMessage = await client.PostAsync("https://localhost:5001/api/GameObject", stringContent);
+            HttpResponseMessage responseMessage = await client.PostAsync(IP + "api/GameObject", stringContent);
             
         }
         
@@ -49,7 +50,7 @@ public class Mediator : Hub
         HttpClient client = new HttpClient(clientHandler);
 
         //Get gameObject
-        var response = await client.GetAsync($"https://localhost:5001/api/GameObject/lobbyId/{lobbyId}");
+        var response = await client.GetAsync($"{IP}api/GameObject/lobbyId/{lobbyId}");
         var finalData = await response.Content.ReadAsStringAsync();
         List<GameObjectModel> gameObjects = JsonConvert.DeserializeObject<List<GameObjectModel>>(finalData);
 
@@ -79,7 +80,7 @@ public class Mediator : Hub
         HttpClient client = new HttpClient(clientHandler);
 
         //Get gameObject
-        var response = await client.GetAsync($"https://localhost:5001/api/GameObject/lobbyId/{lobbyId}/{gameObject.Name}");
+        var response = await client.GetAsync($"{IP}api/GameObject/lobbyId/{lobbyId}/{gameObject.Name}");
         var finalData = await response.Content.ReadAsStringAsync();
         GameObjectModel result = JsonConvert.DeserializeObject<GameObjectModel>(finalData);
 
@@ -90,7 +91,7 @@ public class Mediator : Hub
         //Put gameObject
         string jsonString = JsonConvert.SerializeObject(gameObject);
         var stringContent = new StringContent(jsonString, Encoding.UTF8, "application/json");
-        HttpResponseMessage httpResponse = await client.PutAsync("https://localhost:5001/api/GameObject/" + result.Id, stringContent);
+        HttpResponseMessage httpResponse = await client.PutAsync(IP + "api/GameObject/" + result.Id, stringContent);
     }
 
     public async Task DeleteGameObjectByLobby(string lobbyId, GameObjectModel gameObject)
@@ -100,7 +101,7 @@ public class Mediator : Hub
         HttpClient client = new HttpClient(clientHandler);
 
         //Get gameObject
-        var response = await client.DeleteAsync($"https://localhost:5001/api/GameObject/{lobbyId}/{gameObject.Name}");
+        var response = await client.DeleteAsync($"{IP}api/GameObject/{lobbyId}/{gameObject.Name}");
         var finalData = await response.Content.ReadAsStringAsync();
         GameObjectModel result = JsonConvert.DeserializeObject<GameObjectModel>(finalData);
 

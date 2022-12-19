@@ -120,4 +120,8 @@ export class HomeComponent implements OnInit {
       });
     }
   }
+  public test() {
+    sessionStorage.setItem('playerId', 'e66f0ca4-4147-48c3-a976-68afcc29921f');
+    sessionStorage.setItem('playerName', 'aluizas');
+  }
 }

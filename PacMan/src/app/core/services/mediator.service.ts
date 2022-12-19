@@ -10,6 +10,7 @@ import {
 import { BehaviorSubject, Subject } from 'rxjs';
 import { ChatMessage } from 'src/app/models/chatMessage.model';
 import { GameObject } from 'src/app/models/game.types';
+import * as signalR from '@microsoft/signalr';
 
 @Injectable({ providedIn: 'root' })
 export class MediatorService {
@@ -40,7 +41,7 @@ export class MediatorService {
 
   private createConnection() {
     this.hubConnection = new HubConnectionBuilder()
-      .withUrl(environment.baseUrls.server + 'pacman/mediator')
+      .withUrl(environment.baseUrls.server + 'pacman/mediator', {})
       .withAutomaticReconnect()
       .configureLogging(LogLevel.Information)
       .build();

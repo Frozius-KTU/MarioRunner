@@ -10,6 +10,7 @@ import {
 import { BehaviorSubject, Subject } from 'rxjs';
 import { ChatMessage } from 'src/app/models/chatMessage.model';
 import { Client } from 'src/app/models/game.types';
+import * as signalR from '@microsoft/signalr';
 
 @Injectable({ providedIn: 'root' })
 export class SignalRService {
@@ -46,7 +47,7 @@ export class SignalRService {
 
   private createConnection() {
     this.hubConnection = new HubConnectionBuilder()
-      .withUrl(environment.baseUrls.server + 'pacman')
+      .withUrl(environment.baseUrls.server + 'pacman', {})
       .withAutomaticReconnect()
       .configureLogging(LogLevel.Information)
       .build();

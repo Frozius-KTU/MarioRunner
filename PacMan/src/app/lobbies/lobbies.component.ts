@@ -33,6 +33,7 @@ export class LobbiesComponent implements OnInit {
           .subscribe({
             error: () => {
               sessionStorage.clear();
+              console.log('bybiene');
               this.router.navigate(['/home']);
             },
           });
