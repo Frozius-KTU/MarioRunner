@@ -31,11 +31,11 @@ export class ClientService {
   }
 
   addClient(request: Client): Observable<Client> {
-    return this.http.post<Client>(this.APIUrl + 'Client', request);
+    return this.http.post<Client>(this.APIUrl + 'ClientProxy', request);
   }
 
   updateClient(id: string, request: Client) {
-    return this.http.put(this.APIUrl + 'Client/' + id, request);
+    return this.http.put(this.APIUrl + 'ClientProxy/' + id, request);
   }
 
   deleteClientFromList(id: string) {

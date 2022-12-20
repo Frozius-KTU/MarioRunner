@@ -112,6 +112,13 @@ export class HomeComponent implements OnInit {
           },
           error: (error) => {
             console.log(error);
+            if(error.status==500 || error.status==403){
+              Swal.fire({
+                icon: 'error',
+                title: 'Invalid name',
+                text: 'Please enter valid name',
+              });
+            }
           },
         });
     } else {

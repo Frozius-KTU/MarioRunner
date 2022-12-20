@@ -45,6 +45,7 @@ public class Startup
         services.AddSignalR()
             .AddJsonProtocol(options =>
             {
+
                 options.PayloadSerializerOptions.PropertyNamingPolicy = JsonNamingPolicy.CamelCase;
             });
         
@@ -61,6 +62,7 @@ public class Startup
         services.AddScoped<IGameObjectRepository, GameObjectRepository>();
         services.AddScoped<ILobbyRepository, LobbyRepository>();
         services.AddScoped<IMapRepository, MapRepository>();
+        //services.AddScoped<IClientRepository, ClientProxyRepository>();
     }
     // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
     public void Configure(IApplicationBuilder app, IWebHostEnvironment env)

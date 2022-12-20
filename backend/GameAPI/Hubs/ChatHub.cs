@@ -158,7 +158,7 @@ public class ChatHub : Hub
 
                 //Console.WriteLine("!!!!!!!!!!!!!!!!!!!!!!!!!!!!" + jsonString);
                 //Console.WriteLine("!!!!!!!!!!!!!!!!!!!!!!!!!!!!" + stringContent);
-                HttpResponseMessage response = await client.PostAsync("https://localhost:5001/api/Client", stringContent);
+                HttpResponseMessage response = await client.PostAsync("https://localhost:5001/api/ClientProxy", stringContent);
 
                 //Console.WriteLine("!!!!!!!!!!!!!!!!!!!!!!!!!!!! " + response.StatusCode.ToString());
                 if(response.StatusCode.ToString() == "OK" || response.StatusCode.ToString() == "NoContent" || response.StatusCode.ToString() == "Created")
