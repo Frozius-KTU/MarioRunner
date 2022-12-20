@@ -9,7 +9,7 @@ import { MortalState } from './State/mortalState';
 import { PlayerState } from './State/playerState';
 
 export abstract class AbstractPlayer {
-  constructor(public facadeService: FacadeService) {
+  constructor(public facadeService: FacadeService, public progressMap: string) {
     this.state = new MortalState();
   }
 
@@ -23,11 +23,12 @@ export abstract class AbstractPlayer {
 export class Player extends AbstractPlayer {
   constructor(
     override facadeService: FacadeService,
+    override progressMap: string,
     public walls: Wall,
     movealgorithm: IMoveAlgorithm,
     name: string
   ) {
-    super(facadeService);
+    super(facadeService, progressMap);
     this.moveAlgorithm = movealgorithm;
     this.name = name;
 
@@ -118,6 +119,8 @@ export class Player extends AbstractPlayer {
         sessionStorage.getItem('lobbyId') +
           ' ' +
           sessionStorage.getItem('playerName') +
+          ' ' +
+          this.progressMap +
           ' ' +
           direction
       )

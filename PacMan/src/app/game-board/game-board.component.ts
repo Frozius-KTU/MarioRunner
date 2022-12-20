@@ -71,12 +71,12 @@ export class GameBoardComponent implements OnInit, AfterViewInit {
 
   gameOver = false;
   gameBoard: any;
-  opponent = new Opponent(this.facadeService);
 
   wall?: BlackBorderWallDecorator;
   door?: BrownBorderDoorDecorator;
 
   player?: Player;
+  opponent?: Opponent;
   food1?: Food;
   food2?: SuperFood;
 
@@ -119,6 +119,9 @@ export class GameBoardComponent implements OnInit, AfterViewInit {
   ORIGINATOR = new Originator();
   CARETAKER = new CareTaker(this.ORIGINATOR);
 
+  progressiveGamePlay = false;
+  progressMap = sessionStorage.getItem('progressMap') || '1';
+
   ngOnInit(): void {
     let route = this.activatedRoute.params.subscribe((params) => {
       const id = params['id'];
@@ -147,19 +150,40 @@ export class GameBoardComponent implements OnInit, AfterViewInit {
             case 1:
               this.wall = new BlackBorderWallDecorator(new Wall());
               this.door = new BrownBorderDoorDecorator(new Door());
+              this.progressMap = '1';
               break;
             case 2:
               this.wall = new PurpleBorderWallDecorator(new Wall());
               this.door = new PurpleBorderDoorDecorator(new Door());
+              this.progressMap = '2';
               break;
             case 3:
               this.wall = new YellowBorderWallDecorator(new Wall());
               this.door = new YellowBorderDoorDecorator(new Door());
+              this.progressMap = '3';
+              break;
+            case 0:
+              this.progressiveGamePlay = true;
+              this.progressMap = sessionStorage.getItem('progressMap') || '1';
+              if (this.progressMap == '1') {
+                this.wall = new BlackBorderWallDecorator(new Wall());
+                this.door = new BrownBorderDoorDecorator(new Door());
+                this.lobby.level = 1;
+              } else if (this.progressMap == '2') {
+                this.wall = new PurpleBorderWallDecorator(new Wall());
+                this.door = new PurpleBorderDoorDecorator(new Door());
+                this.lobby.level = 2;
+              } else if (this.progressMap == '3') {
+                this.wall = new YellowBorderWallDecorator(new Wall());
+                this.door = new YellowBorderDoorDecorator(new Door());
+                this.lobby.level = 3;
+              }
               break;
 
             default:
               this.wall = new BlackBorderWallDecorator(new Wall());
               this.door = new BrownBorderDoorDecorator(new Door());
+              this.progressMap = '1';
               break;
           }
 
@@ -170,6 +194,22 @@ export class GameBoardComponent implements OnInit, AfterViewInit {
               this.wall!.addBorder();
               this.door!.generateElements(this.map);
               this.door!.addBorder();
+
+              this.player = new Player(
+                this.facadeService,
+                this.progressMap,
+                this.wall!.wall,
+                this.correctInput,
+                'Player|' + sessionStorage.getItem('playerName')
+              );
+              this.opponent = new Opponent(
+                this.facadeService,
+                this.progressMap
+              );
+
+              if (sessionStorage.getItem('score')) {
+                this.player.score = parseInt(sessionStorage.getItem('score')!);
+              }
 
               this.prepareParams(this.wall!.wall);
             },
@@ -187,12 +227,6 @@ export class GameBoardComponent implements OnInit, AfterViewInit {
   }
 
   prepareParams(wall: Wall) {
-    this.player = new Player(
-      this.facadeService,
-      wall,
-      this.correctInput,
-      'Player|' + sessionStorage.getItem('playerName')
-    );
     this.food1 = new Food(this.player, wall, 'Food1', this.facadeService);
     this.food2 = new SuperFood(this.player, wall, 'Food2', this.facadeService);
     this.clumsyFood = new ClumsyFood(
@@ -215,7 +249,7 @@ export class GameBoardComponent implements OnInit, AfterViewInit {
 
     this.standartBobGenerator = new StandartBob(
       wall,
-      this.player,
+      this.player!,
       this.facadeService,
       this.map!.id!
     );
@@ -235,7 +269,7 @@ export class GameBoardComponent implements OnInit, AfterViewInit {
       this.facadeService,
       this.map!.id!
     );
-    this.ghostEntity.start(this.player, wall);
+    this.ghostEntity.start(this.player!, wall);
 
     this.pickupPowerUp = this.getPowerUps(this.lobby!.level, wall);
     this.pickupHeals = this.getHeals(this.lobby!.level, wall);
@@ -304,7 +338,7 @@ export class GameBoardComponent implements OnInit, AfterViewInit {
       this.clone
     );
     this.player!.update();
-    this.opponent.update();
+    this.opponent!.update();
 
     //this.antidoteFood!.update();
     this.antidoteFoodAbstraction!.implementation.update();
@@ -333,6 +367,26 @@ export class GameBoardComponent implements OnInit, AfterViewInit {
       this.blobIterator.next().update();
     }
     this.ghostEntity?.update();
+
+    if (this.progressiveGamePlay) {
+      if (
+        this.progressMap == '1' &&
+        this.player!.score >= 10 &&
+        this.player!.score < 20
+      ) {
+        sessionStorage.setItem('progressMap', '2');
+        sessionStorage.setItem('score', this.player!.score.toString());
+        window.location.reload();
+      } else if (
+        this.progressMap == '2' &&
+        this.player!.score >= 20 &&
+        this.player!.score < 30
+      ) {
+        sessionStorage.setItem('progressMap', '3');
+        sessionStorage.setItem('score', this.player!.score.toString());
+        window.location.reload();
+      }
+    }
   }
 
   draw() {
@@ -342,7 +396,7 @@ export class GameBoardComponent implements OnInit, AfterViewInit {
     this.wall!.draw(this.gameBoard);
     this.door!.draw(this.gameBoard);
     this.player!.draw(this.gameBoard);
-    this.opponent.draw(this.gameBoard);
+    this.opponent!.draw(this.gameBoard);
     this.pickupPowerUp!.draw(this.gameBoard);
     this.pickupHeals!.draw(this.gameBoard);
     this.food1!.templateMethod(this.gameBoard);
@@ -375,6 +429,8 @@ export class GameBoardComponent implements OnInit, AfterViewInit {
     this.clone?.draw(this.gameBoard);
   }
 
+  pregressMapLevel() {}
+
   checkDeath() {
     this.gameOver =
       outsideGrid(this.player!.getPlayer()) ||
@@ -400,6 +456,8 @@ export class GameBoardComponent implements OnInit, AfterViewInit {
       window.location.reload();
     });
     sessionStorage.removeItem('lobbyId')!;
+    sessionStorage.removeItem('progressMap');
+    sessionStorage.removeItem('score');
   }
 
   executeCommand() {

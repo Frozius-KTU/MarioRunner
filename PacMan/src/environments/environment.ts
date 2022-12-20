@@ -5,12 +5,10 @@
 export const environment = {
   production: false,
   baseUrls: {
-    server: 'https://localhost:5001/',
-    apiUrl: 'api/'
-  }
+    server: 'https://192.168.43.161:5001/',
+    apiUrl: 'api/',
+  },
 };
-
-
 
 /*
  * For easier debugging in development mode, you can import the following file

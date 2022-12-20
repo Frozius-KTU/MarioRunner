@@ -21,6 +21,7 @@ public class SchedulerHostedService : HostedServiceBase
     private readonly ILogger<SchedulerHostedService> _logger;
     private readonly IOptions<TimerServiceConfiguration> _options;
     private readonly IHubContext<ChatHub> _hubContext;
+    public string IP = "http://192.168.43.161:5000/";
     private readonly Random _random = new Random();
     public SchedulerHostedService(
     ILoggerFactory loggerFactory,
@@ -39,7 +40,7 @@ public class SchedulerHostedService : HostedServiceBase
         clientHandler.ServerCertificateCustomValidationCallback = (sender, cert, chain, sslPolicyErrors) => { return true; };
         HttpClient client = new HttpClient(clientHandler);
 
-        var response = await client.GetAsync($"https://localhost:5001/api/Map");
+        var response = await client.GetAsync($"{IP}api/Map");
         var finalData = await response.Content.ReadAsStringAsync();
         List<MapModel> maps = JsonConvert.DeserializeObject<List<MapModel>>(finalData);
 
@@ -52,7 +53,7 @@ public class SchedulerHostedService : HostedServiceBase
             // List<GameObjectModel> players = JsonConvert.DeserializeObject<List<GameObjectModel>>(finalData);
 
             //Get ghosts
-            response = await client.GetAsync($"https://localhost:5001/api/GameObject/ghosts");
+            response = await client.GetAsync($"{IP}api/GameObject/ghosts");
             finalData = await response.Content.ReadAsStringAsync();
             List<GameObjectModel> ghosts = JsonConvert.DeserializeObject<List<GameObjectModel>>(finalData);
 
@@ -254,7 +255,7 @@ public class SchedulerHostedService : HostedServiceBase
 
                     string jsonString = JsonConvert.SerializeObject(ghost);
                     var stringContent = new StringContent(jsonString, Encoding.UTF8, "application/json");
-                    HttpResponseMessage httpResponse = await client.PutAsync("https://localhost:5001/api/GameObject/" + ghost.Id, stringContent);
+                    HttpResponseMessage httpResponse = await client.PutAsync(IP + "api/GameObject/" + ghost.Id, stringContent);
                 }
             }
 

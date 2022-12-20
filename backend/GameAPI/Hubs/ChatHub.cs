@@ -11,6 +11,7 @@ namespace GameAPI.Hubs;
 
 public class ChatHub : Hub
 {
+    public string IP = "https://192.168.43.161:5001/";
     public async Task SendMessage(ChatMessage chatMessage)
     {
         await Clients.All.SendAsync("Send", chatMessage);
@@ -30,7 +31,7 @@ public class ChatHub : Hub
         clientHandler.ServerCertificateCustomValidationCallback = (sender, cert, chain, sslPolicyErrors) => { return true; };
         HttpClient client = new HttpClient(clientHandler);
 
-        var response = await client.PutAsync("https://localhost:5001/api/Client/" + clientId, stringContent);
+        var response = await client.PutAsync(IP + "api/Client/" + clientId, stringContent);
     }
     public async Task ClearPing()
     {
@@ -38,7 +39,7 @@ public class ChatHub : Hub
         clientHandler.ServerCertificateCustomValidationCallback = (sender, cert, chain, sslPolicyErrors) => { return true; };
         HttpClient client = new HttpClient(clientHandler);
 
-        var response = await client.GetAsync("https://localhost:5001/api/Client/");
+        var response = await client.GetAsync(IP + "api/Client/");
         var finalData = await response.Content.ReadAsStringAsync();
 
         List<ClientModel> dataResponse = JsonConvert.DeserializeObject<List<ClientModel>>(finalData);
@@ -50,7 +51,7 @@ public class ChatHub : Hub
 
         foreach (var user in dataResponse)
         {
-            response = await client.PutAsync("https://localhost:5001/api/Client/" + user.Id, stringContent);
+            response = await client.PutAsync(IP + "api/Client/" + user.Id, stringContent);
         }
     }
 
@@ -75,7 +76,7 @@ public class ChatHub : Hub
         clientHandler.ServerCertificateCustomValidationCallback = (sender, cert, chain, sslPolicyErrors) => { return true; };
         HttpClient client = new HttpClient(clientHandler);
         //Get all lobbies
-        var response = await client.GetAsync("https://localhost:5001/api/Lobby/");
+        var response = await client.GetAsync(IP + "api/Lobby/");
         var finalData = await response.Content.ReadAsStringAsync();
         List<LobbyModel> lobbyList = JsonConvert.DeserializeObject<List<LobbyModel>>(finalData);
 
@@ -101,7 +102,7 @@ public class ChatHub : Hub
         await Task.Delay(TimeSpan.FromMilliseconds(5000));
 
         //Getting information about clients
-        response = await client.GetAsync("https://localhost:5001/api/Client/");
+        response = await client.GetAsync(IP + "api/Client/");
         finalData = await response.Content.ReadAsStringAsync();
         List<ClientModel> clientList = JsonConvert.DeserializeObject<List<ClientModel>>(finalData);
 
@@ -120,7 +121,7 @@ public class ChatHub : Hub
             {
                 if(successfulPing.Count == 0 || !successfulPing.Contains(lobby.Player1.Value))
                 {
-                    response = await client.DeleteAsync($"https://localhost:5001/api/Lobby/{lobby.Id}/remove/{lobby.Player1}");
+                    response = await client.DeleteAsync($"{IP}api/Lobby/{lobby.Id}/remove/{lobby.Player1}");
                     
                     Console.WriteLine($"!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! Disconnected player {lobby.Player1} from lobby {lobby.Id}");
                 }
@@ -129,7 +130,7 @@ public class ChatHub : Hub
             {
                 if(successfulPing.Count == 0 || !successfulPing.Contains(lobby.Player2.Value))
                 {
-                    response = await client.DeleteAsync($"https://localhost:5001/api/Lobby/{lobby.Id}/remove/{lobby.Player2}");
+                    response = await client.DeleteAsync($"{IP}api/Lobby/{lobby.Id}/remove/{lobby.Player2}");
                     
                     Console.WriteLine($"!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! Disconnected player {lobby.Player2} from lobby {lobby.Id}");
                 }
@@ -144,7 +145,7 @@ public class ChatHub : Hub
         clientHandler.ServerCertificateCustomValidationCallback = (sender, cert, chain, sslPolicyErrors) => { return true; };
         // Pass the handler to httpclient(from you are calling api)
         HttpClient client = new HttpClient(clientHandler);
-        
+        Console.WriteLine("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
         for (int i = 0; i < 3; i++)
         {
             try
@@ -154,13 +155,15 @@ public class ChatHub : Hub
                 request.Id = id;
 
                 string jsonString = JsonConvert.SerializeObject(request);
+                Console.WriteLine(request.Name + "  " + request.Id + "CIA REQUESTAS NEPAMESK");
                 var stringContent = new StringContent(jsonString, Encoding.UTF8, "application/json");
-
+                Console.WriteLine(stringContent);
+                Console.WriteLine(jsonString);
                 //Console.WriteLine("!!!!!!!!!!!!!!!!!!!!!!!!!!!!" + jsonString);
                 //Console.WriteLine("!!!!!!!!!!!!!!!!!!!!!!!!!!!!" + stringContent);
-                HttpResponseMessage response = await client.PostAsync("https://localhost:5001/api/ClientProxy", stringContent);
-
-                //Console.WriteLine("!!!!!!!!!!!!!!!!!!!!!!!!!!!! " + response.StatusCode.ToString());
+                HttpResponseMessage response = await client.PostAsync(IP + "api/ClientProxy", stringContent);
+                
+                
                 if(response.StatusCode.ToString() == "OK" || response.StatusCode.ToString() == "NoContent" || response.StatusCode.ToString() == "Created")
                 {
                     await Clients.Caller.SendAsync("ClientCreated", request);
@@ -191,7 +194,7 @@ public class ChatHub : Hub
         try
         {
             ///Update Lobby
-            HttpResponseMessage response = await client.GetAsync("https://localhost:5001/api/Lobby/" + lobbyId + "/add/" + clientId);
+            HttpResponseMessage response = await client.GetAsync(IP + "api/Lobby/" + lobbyId + "/add/" + clientId);
 
             if(response.StatusCode.ToString() == "NotAcceptable")
             {
@@ -212,7 +215,7 @@ public class ChatHub : Hub
 
                 //Console.WriteLine("!!!!!!!!!!!!!!!!!!!!!!!!!!!!" + jsonString);
                 //Console.WriteLine("!!!!!!!!!!!!!!!!!!!!!!!!!!!!" + stringContent);
-                response = await client.PutAsync("https://localhost:5001/api/Client/" + clientId, stringContent);
+                response = await client.PutAsync(IP + "api/Client/" + clientId, stringContent);
 
                 if(response.StatusCode.ToString() == "NotFound")
                 {
@@ -247,9 +250,9 @@ public class ChatHub : Hub
             string jsonString = JsonConvert.SerializeObject(clientRequest);
             var stringContent = new StringContent(jsonString, Encoding.UTF8, "application/json");
 
-            HttpResponseMessage response = await client.PutAsync("https://localhost:5001/api/Client/" + clientId, stringContent);
+            HttpResponseMessage response = await client.PutAsync(IP + "/api/Client/" + clientId, stringContent);
 
-            response = await client.DeleteAsync("https://localhost:5001/api/Lobby/" + lobbyId + "/remove/" + clientId);
+            response = await client.DeleteAsync(IP + "api/Lobby/" + lobbyId + "/remove/" + clientId);
             
             await Clients.Caller.SendAsync("ClientUpdated", "200");
                 
