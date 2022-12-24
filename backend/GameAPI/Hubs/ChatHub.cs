@@ -11,7 +11,7 @@ namespace GameAPI.Hubs;
 
 public class ChatHub : Hub
 {
-    public string IP = "https://192.168.43.161:5001/";
+    public string IP = $"https://{Constants.IP}:5001/";
     public async Task SendMessage(ChatMessage chatMessage)
     {
         await Clients.All.SendAsync("Send", chatMessage);

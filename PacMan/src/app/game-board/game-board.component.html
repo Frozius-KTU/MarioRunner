@@ -8,7 +8,7 @@
         <h3>{{ pickupHeals?.currentHealth }}</h3>
       </div>
 
-      <div>
+      <div style="z-index: 999">
         <div class="restart-button" (click)="restart()">RESTART</div>
         <br />
         <div class="restart-button" (click)="quit()">QUIT</div>
@@ -16,23 +16,25 @@
         <div
           class="restart-button"
           *ngIf="this.ORIGINATOR.state == 'Play'"
-          (click)="Pause()"
+          (click)="pause()"
         >
           PAUSE
         </div>
         <div
           class="restart-button"
           *ngIf="this.ORIGINATOR.state == 'Pause'"
-          (click)="Play()"
+          (click)="play()"
         >
           Play
         </div>
+        <br />
+        <div class="restart-button" (click)="toggleTerminal()">TERMINAL</div>
       </div>
     </div>
 
     <div class="game-board"></div>
-
-    <div class="terminal-window">
+    <div *ngIf="!terminalActive" class="terminal-window"></div>
+    <div *ngIf="terminalActive" class="terminal-window">
       <div class="terminal-messages">
         <ul
           *ngFor="let message of chatmessages"

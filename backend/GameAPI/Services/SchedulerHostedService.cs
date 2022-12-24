@@ -21,7 +21,7 @@ public class SchedulerHostedService : HostedServiceBase
     private readonly ILogger<SchedulerHostedService> _logger;
     private readonly IOptions<TimerServiceConfiguration> _options;
     private readonly IHubContext<ChatHub> _hubContext;
-    public string IP = "http://192.168.43.161:5000/";
+    public string IP = $"http://{Constants.IP}:5000/";
     private readonly Random _random = new Random();
     public SchedulerHostedService(
     ILoggerFactory loggerFactory,
@@ -259,7 +259,7 @@ public class SchedulerHostedService : HostedServiceBase
                 }
             }
 
-            await Task.Delay(TimeSpan.FromMilliseconds(_options.Value.Period)*1, cancellationToken);
+            await Task.Delay(TimeSpan.FromMilliseconds(_options.Value.Period)*0.5, cancellationToken);
         }
     }
     async Task RestartSignal()

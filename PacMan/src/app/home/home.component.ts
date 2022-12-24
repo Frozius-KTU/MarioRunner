@@ -112,7 +112,7 @@ export class HomeComponent implements OnInit {
           },
           error: (error) => {
             console.log(error);
-            if(error.status==500 || error.status==403){
+            if (error.status == 500 || error.status == 403) {
               Swal.fire({
                 icon: 'error',
                 title: 'Invalid name',
@@ -126,9 +126,5 @@ export class HomeComponent implements OnInit {
         //window.location.reload();
       });
     }
-  }
-  public test() {
-    sessionStorage.setItem('playerId', 'e66f0ca4-4147-48c3-a976-68afcc29921f');
-    sessionStorage.setItem('playerName', 'aluizas');
   }
 }

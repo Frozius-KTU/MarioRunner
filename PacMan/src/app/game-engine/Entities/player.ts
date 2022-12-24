@@ -63,12 +63,14 @@ export class Player extends AbstractPlayer {
     }
 
     this.sendPosition(this.body.x.toString() + ' ' + this.body.y.toString());
-    let lobbyId = sessionStorage.getItem('lobbyId')!;
-    this.facadeService.mediatorService.updateGameObject(lobbyId, {
-      name: this.name,
-      x: this.body.x,
-      y: this.body.y,
-    });
+
+    // let lobbyId = sessionStorage.getItem('lobbyId')!;
+    // this.facadeService.mediatorService.updateGameObject(lobbyId, {
+    //   name: this.name,
+    //   x: this.body.x,
+    //   y: this.body.y,
+    // });
+
     //console.log(inputDirection);
   }
 

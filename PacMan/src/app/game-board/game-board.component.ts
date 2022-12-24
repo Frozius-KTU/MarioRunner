@@ -68,9 +68,11 @@ export class GameBoardComponent implements OnInit, AfterViewInit {
 
   lastRenderTime = 0;
   lastRenderTime2 = 0;
+  lastSyncTime = 0;
 
   gameOver = false;
   gameBoard: any;
+  terminalActive = false;
 
   wall?: BlackBorderWallDecorator;
   door?: BrownBorderDoorDecorator;
@@ -301,9 +303,19 @@ export class GameBoardComponent implements OnInit, AfterViewInit {
 
     window.requestAnimationFrame(this.execute.bind(this));
     const secondsSinceLastRender = (currentTime - this.lastRenderTime) / 1000;
+    const secondsSinceLastSync = (currentTime - this.lastSyncTime) / 1000;
+
     if (secondsSinceLastRender < 1 / this.playerSpeed) return;
     this.lastRenderTime = currentTime;
     this.currentTIME = currentTime;
+
+    if (secondsSinceLastSync > 0.25) {
+      this.facadeService.mediatorService.getGameObjects(
+        sessionStorage.getItem('lobbyId')!
+      );
+
+      this.lastSyncTime = currentTime;
+    }
 
     this.update();
     this.draw();
@@ -323,10 +335,6 @@ export class GameBoardComponent implements OnInit, AfterViewInit {
 
   update() {
     if (this.loading) return console.log('Loading');
-
-    this.facadeService.mediatorService.getGameObjects(
-      sessionStorage.getItem('lobbyId')!
-    );
 
     this.blobIterator.rewind();
     this.player!.checkblob(
@@ -571,14 +579,18 @@ export class GameBoardComponent implements OnInit, AfterViewInit {
     this.pickup = new PickUpsFactoryMap1Leaf(this.player, wall);
     return this.pickup.createPowerUp(this.player, this.wall);
   }
-  Pause() {
+  pause() {
     this.ORIGINATOR.state = 'Pause';
     this.gameBoard.classList.add('blur');
     // window.requestAnimationFrame(this.execute.bind(this));
   }
-  Play() {
+  play() {
     this.ORIGINATOR.state = 'Play';
     this.gameBoard.classList.remove('blur');
     window.requestAnimationFrame(this.execute.bind(this));
+  }
+
+  toggleTerminal() {
+    this.terminalActive = !this.terminalActive;
   }
 }

@@ -5,7 +5,7 @@
 export const environment = {
   production: false,
   baseUrls: {
-    server: 'https://192.168.43.161:5001/',
+    server: 'https://192.168.43.252:5001/',
     apiUrl: 'api/',
   },
 };

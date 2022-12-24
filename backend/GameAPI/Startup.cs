@@ -36,7 +36,7 @@ public class Startup
                     builder
                         .AllowAnyHeader()
                         .AllowAnyMethod()
-                        .WithOrigins("http://localhost:3000", "http://localhost:4200", "http://192.168.43.161:4200")
+                        .WithOrigins("http://localhost:3000", "http://localhost:4200", $"http://{Constants.IP}:4200")
                         .AllowCredentials();
                 });
         });

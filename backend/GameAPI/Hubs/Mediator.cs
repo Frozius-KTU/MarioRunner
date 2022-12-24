@@ -12,7 +12,7 @@ namespace GameAPI.Hubs;
 
 public class Mediator : Hub
 {
-    public string IP = "http://192.168.43.161:5000/";
+    public string IP = $"http://{Constants.IP}:5000/";
     public async Task CreateGameObject(GameObjectModel gameObject)
     {
         HttpClientHandler clientHandler = new HttpClientHandler();
